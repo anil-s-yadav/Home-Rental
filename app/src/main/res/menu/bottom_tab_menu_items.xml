@@ -15,7 +15,7 @@
         android:title="Post" />
     <item
         android:id="@+id/save_tab"
-        android:icon="@drawable/comment_heart_new"
+        android:icon="@drawable/save_outline"
         android:title="Saved" />
     <item
         android:id="@+id/profile_tab"

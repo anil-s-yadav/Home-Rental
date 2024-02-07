@@ -94,7 +94,7 @@
                         android:drawableLeft="@drawable/home_buy"
                         android:paddingStart="10dp"
                         android:paddingEnd="12dp"
-                        android:text="  Buy"
+                        android:text="  Sell"
                         android:textColor="@drawable/home_radio_text_selector" />
 
                     <RadioButton
@@ -104,10 +104,9 @@
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/home_radio_bg_selector"
                         android:button="@android:color/transparent"
-                        android:drawableLeft="@drawable/home_buy"
                         android:paddingStart="10dp"
                         android:paddingEnd="12dp"
-                        android:text="  Buy"
+                        android:text="  Rent"
                         android:textColor="@drawable/home_radio_text_selector" />
 
                     <RadioButton
@@ -186,14 +185,7 @@
                 android:paddingTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="48dp"
-                    android:text="tttttt"/>
-            </androidx.recyclerview.widget.RecyclerView>
-
+                app:layout_constraintTop_toTopOf="@+id/constraintLayout"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

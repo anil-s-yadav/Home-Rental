@@ -1,463 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@color/purple_700">
+        android:layout_height="match_parent"
+        android:background="@color/light_gray"
+        android:orientation="vertical"
+        tools:context=".UpdateEmailActivity">
 
-        <TextView
-            android:id="@+id/textView_register_head"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:textColor="@color/White"
-            android:text="Sign-up"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView_register_instruction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/White"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@id/textView_register_head"
-            android:text="Please register yourself to continue with the amazing experience!"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="vertical"
+                android:background="@color/purple_700">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="-50dp"
-        android:background="@drawable/border"
-        android:padding="15dp">
+                <TextView
+                    android:id="@+id/textView_update_profile_head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/White"
+                    android:text="Update your profile"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
+                <TextView
+                    android:id="@+id/textView_update_profile_instruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="You can update your profile to stay up to date!"
+                    android:textAlignment="center"
+                    android:layout_marginRight="30dp"
+                    android:textColor="@color/White"
+                    android:layout_marginLeft="30dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+            </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/RL_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/border">
-
-            <ImageView
-                android:id="@+id/imageViewName"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_profile" />
-
-            <TextView
-                android:id="@+id/textView_register_full_name"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageViewName"
-                android:padding="6dp"
-                android:text="Full Name*" />
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="-50dp"
+                android:background="@drawable/border"
+                android:padding="15dp">
 
-            <View
-                android:id="@+id/divider_name"
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/textView_register_full_name"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
+                <RelativeLayout
+                    android:id="@+id/RL_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/border">
 
-            <EditText
-                android:id="@+id/editText_register_full_name"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/textView_register_full_name"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/imageViewName"
-                android:background="@android:color/transparent"
-                android:hint="enter your full name"
-                android:inputType="textPersonName"
-                android:padding="4dp"
-                android:textCursorDrawable="@drawable/edittextcursor"
-                android:textSize="16sp" />
-        </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/imageViewName"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_profile" />
 
-        <RelativeLayout
-            android:id="@+id/RL_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RL_name"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border">
+                    <TextView
+                        android:id="@+id/textView_update_profile_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/imageViewName"
+                        android:padding="6dp"
+                        android:text="Name" />
 
-            <ImageView
-                android:id="@+id/imageViewEmail"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_email" />
+                    <View
+                        android:id="@+id/divider_name"
+                        android:layout_width="250dp"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/textView_update_profile_name"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/darker_gray" />
 
-            <TextView
-                android:id="@+id/textView_register_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageViewEmail"
-                android:padding="6dp"
-                android:text="Email*" />
+                    <EditText
+                        android:id="@+id/editText_update_profile_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/textView_update_profile_name"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/loading"
+                        android:layout_toEndOf="@id/imageViewName"
+                        android:background="@android:color/transparent"
+                        android:inputType="textPersonName"
+                        android:padding="6dp"
+                        android:textCursorDrawable="@drawable/edittextcursor"
+                        android:textSize="16sp" />
+                </RelativeLayout>
 
-            <View
-                android:id="@+id/divider_email"
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/textView_register_email"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
+                <RelativeLayout
+                    android:id="@+id/RL_dob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/RL_name"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border">
 
-            <EditText
-                android:id="@+id/editText_register_email"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/textView_register_email"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/imageViewEmail"
-                android:background="@android:color/transparent"
-                android:hint="enter your email address"
-                android:inputType="textEmailAddress"
-                android:padding="6dp"
-                android:textCursorDrawable="@drawable/edittextcursor"
-                android:textSize="16sp" />
-        </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/imageViewDoB"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_birthday" />
 
-        <RelativeLayout
-            android:id="@+id/RL_dob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RL_email"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border">
+                    <TextView
+                        android:id="@+id/textView_update_profile_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/imageViewDoB"
+                        android:padding="6dp"
+                        android:text="Date of Birth (dd/mm/yyyy)" />
 
-            <ImageView
-                android:id="@+id/imageViewDoB"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_birthday" />
+                    <View
+                        android:id="@+id/divider_dob"
+                        android:layout_width="250dp"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/textView_update_profile_dob"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/darker_gray" />
 
-            <TextView
-                android:id="@+id/textView_register_dob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageViewDoB"
-                android:padding="6dp"
-                android:text="Date of Birth (dd/mm/yyyy)*" />
+                    <EditText
+                        android:id="@+id/editText_update_profile_dob"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/textView_update_profile_dob"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/loading"
+                        android:layout_toEndOf="@id/imageViewDoB"
+                        android:background="@android:color/transparent"
+                        android:inputType="date"
+                        android:padding="6dp"
+                        android:textCursorDrawable="@drawable/edittextcursor"
+                        android:textSize="16sp" />
 
-            <View
-                android:id="@+id/divider_dob"
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/textView_register_dob"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
+                    <ImageView
+                        android:id="@+id/imageView_date_picker"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_below="@id/textView_update_profile_dob"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@id/editText_update_profile_dob"
+                        android:src="@drawable/ic_calendar" />
+                </RelativeLayout>
 
-            <EditText
-                android:id="@+id/editText_register_dob"
-                android:layout_width="180dp"
-                android:layout_height="50dp"
-                android:layout_below="@id/textView_register_dob"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/imageViewDoB"
-                android:background="@android:color/transparent"
-                android:hint="select your dob"
-                android:inputType="date"
-                android:padding="6dp"
-                android:textCursorDrawable="@color/black"
-                android:textSize="16sp" />
+                <RelativeLayout
+                    android:id="@+id/RL_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/RL_dob"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border">
 
-            <ImageView
-                android:id="@+id/imageView_date_picker"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@id/textView_register_dob"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/editText_register_dob"
-                android:src="@drawable/ic_calendar" />
-        </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/imageViewGender"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_gender" />
 
-        <RelativeLayout
-            android:id="@+id/RL_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RL_dob"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border">
+                    <TextView
+                        android:id="@+id/textView_update_profile_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/imageViewGender"
+                        android:padding="6dp"
+                        android:text="Gender" />
 
-            <ImageView
-                android:id="@+id/imageViewGender"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_gender" />
+                    <View
+                        android:id="@+id/divider_gender"
+                        android:layout_width="250dp"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/textView_update_profile_gender"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/darker_gray" />
 
-            <TextView
-                android:id="@+id/textView_register_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageViewGender"
-                android:padding="6dp"
-                android:text="Gender*" />
+                    <RadioGroup
+                        android:id="@+id/radio_group_update_profile_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textView_update_profile_gender"
+                        android:layout_toEndOf="@id/imageViewGender"
+                        android:contentDescription=""
+                        android:orientation="horizontal">
 
-            <View
-                android:id="@+id/divider_gender"
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/textView_register_gender"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
+                        <RadioButton
+                            android:id="@+id/radio_female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple_500"
+                            android:text="Female"
+                            android:textColor="#666666"
+                            android:textSize="16sp" />
 
-            <RadioGroup
-                android:id="@+id/radio_group_register_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textView_register_gender"
-                android:layout_toEndOf="@id/imageViewGender"
-                android:orientation="horizontal">
+                        <RadioButton
+                            android:id="@+id/radio_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/purple_500"
+                            android:text="Male"
+                            android:textColor="#666666"
+                            android:textSize="16sp" />
 
-                <RadioButton
-                    android:id="@+id/radio_female"
+                    </RadioGroup>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RL_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/RL_gender"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border">
+
+                    <ImageView
+                        android:id="@+id/imageViewMobile"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_mobile" />
+
+                    <TextView
+                        android:id="@+id/textView_update_profile_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/imageViewMobile"
+                        android:padding="6dp"
+                        android:text="Mobile" />
+
+                    <View
+                        android:id="@+id/divider_mobile"
+                        android:layout_width="250dp"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/textView_update_profile_mobile"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/darker_gray" />
+
+                    <EditText
+                        android:id="@+id/editText_update_profile_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/textView_update_profile_mobile"
+                        android:hint="@string/loading"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_toEndOf="@id/imageViewMobile"
+                        android:background="@android:color/transparent"
+                        android:inputType="phone"
+                        android:padding="6dp"
+                        android:textCursorDrawable="@drawable/edittextcursor"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button_update_profile"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/RL_mobile"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:text="Update Profile"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView_profile_upload_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/purple_500"
-                    android:text="Female"
-                    android:textColor="#555555"
-                    android:textSize="16sp" />
+                    android:layout_below="@id/button_update_profile"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/upload_pic_u" />
 
-                <RadioButton
-                    android:id="@+id/radio_male"
+                <TextView
+                    android:id="@+id/textView_profile_update_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:buttonTint="@color/purple_500"
-                    android:text="Male"
-                    android:textColor="#555555"
-                    android:textSize="16sp" />
+                    android:layout_below="@id/button_update_profile"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/update_email_u" />
 
-            </RadioGroup>
-        </RelativeLayout>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:elevation="10dp"
+                    android:visibility="gone" />
 
-        <RelativeLayout
-            android:id="@+id/RL_mobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RL_gender"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border">
+            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/imageViewMobile"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_mobile" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView_register_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageViewMobile"
-                android:padding="6dp"
-                android:text="Mobile*" />
+    </ScrollView>
 
-            <View
-                android:id="@+id/divider_mobile"
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/textView_register_mobile"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <EditText
-                android:id="@+id/editText_register_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/textView_register_mobile"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/imageViewMobile"
-                android:background="@android:color/transparent"
-                android:hint="enter your mobile no. (without +91)"
-                android:inputType="phone"
-                android:padding="6dp"
-                android:textCursorDrawable="@drawable/edittextcursor"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/RL_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RL_mobile"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border">
-
-            <ImageView
-                android:id="@+id/imageViewPwd"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_pwd_bw" />
-
-            <TextView
-                android:id="@+id/textView_register_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageViewPwd"
-                android:padding="6dp"
-                android:text="Password*" />
-
-            <View
-                android:id="@+id/divider_pwd"
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/textView_register_password"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
-
-            <EditText
-                android:id="@+id/editText_register_password"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/textView_register_password"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/imageViewPwd"
-                android:background="@android:color/transparent"
-                android:hint="enter your password"
-                android:inputType="textPassword"
-                android:padding="6dp"
-                android:textCursorDrawable="@drawable/edittextcursor"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/imageView_show_hide_pwd"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:layout_below="@id/textView_register_password"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp" />
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/RL_confirm_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RL_pwd"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/border">
-
-            <ImageView
-                android:id="@+id/imageView_confirm_Pwd"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_pwd_bw" />
-
-            <TextView
-                android:id="@+id/textView_register_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/imageView_confirm_Pwd"
-                android:padding="6dp"
-                android:text="Confirm Password*" />
-
-            <View
-                android:id="@+id/divider_confirm_pwd"
-                android:layout_width="250dp"
-                android:layout_height="1dp"
-                android:layout_below="@id/textView_register_confirm_password"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
-
-            <EditText
-                android:id="@+id/editText_register_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@id/textView_register_confirm_password"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@id/imageView_confirm_Pwd"
-                android:background="@android:color/transparent"
-                android:hint="Confirm password"
-                android:inputType="textPassword"
-                android:padding="6dp"
-                android:textCursorDrawable="@drawable/edittextcursor"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/imageView_show_hide_confirm_pwd"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:layout_below="@id/textView_register_confirm_password"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp" />
-
-        </RelativeLayout>
-
-        <CheckBox
-            android:id="@+id/checkBox_terms_conditions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/RL_confirm_pwd"
-            android:layout_marginTop="10dp"
-            android:buttonTint="@color/purple_500"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:text="I agree with the Terms of Service and Privacy Policy"
-            android:textColor="#444" />
-
-        <Button
-            android:id="@+id/button_register"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/checkBox_terms_conditions"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:text="@string/register" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:elevation="10dp"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-</LinearLayout>

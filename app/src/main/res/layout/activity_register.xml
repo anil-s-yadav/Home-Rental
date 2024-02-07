@@ -193,7 +193,6 @@
                 android:id="@+id/checkBox_terms_conditions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/RL_confirm_pwd"
                 android:layout_marginTop="5dp"
                 android:buttonTint="@color/purple_500"
                 android:focusable="true"
