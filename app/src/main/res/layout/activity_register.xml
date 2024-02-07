@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RegisterActivity">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/editText_register_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Full Name"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/blue_bg"
+                android:backgroundTint="@color/DarkBlue100"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                />
+
+            <EditText
+                android:id="@+id/editText_register_email"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Email"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/blue_bg"
+                android:backgroundTint="@color/DarkBlue100"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                />
+            <EditText
+                android:id="@+id/editText_register_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Mobile"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/blue_bg"
+                android:backgroundTint="@color/DarkBlue100"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                />
+            <RadioGroup
+                android:id="@+id/radio_group_register_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Male"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/DarkBlue300"
+                    android:elevation="2dp"
+                    android:button="@android:color/transparent"
+                    android:background="@drawable/radio_selector"
+                    android:layout_marginStart="30dp"
+                    />
+                <RadioButton
+                    android:id="@+id/radio_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:layout_marginStart="20dp"
+                    android:button="@android:color/transparent"
+                    android:background="@drawable/radio_selector"
+                    android:textColor="@color/Pink"
+                    android:elevation="2dp"
+                    />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/blue_bg"
+                android:backgroundTint="@color/DarkBlue100">
+                <EditText
+                    android:id="@+id/editText_register_dob"
+                    android:layout_width="40dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="3"
+                    android:hint="Date of Borth - DD/MM/YYYY"
+                    android:background="@drawable/blue_bg"
+                    android:backgroundTint="@color/DarkBlue100"
+                    android:paddingStart="20dp"
+                    />
+                <ImageView
+                    android:id="@+id/imageView_date_picker"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_weight="0.4"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/calender"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/blue_bg"
+                android:backgroundTint="@color/DarkBlue100">
+                <EditText
+                    android:id="@+id/editText_register_password"
+                    android:layout_width="40dp"
+                    android:inputType="textPassword"
+                    android:layout_height="60dp"
+                    android:layout_weight="3"
+                    android:hint="Password"
+                    android:background="@drawable/blue_bg"
+                    android:backgroundTint="@color/DarkBlue100"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="5dp"
+                    />
+                <ImageView
+                    android:id="@+id/imageView_show_hide_pwd"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_weight="0.4"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/eye_close"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/blue_bg"
+                android:backgroundTint="@color/DarkBlue100">
+                <EditText
+                    android:id="@+id/editText_register_confirm_password"
+                    android:layout_width="40dp"
+                    android:inputType="textPassword"
+                    android:layout_height="60dp"
+                    android:layout_weight="3"
+                    android:hint="Confirm Password"
+                    android:background="@drawable/blue_bg"
+                    android:backgroundTint="@color/DarkBlue100"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="5dp"
+                    />
+                <ImageView
+                    android:id="@+id/imageView_show_hide_confirm_pwd"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_weight="0.4"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/eye_close"/>
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkBox_terms_conditions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/RL_confirm_pwd"
+                android:layout_marginTop="5dp"
+                android:buttonTint="@color/purple_500"
+                android:focusable="true"
+                android:layout_marginStart="5dp"
+                android:focusableInTouchMode="true"
+                android:text="I agree with the Terms of Service and Privacy Policy"
+                android:textColor="#444" />
+            <Button
+                android:id="@+id/button_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/DarkBlue300"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Already have an account? "
+                    android:textColor="@color/White400"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="30dp"
+                    />
+                <TextView
+                    android:id="@+id/textView_login_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login here"
+                    android:textColor="@color/DarkBlue300"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="28dp" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

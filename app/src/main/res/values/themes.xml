@@ -1,0 +1,22 @@
+<resources xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.HomeRental" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/DarkBlue500</item>
+        <item name="colorSecondary">@color/DarkBlue400</item>
+    </style>
+
+    <style name="Theme.HomeRental" parent="Base.Theme.HomeRental" />
+
+    <style name="animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="BottomNavActiveIndicator" parent="@style/Widget.Design.BottomNavigationView">
+        <item name="android:iconTint">@color/PinkDark</item>
+        <!-- You can customize other attributes like height, width, etc. -->
+    </style>
+
+
+</resources>

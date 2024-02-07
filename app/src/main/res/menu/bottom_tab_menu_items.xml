@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_tab"
+        android:icon="@drawable/house_night"
+        android:title="Home" />
+    <item
+        android:id="@+id/search_tab"
+        android:icon="@drawable/search_location"
+        android:title="Search" />
+    <item
+        android:id="@+id/add_tab"
+        android:icon="@drawable/books_medical"
+        android:title="Post" />
+    <item
+        android:id="@+id/save_tab"
+        android:icon="@drawable/comment_heart_new"
+        android:title="Saved" />
+    <item
+        android:id="@+id/profile_tab"
+        android:icon="@drawable/user_alien"
+        android:title="Profile" />
+</menu>
