@@ -70,13 +70,23 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                 if (!loginBottomSheetHelper.isLoggedIn()) {
                     loginBottomSheetHelper.showLoginBottomSheet();
                 } else {
-                    Intent intent=new Intent(context, MassagesActivity.class);
+                    // Create a new DatabaseReference for the "Massage Activity" node
+                    DatabaseReference massageActivityRef = FirebaseDatabase.getInstance().getReference("Massage Activity")
+                            .child(currentUserId);
+
+                    Map<String, Object> massageData = new HashMap<>();
+                    massageData.put("name", model.getOwnerName());
+                    massageData.put("photo", model.getOwnerPhoto());
+
+                    massageActivityRef.child(model.getOwnerId()).setValue(massageData);
+
+                    Intent intent = new Intent(context, MassagesActivity.class);
                     context.startActivity(intent);
                 }
             }
         });
-
     }
+
 
     @NonNull
     @Override

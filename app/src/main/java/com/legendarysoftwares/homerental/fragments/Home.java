@@ -1,5 +1,6 @@
 package com.legendarysoftwares.homerental.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -17,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.legendarysoftwares.homerental.HomeAdapter;
+import com.legendarysoftwares.homerental.MassagesActivity;
 import com.legendarysoftwares.homerental.PostPropertyModel;
 import com.legendarysoftwares.homerental.R;
 
@@ -26,6 +29,7 @@ public class Home extends Fragment {
     private RecyclerView homeRecyclerView;
     private DatabaseReference DBReference;
     private HomeAdapter homeAdapter; // Declare the adapter as a field
+    private Button openMassageActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,21 @@ public class Home extends Fragment {
 
         homeRecyclerView = view.findViewById(R.id.home_recycler_view);
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        openMassageActivity = view.findViewById(R.id.textView_open_massages_activity);
+
+        openMassageActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), MassagesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
 
 // Set RecyclerView initially invisible
         homeRecyclerView.setVisibility(View.GONE);
-
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         try {

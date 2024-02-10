@@ -26,19 +26,21 @@
         />
     <HorizontalScrollView
         android:id="@+id/scrollView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollIndicators="none"
         android:scrollbars="none"
         android:contentDescription="homes">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp">
                 <ImageView
                     android:id="@+id/search_office_space"
                     android:layout_width="40dp"
@@ -53,7 +55,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp">
                 <ImageView
                     android:id="@+id/search_shop"
                     android:layout_width="40dp"
@@ -63,15 +66,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shop"
+                    android:layout_marginStart="4dp"
                     android:layout_below="@+id/search_shop"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp">
                 <ImageView
                     android:id="@+id/search_showroom"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="14dp"
                     android:src="@drawable/showroom"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -81,11 +87,13 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp">
                 <ImageView
                     android:id="@+id/search_factory"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
                     android:src="@drawable/factory"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -95,7 +103,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp">
                 <ImageView
                     android:id="@+id/search_cafe"
                     android:layout_width="40dp"
@@ -105,11 +114,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cafe"
+                    android:layout_marginStart="5dp"
                     android:layout_below="@+id/search_cafe"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp">
                 <ImageView
                     android:id="@+id/search_hostel"
                     android:layout_width="40dp"
@@ -123,11 +134,13 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp">
                 <ImageView
                     android:id="@+id/search_warehouse"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="14dp"
                     android:src="@drawable/warehouse"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,14 +158,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
@@ -175,7 +188,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
@@ -198,7 +211,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
@@ -221,7 +234,6 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
@@ -248,13 +260,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
@@ -276,7 +288,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
@@ -299,7 +311,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
@@ -322,7 +334,6 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:backgroundTint="@color/DarkBlue100"
             android:background="@drawable/blue_bg">
             <ImageView
