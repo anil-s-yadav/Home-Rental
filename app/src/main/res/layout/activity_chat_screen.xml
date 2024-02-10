@@ -59,7 +59,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:padding="12dp"
-        android:id="@+id/chat_recycler_view"
+        android:id="@+id/msg_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout2"
@@ -71,7 +71,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/chat_recycler_view"
+        android:layout_below="@+id/msg_recycler_view"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
             android:src="@drawable/back_button" />
 
         <EditText
-            android:id="@+id/editText_register_full_name"
+            android:id="@+id/editText_typed_massage"
             android:layout_width="280dp"
             android:layout_height="48dp"
             android:hint="Type Massage"
@@ -98,6 +98,7 @@
             />
 
         <ImageView
+            android:id="@+id/imageView_send_msg"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginStart="10dp"

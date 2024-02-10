@@ -77,6 +77,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                     Map<String, Object> massageData = new HashMap<>();
                     massageData.put("name", model.getOwnerName());
                     massageData.put("photo", model.getOwnerPhoto());
+                    massageData.put("userID", model.getOwnerId());
 
                     massageActivityRef.child(model.getOwnerId()).setValue(massageData);
 
@@ -97,7 +98,8 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
 
     public class myViewHolder extends RecyclerView.ViewHolder {
         //CardView postCard;
-        ImageView postSellerDp,postShare,postSave,postChat,postImage;
+        ImageView postSellerDp,postShare,postSave,postImage;
+        CardView postChat;
         TextView postTitle, postAddress,postPrice,postCarpetArea,postRentOrSell,
                 postStatus,postSellerName,postSellerType;  //postStatus = furnished or not
         public myViewHolder(@NonNull View itemView) {

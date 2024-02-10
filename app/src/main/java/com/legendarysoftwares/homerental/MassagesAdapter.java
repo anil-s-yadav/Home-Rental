@@ -15,12 +15,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Map;
 
-public class MassageActivityAdapter extends RecyclerView.Adapter<MassageActivityAdapter.MassageViewHolder> {
+public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.MassageViewHolder> {
 
     private List<Map<String, Object>> massageUsers;
     private static Context context;
 
-    public MassageActivityAdapter(Context context) {
+    public MassagesAdapter(Context context) {
         this.context = context;
     }
 
@@ -64,6 +64,7 @@ public class MassageActivityAdapter extends RecyclerView.Adapter<MassageActivity
         public void bind(Map<String, Object> userData) {
             String name = (String) userData.get("name");
             String photoUrl = (String) userData.get("photo");
+            String userID = (String) userData.get("userID");
             // Assuming "name" is the key for the user's name in the map
             userNameTextView.setText(name);
             Picasso.get().load(photoUrl).into(userPhoto);
@@ -75,6 +76,7 @@ public class MassageActivityAdapter extends RecyclerView.Adapter<MassageActivity
                     Intent intent = new Intent(context, ChatScreen.class);
                     intent.putExtra("user_name", name);
                     intent.putExtra("user_photo", photoUrl);
+                    intent.putExtra("userID", userID);
                     context.startActivity(intent);
                 }
             });

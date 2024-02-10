@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class MassagesActivity extends AppCompatActivity {
 
-    private MassageActivityAdapter massageAdapter;
+    private MassagesAdapter massageAdapter;
     private ProgressBar progressBar;
     private LinearLayout NoMassagesLayout;
 
@@ -37,7 +37,7 @@ public class MassagesActivity extends AppCompatActivity {
         NoMassagesLayout = findViewById(R.id.no_massages_view);
 
         massageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        massageAdapter = new MassageActivityAdapter(MassagesActivity.this);
+        massageAdapter = new MassagesAdapter(MassagesActivity.this);
         massageRecyclerView.setAdapter(massageAdapter);
 
         NoMassagesLayout.setVisibility(View.GONE);
