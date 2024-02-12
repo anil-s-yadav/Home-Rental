@@ -14,3 +14,18 @@ map near address
 Amenities
 Rera number
 about
+
+ You can use the code below to save the photo url for the user.
+
+UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
+                    .setDisplayName("set new display name")
+                    .setPhotoUri(uri)
+                    .build();
+    FirebaseAuth.getInstance().getCurrentUser().updateProfile(userProfileChangeRequest);
+
+after setting the photo url. Try getting the photo url
+
+FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
+
+Hope this helps!
+
