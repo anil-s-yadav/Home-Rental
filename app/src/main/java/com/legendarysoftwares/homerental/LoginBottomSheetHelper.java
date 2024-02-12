@@ -131,7 +131,7 @@ public class LoginBottomSheetHelper {
         });
         bottomSheetDialog.show();
     }
-    public boolean isLoggedIn() {
+    public boolean isLoggedIn() { //Change method name as userIsloggedIn()
         return authProfile.getCurrentUser() != null;
     }
 
