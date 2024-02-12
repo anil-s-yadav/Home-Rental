@@ -70,13 +70,24 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                 if (!loginBottomSheetHelper.isLoggedIn()) {
                     loginBottomSheetHelper.showLoginBottomSheet();
                 } else {
-                    Intent intent=new Intent(context, MassagesActivity.class);
+                    // Create a new DatabaseReference for the "Massage Activity" node
+                    DatabaseReference massageActivityRef = FirebaseDatabase.getInstance().getReference("Massage Activity")
+                            .child(currentUserId);
+
+                    Map<String, Object> massageData = new HashMap<>();
+                    massageData.put("name", model.getOwnerName());
+                    massageData.put("photo", model.getOwnerPhoto());
+                    massageData.put("userID", model.getOwnerId());
+
+                    massageActivityRef.child(model.getOwnerId()).setValue(massageData);
+
+                    Intent intent = new Intent(context, MassagesActivity.class);
                     context.startActivity(intent);
                 }
             }
         });
-
     }
+
 
     @NonNull
     @Override
@@ -87,7 +98,8 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
 
     public class myViewHolder extends RecyclerView.ViewHolder {
         //CardView postCard;
-        ImageView postSellerDp,postShare,postSave,postChat,postImage;
+        ImageView postSellerDp,postShare,postSave,postImage;
+        CardView postChat;
         TextView postTitle, postAddress,postPrice,postCarpetArea,postRentOrSell,
                 postStatus,postSellerName,postSellerType;  //postStatus = furnished or not
         public myViewHolder(@NonNull View itemView) {
