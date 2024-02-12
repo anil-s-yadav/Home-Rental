@@ -188,6 +188,8 @@ public class registerActivity extends AppCompatActivity {
                     //Update Display name for user
                     UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
                     firebaseUser.updateProfile(profileChangeRequest);
+                    //updateUI(user);
+    //here i can add upload profile method. call here and pass firebaseuser as parameter. 
 
                     //Enter user data to realtime database
                     ReadWriteUserDetailsModel readWriteUserDetailsModel=new ReadWriteUserDetailsModel(textDOB,textGender,textMobile);
