@@ -31,6 +31,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/app_logo"
+                app:shapeAppearanceOverlay="@style/Circular"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

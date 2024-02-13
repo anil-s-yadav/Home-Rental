@@ -98,7 +98,8 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
 
     public class myViewHolder extends RecyclerView.ViewHolder {
         //CardView postCard;
-        ImageView postSellerDp,postShare,postSave,postImage;
+        ShapeableImageView postSellerDp;
+        ImageView postShare,postSave,postImage;
         CardView postChat;
         TextView postTitle, postAddress,postPrice,postCarpetArea,postRentOrSell,
                 postStatus,postSellerName,postSellerType;  //postStatus = furnished or not

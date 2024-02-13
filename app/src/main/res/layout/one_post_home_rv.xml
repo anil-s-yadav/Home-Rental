@@ -22,7 +22,7 @@
                 android:layout_height="48dp"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/post_seller_dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"

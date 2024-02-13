@@ -1,14 +1,15 @@
 package com.legendarysoftwares.homerental;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,7 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -30,9 +33,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.legendarysoftwares.homerental.fragments.Profile;
+import com.squareup.picasso.Picasso;
 
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,9 +47,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private EditText editTextUpdateName, editTextUpdateDOB, editTextUpdateMobile;
     private RadioButton radioButtonUpdateGenderSelected;
     private RadioGroup radioGroupUpdateGender;
+    ShapeableImageView ProfilePic;
     private String textFullName, textDOB, textGender, textMobile;
     private ProgressBar progressBar;
-    private FirebaseAuth authProfile;
+    private FirebaseUser user;
+    private static final int PICK_IMAGE_REQUEST=1;
+    private Uri uriImage, userProfilePhotoOnStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,35 +63,18 @@ public class UpdateProfileActivity extends AppCompatActivity {
         editTextUpdateName = findViewById(R.id.editText_update_profile_name);
         editTextUpdateDOB = findViewById(R.id.editText_update_profile_dob);
         editTextUpdateMobile = findViewById(R.id.editText_update_profile_mobile);
-
         radioGroupUpdateGender = findViewById(R.id.radio_group_update_profile_gender);
 
-        authProfile = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser= authProfile.getCurrentUser();
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        showProfile(user);
 
-        //Show profile data
-        showProfile(firebaseUser);
-
-        //Upload profile pic
-        TextView UploadProfilepic = findViewById(R.id.textView_profile_upload_pic);
-        UploadProfilepic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(UpdateProfileActivity.this, UploadProfilePicActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        Button openGalleryBtn = findViewById(R.id.open_gallery);
+        ProfilePic = findViewById(R.id.updateImageViewProfile);
+        openGalleryBtn.setOnClickListener(v -> {
+            openGallery();
         });
-        //Upload Email
-        /*TextView updateEmail = findViewById(R.id.textView_profile_update_email);
-        updateEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(UpdateProfileActivity.this, UploadEmailActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });*/
+
+
         //Setting Date picker on edittext
         ImageView calenderImageUpdate=findViewById(R.id.imageView_date_picker);
         calenderImageUpdate.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +104,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         buttonUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateProfile(firebaseUser);
+                updateProfile(user);
             }
         });
 
@@ -121,6 +113,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private void updateProfile(FirebaseUser firebaseUser) {
         int selectedGenderID = radioGroupUpdateGender.getCheckedRadioButtonId();
         radioButtonUpdateGenderSelected = findViewById(selectedGenderID);
+
+        //Obtain the data entered by user
+        textGender = radioButtonUpdateGenderSelected.getText().toString();
+        textFullName = editTextUpdateName.getText().toString();
+        textDOB = editTextUpdateDOB.getText().toString();
+        textMobile = editTextUpdateMobile.getText().toString();
+        String email = user.getEmail();
 
         //validate mobile number using Matcher and Pattern (regular expression)
         String mobileRegex = "[6-9][0-9]{9}";
@@ -152,26 +151,24 @@ public class UpdateProfileActivity extends AppCompatActivity {
             Toast.makeText(UpdateProfileActivity.this, "Re-enter your mobile number!", Toast.LENGTH_LONG).show();
             editTextUpdateMobile.setError("Mobile no. is not valid!");
             editTextUpdateMobile.requestFocus();
-        }else{
-            //Obtain the data entered by user
-            textGender = radioButtonUpdateGenderSelected.getText().toString();
-            textFullName = editTextUpdateName.getText().toString();
-            textDOB = editTextUpdateDOB.getText().toString();
-            textMobile = editTextUpdateMobile.getText().toString();
+        }
+
 
             //Insert data to firebase realtime database
-            ReadWriteUserDetailsModel writeUserDetailsModel = new ReadWriteUserDetailsModel(textDOB,textGender,textMobile);
+            ReadWriteUserDetailsModel writeUserDetailsModel = new ReadWriteUserDetailsModel(textFullName,email,textDOB,textGender,textMobile);
             //Extract user reference from Database for "Registered User"
             DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");;
             String userID = firebaseUser.getUid();
             progressBar.setVisibility(View.VISIBLE);
-
             referenceProfile.child(userID).setValue(writeUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()){
+                        uploadPic();
                         //Setting new display Name
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(textFullName)
+                                .setPhotoUri(userProfilePhotoOnStorage).build();
                         firebaseUser.updateProfile(profileUpdates);
 
                         Toast.makeText(UpdateProfileActivity.this, "Update Successful!", Toast.LENGTH_SHORT).show();
@@ -195,7 +192,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         }
 
-    }
+
 
     //fetch data from firebase and display
     private void showProfile(FirebaseUser firebaseUser){
@@ -214,6 +211,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     textDOB = readUserDetails.dob;
                     textGender = readUserDetails.gender;
                     textMobile = readUserDetails.mobile;
+                    Picasso.get().load(firebaseUser.getPhotoUrl()).into(ProfilePic);
 
                     editTextUpdateName.setText(textFullName);
                     editTextUpdateDOB.setText(textDOB);
@@ -240,8 +238,42 @@ public class UpdateProfileActivity extends AppCompatActivity {
         });
     }
 
+    private void openGallery() {
+        Intent intent=new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,PICK_IMAGE_REQUEST);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data.getData() !=null){
+            uriImage = data.getData();
+            ProfilePic.setImageURI(uriImage);
+        }
+    }
 
+    private void uploadPic(){
+        if (uriImage!=null){
+            StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
+                    .child(user.getDisplayName() + " " + user.getUid());
+            storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            userProfilePhotoOnStorage = uri;
+                        }
+                    });
+                }
+            });
+        }else {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(UpdateProfileActivity.this, "Image not selected!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 

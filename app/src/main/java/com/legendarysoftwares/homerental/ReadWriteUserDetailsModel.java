@@ -1,9 +1,19 @@
 package com.legendarysoftwares.homerental;
 
 public class ReadWriteUserDetailsModel {
-    String dob,gender,mobile;
+    String name,email,dob,gender,mobile;
 
     public ReadWriteUserDetailsModel() {}
+
+
+    public ReadWriteUserDetailsModel(String name, String email, String dob, String gender, String mobile) {
+        this.dob = dob;
+        this.gender = gender;
+        this.mobile = mobile;
+        this.name=name;
+        this.email=email;
+    }
+
 
     public String getDob() {
         return dob;
@@ -29,9 +39,20 @@ public class ReadWriteUserDetailsModel {
         this.mobile = mobile;
     }
 
-    public ReadWriteUserDetailsModel(String dob, String gender, String mobile) {
-        this.dob = dob;
-        this.gender = gender;
-        this.mobile = mobile;
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
