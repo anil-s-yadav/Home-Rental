@@ -206,7 +206,7 @@ public class registerActivity extends AppCompatActivity {
     private void uploadPic(String FullName){
         if (uriImage!=null){
            StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
-                   .child(user.getUid());
+                   .child(FullName + user.getUid());
             storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
