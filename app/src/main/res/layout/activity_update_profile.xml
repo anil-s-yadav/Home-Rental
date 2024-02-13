@@ -17,13 +17,53 @@
             android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/DarkBlue500"
+                android:backgroundTint="@color/DarkBlue400"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/back_button"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create new Account"
+                    android:textColor="@color/White"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="10dp"/>
+            </LinearLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/updateImageViewProfile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/no_profile_pic"/>
+
+            <Button
+                android:id="@+id/open_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open Gallery"
+                android:layout_gravity="center"/>
 
             <EditText
                 android:id="@+id/editText_update_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:hint="Full Name"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/blue_bg"
