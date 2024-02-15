@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -96,7 +98,7 @@ public class ChatScreenAdapter extends RecyclerView.Adapter {
     }
 
     class  senderVierwHolder extends RecyclerView.ViewHolder {
-        ImageView massageSenderDP;
+        ShapeableImageView massageSenderDP;
         TextView sentMassage;
         public senderVierwHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,7 +108,7 @@ public class ChatScreenAdapter extends RecyclerView.Adapter {
         }
     }
     class reciverViewHolder extends RecyclerView.ViewHolder {
-        ImageView massageReceiverDP;
+        ShapeableImageView massageReceiverDP;
         TextView receivedMassage;
         public reciverViewHolder(@NonNull View itemView) {
             super(itemView);

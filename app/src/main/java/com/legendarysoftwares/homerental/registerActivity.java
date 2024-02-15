@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -51,6 +52,8 @@ public class registerActivity extends AppCompatActivity {
     private ShapeableImageView ProfilePic;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private ProgressDialog progressDialog;
+    private final String aboutUser = "About me...";
     private static final int PICK_IMAGE_REQUEST=1;
     private Uri uriImage, userProfilePhotoOnStorage;
 
@@ -104,6 +107,12 @@ public class registerActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog = new ProgressDialog(registerActivity.this);
+                progressDialog.setTitle("Updating Profile");
+                progressDialog.setMessage("Please wait...");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+
                 int selectedGenderId = radioGroupRegisterGender.getCheckedRadioButtonId();
                 radioButtonRegisterGenderSelected =findViewById(selectedGenderId);
 
@@ -206,7 +215,7 @@ public class registerActivity extends AppCompatActivity {
     private void uploadPic(String FullName){
         if (uriImage!=null){
            StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
-                   .child(FullName + user.getUid());
+                   .child(user.getUid());
             storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -243,7 +252,7 @@ public class registerActivity extends AppCompatActivity {
 
                     //here i can add upload profile method. call here and pass firebaseuser as parameter.
                     //Enter user data to realtime database
-                    ReadWriteUserDetailsModel readWriteUserDetailsModel=new ReadWriteUserDetailsModel(textFullName,textEmail,textDOB,textGender,textMobile);
+                    ReadWriteUserDetailsModel readWriteUserDetailsModel=new ReadWriteUserDetailsModel(textFullName,textEmail,textDOB,textGender,textMobile,aboutUser);
                     //Extracting user reference from Database for "Register users"
                     DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
                     referenceProfile.child(user.getUid()).setValue(readWriteUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -253,11 +262,13 @@ public class registerActivity extends AppCompatActivity {
                                 //send verification email
                                 user.sendEmailVerification();
 
+                                progressDialog.dismiss();
                                 Toast.makeText(registerActivity.this,"User register successful! Now verify Email",Toast.LENGTH_SHORT).show();
                                 // Create an instance of the Profile fragment
                                 Intent intent=new Intent(registerActivity.this, MyPostsOnProfile.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        |Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                Log.d("Name and PhotoUrl",user.getDisplayName()+" "+user.getPhotoUrl());
                             }else {
                                 Toast.makeText(registerActivity.this,"User register Unsuccessful try again!",
                                         Toast.LENGTH_SHORT).show();

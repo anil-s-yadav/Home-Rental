@@ -78,7 +78,7 @@
                 android:id="@+id/post_image_from_database"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:background="@color/White400"
+                android:background="@color/DarkBlue200"
                 />
 
             <LinearLayout

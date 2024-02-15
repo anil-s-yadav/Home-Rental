@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,8 +95,7 @@ public class UploadProfilePicActivity extends AppCompatActivity {
         if (uriImage!=null){
             progressBar.setVisibility(View.VISIBLE);
             //Save the image of the current logged user
-            StorageReference fileReference=storageReference.child(authProfile.getCurrentUser().getUid() + "."
-                    + getFileExtension(uriImage));
+            StorageReference fileReference=storageReference.child(authProfile.getCurrentUser().getUid()+getFileExtension(uriImage));
 
             //Upload Image to storage
             fileReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -107,6 +107,7 @@ public class UploadProfilePicActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             Uri downloadUri = uri;
                             firebaseUser = authProfile.getCurrentUser();
+                            Log.d("URI = ",uri+" "+downloadUri);
 
                             //Set the display image of the user after upload
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()

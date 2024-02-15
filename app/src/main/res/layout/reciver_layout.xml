@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/receiver_profile"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -13,8 +14,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        style="@style/CornerCut"
-        android:src="@drawable/no_profile_pic" />
+        app:shapeAppearanceOverlay="@style/Circular"
+        android:background="@color/DarkBlue200"/>
 
     <TextView
         android:id="@+id/receiver_massage"

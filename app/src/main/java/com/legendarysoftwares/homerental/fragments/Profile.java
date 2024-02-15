@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +35,8 @@ import com.legendarysoftwares.homerental.ReadWriteUserDetailsModel;
 import com.legendarysoftwares.homerental.UpdateProfileActivity;
 import com.legendarysoftwares.homerental.UploadProfilePicActivity;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 public class Profile extends Fragment {
     private FirebaseAuth auth;
@@ -70,6 +74,7 @@ public class Profile extends Fragment {
 
             loginBottomSheetHelper.showLoginBottomSheet();
         }else {
+            user.reload();
             textViewHelloName.setText(user.getDisplayName());
             textViewEmail.setText(user.getEmail());
             Picasso.get().load(user.getPhotoUrl()).into(userProfilePic);
@@ -141,11 +146,6 @@ public class Profile extends Fragment {
         });
 
 
-
-
-
-
-
         return view;
     }
 
@@ -161,9 +161,10 @@ public class Profile extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent=new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_APP_EMAIL);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //to open email in new window.
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP); //to open email in new window.
                 startActivity(intent);
-                auth.signOut();
+                user.reload();
+
             }
         }).setNegativeButton("Re-Send", new DialogInterface.OnClickListener() {
             @Override
@@ -180,4 +181,15 @@ public class Profile extends Fragment {
         alertDialog.show();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        user.reload();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        user.reload();
+    }
 }
