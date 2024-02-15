@@ -1,7 +1,9 @@
 package com.legendarysoftwares.homerental;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
@@ -26,28 +28,37 @@ public class MassagesActivity extends AppCompatActivity {
     private MassagesAdapter massageAdapter;
     private ProgressBar progressBar;
     private LinearLayout NoMassagesLayout;
+    private RecyclerView massageRecyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_massages);
 
-        RecyclerView massageRecyclerView = findViewById(R.id.massages_recycler_view);
+        massageRecyclerView = findViewById(R.id.massages_recycler_view);
         progressBar = findViewById(R.id.progressBar);
         NoMassagesLayout = findViewById(R.id.no_massages_view);
 
+        Button goBack = findViewById(R.id.massages_btn_goBack);
+        goBack.setOnClickListener(v -> {
+            Intent intent=new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    |Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+
+
         massageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         massageAdapter = new MassagesAdapter(MassagesActivity.this);
+
         massageRecyclerView.setAdapter(massageAdapter);
 
-        NoMassagesLayout.setVisibility(View.GONE);
         loadMassageUsers();
     }
 
     private void loadMassageUsers() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
-            NoMassagesLayout.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -62,11 +73,17 @@ public class MassagesActivity extends AppCompatActivity {
 
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     Map<String, Object> userData = (Map<String, Object>) userSnapshot.getValue();
-                    massageUsers.add(userData);
+                    if (userData==null){
+                        massageRecyclerView.setVisibility(View.GONE);
+                        NoMassagesLayout.setVisibility(View.VISIBLE);
+                    }else {
+                        massageUsers.add(userData);
+                        massageRecyclerView.setVisibility(View.VISIBLE);
+                        massageAdapter.setData(massageUsers);
+                        progressBar.setVisibility(View.GONE);
+                        NoMassagesLayout.setVisibility(View.GONE);
+                    }
                 }
-
-                massageAdapter.setData(massageUsers);
-                progressBar.setVisibility(View.GONE);
             }
 
             @Override

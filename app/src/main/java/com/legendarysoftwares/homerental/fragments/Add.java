@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,7 +40,7 @@ public class Add extends Fragment {
     private ImageView propertyImageView;
     private EditText postName, postLocation,postPrice;
     private Button uploadPostButton;
-    private Uri uriImage;
+    private Uri uriImage, ownerPhoto;
     private StorageReference imagesStorageRef;
     private static final int PICK_IMAGE_REQUEST=1;
 
@@ -111,7 +112,16 @@ public class Add extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         // Get the user's display name
         String ownerName = user.getDisplayName();
-        String ownerPhoto = user.getPhotoUrl().toString();
+        //String ownerPhoto = user.getPhotoUrl().toString(); //here I got an error because of user.getPhotoUrl() always has null value.
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("UserProfilePics")
+                .child(user.getUid());
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                 ownerPhoto = uri;
+            }
+        });
 
 
         if (uriImage != null) {
@@ -127,7 +137,7 @@ public class Add extends Fragment {
                                 public void onSuccess(Uri downloadUri) {
                                     // Image URL obtained, now add property details to the database
                                     String postImageUrl = downloadUri.toString();
-                                    uploadPost(textPostName, textPostLocation, textPostPrice, postImageUrl,ownerName,ownerPhoto);
+                                    uploadPost(textPostName, textPostLocation, textPostPrice, postImageUrl,ownerName, String.valueOf(ownerPhoto));
                                 }
                             });
                         }

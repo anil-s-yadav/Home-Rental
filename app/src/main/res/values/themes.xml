@@ -13,10 +13,7 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
-    <style name="BottomNavActiveIndicator" parent="@style/Widget.Design.BottomNavigationView">
-        <item name="android:iconTint">@color/PinkDark</item>
-        <!-- You can customize other attributes like height, width, etc. -->
-    </style>
+
 
 
 </resources>

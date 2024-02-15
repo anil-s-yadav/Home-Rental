@@ -1,179 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".UpdateEmailActivity">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            tools:context=".UpdateEmailActivity">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/DarkBlue500"
-                android:backgroundTint="@color/DarkBlue400"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-                <ImageView
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/DarkBlue500"
+                    android:backgroundTint="@color/DarkBlue400"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/back_button" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Create new Account"
+                        android:textColor="@color/White"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/updateImageViewProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/DarkBlue300"
+                    app:shapeAppearanceOverlay="@style/Circular" />
+
+                <Button
+                    android:id="@+id/open_gallery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/back_button"/>
+                    android:layout_gravity="center"
+                    android:text="Open Gallery" />
+
+                <EditText
+                    android:id="@+id/editText_update_profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/blue_bg"
+                    android:backgroundTint="@color/DarkBlue100"
+                    android:hint="Full Name"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp" />
+
+
+                <EditText
+                    android:id="@+id/editText_update_profile_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/blue_bg"
+                    android:backgroundTint="@color/DarkBlue100"
+                    android:hint="Mobile"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_update_profile_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:elevation="2dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Male"
+                        android:textColor="@color/DarkBlue300" />
+
+                    <RadioButton
+                        android:id="@+id/radio_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/radio_selector"
+                        android:button="@android:color/transparent"
+                        android:elevation="2dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:text="Female"
+                        android:textColor="@color/Pink" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/blue_bg"
+                    android:backgroundTint="@color/DarkBlue100"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editText_update_profile_dob"
+                        android:layout_width="40dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="3"
+                        android:background="@drawable/blue_bg"
+                        android:backgroundTint="@color/DarkBlue100"
+                        android:hint="Date of Borth - DD/MM/YYYY"
+                        android:paddingStart="20dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView_date_picker"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.4"
+                        android:src="@drawable/calender" />
+
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Create new Account"
-                    android:textColor="@color/White"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="10dp"/>
-            </LinearLayout>
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/red_bg"
+                    android:backgroundTint="@color/White150"
+                    android:padding="8dp"
+                    android:text="Write something about your self"
+                    android:textColor="@color/my_light_primary" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/updateImageViewProfile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/no_profile_pic"/>
-
-            <Button
-                android:id="@+id/open_gallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Open Gallery"
-                android:layout_gravity="center"/>
-
-            <EditText
-                android:id="@+id/editText_update_profile_name"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Full Name"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/blue_bg"
-                android:backgroundTint="@color/DarkBlue100"
-                android:paddingStart="20dp"
-                android:paddingEnd="10dp"
-                />
-
-
-            <EditText
-                android:id="@+id/editText_update_profile_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Mobile"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/blue_bg"
-                android:backgroundTint="@color/DarkBlue100"
-                android:paddingStart="20dp"
-                android:paddingEnd="10dp"
-                />
-            <RadioGroup
-                android:id="@+id/radio_group_update_profile_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radio_male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:text="Male"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:textColor="@color/DarkBlue300"
-                    android:elevation="2dp"
-                    android:button="@android:color/transparent"
-                    android:background="@drawable/radio_selector"
-                    android:layout_marginStart="30dp"
-                    />
-                <RadioButton
-                    android:id="@+id/radio_female"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Female"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:layout_marginStart="20dp"
-                    android:button="@android:color/transparent"
-                    android:background="@drawable/radio_selector"
-                    android:textColor="@color/Pink"
-                    android:elevation="2dp"
-                    />
-
-            </RadioGroup>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/blue_bg"
-                android:backgroundTint="@color/DarkBlue100">
                 <EditText
-                    android:id="@+id/editText_update_profile_dob"
-                    android:layout_width="40dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="3"
-                    android:hint="Date of Borth - DD/MM/YYYY"
+                    android:id="@+id/editText_update_profile_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="30dp"
                     android:background="@drawable/blue_bg"
                     android:backgroundTint="@color/DarkBlue100"
+                    android:hint="write about yourself"
                     android:paddingStart="20dp"
-                    />
-                <ImageView
-                    android:id="@+id/imageView_date_picker"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_weight="0.4"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/calender"/>
+                    android:paddingEnd="10dp" />
+
+
+                <Button
+                    android:id="@+id/button_update_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="30dp"
+                    android:backgroundTint="@color/DarkBlue300"
+                    android:text="Update Profile" />
+
 
             </LinearLayout>
 
-
-            <Button
-                android:id="@+id/button_update_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Update Profile"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:backgroundTint="@color/DarkBlue300"
-                />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
+        </ScrollView>
 
 
-    </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -87,7 +87,8 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
     public class myViewHolder extends RecyclerView.ViewHolder {
 
         private TextView savePostName, savePostAdd, savePostPrice, savePostOwner;
-        private ImageView savePostImg, savePostDelete;
+        private ImageView  savePostDelete;
+        private ShapeableImageView savePostImg;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);

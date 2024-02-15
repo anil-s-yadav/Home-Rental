@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
     static class MassageViewHolder extends RecyclerView.ViewHolder {
 
         private TextView userNameTextView;
-        private ImageView userPhoto;
+        private ShapeableImageView userPhoto;
 
         public MassageViewHolder(@NonNull View itemView) {
             super(itemView);

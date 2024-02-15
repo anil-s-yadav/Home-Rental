@@ -15,6 +15,7 @@
         android:background="@color/DarkBlue500"
         android:backgroundTint="@color/DarkBlue400"
         android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,8 +41,8 @@
 
     <LinearLayout
         android:id="@+id/no_massages_view"
-        android:layout_width="300dp"
-        android:layout_height="480dp"
+        android:layout_width="250dp"
+        android:layout_height="420dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +52,7 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -60,10 +61,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
             android:gravity="center"
-            android:text="No favourites"
-            android:textSize="24sp"
+            android:text="No Massages"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -76,13 +76,14 @@
             android:textColor="@color/White400" />
 
         <Button
+            android:id="@+id/massages_btn_goBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:backgroundTint="#307EF3"
             android:text="Go Back"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ProgressBar
@@ -101,6 +102,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        android:visibility="visible"
+        android:background="@color/White100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 

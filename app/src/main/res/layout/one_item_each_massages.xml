@@ -1,51 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:layout_margin="12dp">
+    android:background="@color/White"
+    android:backgroundTint="@color/White"
+    app:cardCornerRadius="2dp"
+    android:layout_margin="6dp">
 
-
-    <ImageView
-        android:id="@+id/massage_activity_sender_dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/no_profile_pic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="5dp"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/massage_activity_sender_name"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User Name"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/massage_activity_sender_dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="5dp">
 
-    <TextView
-        android:id="@+id/massage_activity_sender_last_massage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Last Massage"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/massage_activity_sender_name"
-        app:layout_constraintStart_toStartOf="@+id/massage_activity_sender_name"
-        app:layout_constraintTop_toBottomOf="@+id/massage_activity_sender_name" />
 
-    <TextView
-        android:id="@+id/massage_activity_send_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="Last Time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/massage_activity_sender_dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/DarkBlue400"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Circular" />
+
+        <TextView
+            android:id="@+id/massage_activity_sender_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="User Name"
+            android:textColor="@color/DarkBlue400"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/massage_activity_sender_dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/massage_activity_sender_last_massage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Massage"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="@+id/massage_activity_sender_name"
+            app:layout_constraintStart_toStartOf="@+id/massage_activity_sender_name"
+            app:layout_constraintTop_toBottomOf="@+id/massage_activity_sender_name" />
+
+        <TextView
+            android:id="@+id/massage_activity_send_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="13dp"
+            android:text="4 day ago"
+            android:textColor="@color/my_light_primary"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/massage_activity_sender_dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

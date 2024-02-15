@@ -20,12 +20,11 @@
         android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:labelVisibilityMode="selected"
+        app:labelVisibilityMode="labeled"
         android:layout_marginTop="10dp"
-        app:itemRippleColor="@color/DarkBlue200"
+        app:itemRippleColor="@color/Green150"
         app:itemTextColor="@color/DarkBlue400"
-        app:itemIconTint="@color/DarkBlue500"
-        app:itemActiveIndicatorStyle="@style/BottomNavActiveIndicator"
+        app:itemIconTint="@color/DarkBlue400"
         app:menu="@menu/bottom_tab_menu_items">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
