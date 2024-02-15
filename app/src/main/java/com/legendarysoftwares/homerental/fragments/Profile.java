@@ -184,12 +184,17 @@ public class Profile extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        user.reload();
+        if (user!=null) {
+            user.reload();
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        user.reload();
+        super.onResume();
+        if (user!=null) {
+            user.reload();
+        }
     }
 }

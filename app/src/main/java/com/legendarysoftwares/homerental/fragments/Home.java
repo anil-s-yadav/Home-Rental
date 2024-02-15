@@ -27,9 +27,7 @@ public class Home extends Fragment {
     public Home() {}
 
     private RecyclerView homeRecyclerView;
-    private DatabaseReference DBReference;
     private HomeAdapter homeAdapter; // Declare the adapter as a field
-    private Button openMassageActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,7 @@ public class Home extends Fragment {
 
         homeRecyclerView = view.findViewById(R.id.home_recycler_view);
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
-        openMassageActivity = view.findViewById(R.id.textView_open_massages_activity);
+        Button openMassageActivity = view.findViewById(R.id.textView_open_massages_activity);
 
         openMassageActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +59,7 @@ public class Home extends Fragment {
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         try {
-            DBReference = FirebaseDatabase.getInstance().getReference("Posted Properties");
+            DatabaseReference DBReference = FirebaseDatabase.getInstance().getReference("Posted Properties");
             FirebaseRecyclerOptions<PostPropertyModel> options = new FirebaseRecyclerOptions.Builder<PostPropertyModel>()
                     .setQuery(DBReference, PostPropertyModel.class).build();
 
@@ -86,13 +84,9 @@ public class Home extends Fragment {
         return view;
     }
 
-    private String getCurrentUserId() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            return currentUser.getUid();
-        } else {
-            return "";
-        }
+    private FirebaseUser getCurrentUserId() {
+         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user;
     }
     // Add the following lifecycle methods to start and stop listening when the fragment is started and stopped
 

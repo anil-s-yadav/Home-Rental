@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.legendarysoftwares.homerental.fragments.Add;
 import com.squareup.picasso.Picasso;
 import android.content.Context; // Import the Context class
 
@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, HomeAdapter.myViewHolder> {
     private Context context;
-    private String currentUserId;
+    private FirebaseUser user;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -34,10 +34,10 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
      *
      * @param options
      */
-    public HomeAdapter(@NonNull FirebaseRecyclerOptions<PostPropertyModel> options,Context context, String currentUserId) {
+    public HomeAdapter(@NonNull FirebaseRecyclerOptions<PostPropertyModel> options,Context context, FirebaseUser user) {
         super(options);
         this.context = context; // Initialize the context
-        this.currentUserId=currentUserId;
+        this.user = user;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                 if (!loginBottomSheetHelper.isLoggedIn()) {
                     loginBottomSheetHelper.showLoginBottomSheet();
                 } else {
-                    savePostToSaveFragment(model.getPropertyId(), currentUserId, model.getPostTitle(), model.getPostAddress(),
+                    savePostToSaveFragment(model.getPropertyId(), user, model.getPostTitle(), model.getPostAddress(),
                             model.getPostPrice(), model.getOwnerId(), model.getPostImageUrl(),model.getOwnerName());
                     holder.postSave.setImageResource(R.drawable.heart_fill);
                 }
@@ -70,16 +70,27 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                 if (!loginBottomSheetHelper.isLoggedIn()) {
                     loginBottomSheetHelper.showLoginBottomSheet();
                 } else {
-                    // Create a new DatabaseReference for the "Massage Activity" node
-                    DatabaseReference massageActivityRef = FirebaseDatabase.getInstance().getReference("Massage Activity")
-                            .child(currentUserId);
+                    // Save owner in users chat Activity
+                    DatabaseReference userMassageRef = FirebaseDatabase.getInstance().getReference("Massage Activity")
+                            .child(user.getUid());
 
-                    Map<String, Object> massageData = new HashMap<>();
-                    massageData.put("name", model.getOwnerName());
-                    massageData.put("photo", model.getOwnerPhoto());
-                    massageData.put("userID", model.getOwnerId());
+                    Map<String, Object> userMassageData = new HashMap<>();
+                    userMassageData.put("name", model.getOwnerName());
+                    userMassageData.put("photo", model.getOwnerPhoto());
+                    userMassageData.put("userID", model.getOwnerId());
 
-                    massageActivityRef.child(model.getOwnerId()).setValue(massageData);
+                    userMassageRef.child(model.getOwnerId()).setValue(userMassageData);
+
+                    // Save user in Owner's chat Activity
+                    DatabaseReference ownerMassageRef = FirebaseDatabase.getInstance().getReference("Massage Activity")
+                            .child(model.getOwnerId());
+
+                    Map<String, Object> ownerMassageData = new HashMap<>();
+                    ownerMassageData.put("name", user.getDisplayName().toString());
+                    ownerMassageData.put("photo",user.getPhotoUrl().toString());
+                    ownerMassageData.put("userID", user.getUid().toString());
+
+                    ownerMassageRef.child(user.getUid()).setValue(ownerMassageData);
 
                     Intent intent = new Intent(context, MassagesActivity.class);
                     context.startActivity(intent);
@@ -134,12 +145,12 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         savedPostsReference.child(savedPropertyId).setValue(postId);
     }*/
 
-    private void savePostToSaveFragment(String postId, String userId, String postTitle,
+    private void savePostToSaveFragment(String postId, FirebaseUser userId, String postTitle,
                                         String postAddress, String postPrice, String ownerId,
-                                        String postImageUrl,String ownerName) {
+                                        String postImageUrl, String ownerName) {
         // Implement the logic to save the post to the Save fragment using postId and userId
         DatabaseReference saveReference = FirebaseDatabase.getInstance().getReference("SavedPosts")
-                .child(userId)
+                .child(user.getUid())
                 .child(postId);
 
         // Set the necessary data for the saved post
