@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -41,7 +43,7 @@ public class Home extends Fragment {
 
         homeRecyclerView = view.findViewById(R.id.home_recycler_view);
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
-        Button openMassageActivity = view.findViewById(R.id.textView_open_massages_activity);
+        ImageButton openMassageActivity = view.findViewById(R.id.massages);
 
         openMassageActivity.setOnClickListener(new View.OnClickListener() {
             @Override
