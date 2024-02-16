@@ -22,7 +22,7 @@
             android:layout_height="60dp"
             android:layout_marginRight="14dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/no_profile_pic"
+            android:background="@color/DarkBlue200"
             app:shapeAppearanceOverlay="@style/Circular" />
 
         <LinearLayout
@@ -101,6 +101,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_open_profile"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginStart="30dp"
@@ -133,6 +134,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_pay_rent"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginStart="30dp"
@@ -164,6 +166,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView21" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_collect_rent"
             android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_marginStart="30dp"

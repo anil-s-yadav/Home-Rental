@@ -12,10 +12,9 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/DarkBlue500"
-        android:backgroundTint="@color/DarkBlue400"
+        android:background="@color/DarkBlue100"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            app:tint="@color/DarkBlue500"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
             android:src="@drawable/back_button" />
@@ -33,10 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:text="Massages and requests"
-            android:textColor="@color/White"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="Massages and Requests"
+            android:textColor="@color/DarkBlue500"
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -102,9 +101,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:visibility="visible"
-        android:background="@color/White100"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 

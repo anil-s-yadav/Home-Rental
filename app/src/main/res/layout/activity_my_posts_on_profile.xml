@@ -8,39 +8,44 @@
     tools:context=".MyPostsOnProfile">
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/DarkBlue500"
-        android:backgroundTint="@color/DarkBlue400"
+        android:background="@color/DarkBlue100"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            app:tint="@color/DarkBlue500"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/back_button"/>
+            android:src="@drawable/back_button" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profile"
-            android:textColor="@color/White"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="10dp"/>
+            android:text="Profile"
+            android:textStyle="bold"
+            android:textColor="@color/DarkBlue500"
+            android:textSize="16sp"/>
     </LinearLayout>
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="2dp"
-        android:layout_margin="5dp">
+        app:cardCornerRadius="10dp"
+        android:layout_margin="5dp"
+        android:elevation="8dp"
+        android:outlineAmbientShadowColor="@color/DarkBlue400"
+        android:background="@drawable/user_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="330dp"
+            android:background="@drawable/test_bg"
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -49,9 +54,10 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop"
                 android:layout_marginTop="14dp"
                 app:shapeAppearanceOverlay="@style/Circular"
-                android:background="@drawable/no_profile_pic"/>
+                android:background="@color/DarkBlue200"/>
 
             <TextView
                 android:id="@+id/postOnProfile_username"
@@ -59,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="User Name"
                 android:textSize="17sp"
-                android:textColor="@color/DarkBlue400"
+                android:textColor="@color/DarkBlue300"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textStyle="bold"/>
@@ -70,9 +76,10 @@
                 android:text="About user"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-medium"
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"
-                android:textColor="@color/White400"
+                android:textColor="@color/DarkBlue200"
                 android:lines="3"/>
 
             <LinearLayout
@@ -195,6 +202,7 @@
                     android:textColor="@color/White"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
+                    android:outlineAmbientShadowColor="@color/DarkBlue400"
                     android:paddingStart="12dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="10dp"
@@ -210,6 +218,7 @@
                     android:layout_weight="0.2"
                     android:textAlignment="center"
                     android:padding="6dp"
+                    android:outlineAmbientShadowColor="@color/DarkBlue400"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/White150"
                     android:background="@drawable/blue_bg"
@@ -233,8 +242,8 @@
 
     <ImageView
         android:id="@+id/no_posts"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
         android:src="@drawable/no_massages"
         android:layout_marginTop="30dp"

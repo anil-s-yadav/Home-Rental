@@ -19,9 +19,14 @@
         android:theme="@style/Theme.HomeRental"
         tools:targetApi="31">
         <activity
+            android:name=".CollectRentAcivity"
+            android:exported="false" />
+        <activity
+            android:name=".PayRentActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatScreen"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".MyPostsOnProfile"
             android:exported="false"

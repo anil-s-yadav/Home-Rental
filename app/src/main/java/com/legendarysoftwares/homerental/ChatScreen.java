@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +50,7 @@ public class ChatScreen extends AppCompatActivity {
         setContentView(R.layout.activity_chat_screen);
 
         TextView userNameTextView = findViewById(R.id.chat_userName); // It is name of person I am now chatting with
-        ImageView userPhotoImageView = findViewById(R.id.chat_userPhoto); // it is image of person i am chatting with
+        ShapeableImageView userPhotoImageView = findViewById(R.id.chat_userPhoto); // it is image of person i am chatting with
         typedMassage = findViewById(R.id.editText_typed_massage); // were type the msg edit text view
         ImageView sendMassageBtn = findViewById(R.id.imageView_send_msg); // button to send the massage
 
