@@ -6,7 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/DarkBlue100"
+        android:backgroundTint="@color/White"
         android:background="@drawable/green_bg_text"
         android:layout_margin="6dp"
         android:padding="5dp">
@@ -26,9 +26,9 @@
                     android:id="@+id/post_seller_dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginEnd="12dp"
                     app:shapeAppearanceOverlay="@style/Circular"
-                    android:src="@drawable/no_profile_pic" />
+                    android:background="@color/DarkBlue200" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -54,30 +54,44 @@
                         android:hint="@string/loading"/>
                 </LinearLayout>
 
-                <androidx.cardview.widget.CardView
+                <!--<androidx.cardview.widget.CardView
                     android:id="@+id/post_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/DarkBlue200"
-                    app:cardCornerRadius="5dp">
+                    android:backgroundTint="@color/DarkBlue100"
+                    app:cardCornerRadius="5dp">-->
+
                     <TextView
+                        android:id="@+id/post_chat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textColor="@color/DarkBlue500"
-                        android:textStyle="bold"
-                        android:text="Request for Rent"/>
+                        android:textColor="@color/Green300"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Send Request"/>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/angle_right"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    app:tint="@color/Green300"/>
+<!--
                 </androidx.cardview.widget.CardView>
+-->
 
             </LinearLayout>
 
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/post_image_from_database"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/RoundedSquare"
                 android:background="@color/DarkBlue200"
                 />
 
@@ -85,7 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -102,16 +115,14 @@
                     android:hint="@string/loading" />
                 <ImageView
                     android:id="@+id/post_save"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/heart_outline" />
                 <ImageView
                     android:id="@+id/post_share"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/share" />
 
@@ -122,7 +133,6 @@
                 android:id="@+id/post_title"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
-                android:layout_marginTop="16dp"
                 android:hint="@string/loading"
                 android:textSize="18sp"/>
 
@@ -133,31 +143,43 @@
                 android:textColor="@color/White400"
                 android:layout_height="22dp"/>
 
-            <TextView
-                android:id="@+id/post_carpet_area"
-                android:layout_width="86dp"
-                android:layout_height="match_parent"
-                android:padding="2dp"
-                android:gravity="center"
-                android:text="5200 Sqft."
-                android:backgroundTint="@color/White100"
-                android:background="@drawable/green_bg_text"
-                android:textColor="@color/White300"
-                android:hint="@string/loading" />
 
-            <TextView
-                android:id="@+id/post_status"
-                android:layout_width="108dp"
-                android:layout_height="match_parent"
-                android:padding="2dp"
-                android:gravity="center"
-                android:text="Semi-fernished"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/White100"
-                android:background="@drawable/green_bg_text"
-                android:textColor="@color/White300"
-                android:hint="@string/loading" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/post_carpet_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:gravity="center"
+                    android:drawablePadding="4dp"
+                    android:text="5200 Sqft."
+                    android:backgroundTint="#303030"
+                    android:textSize="11sp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/green_bg_text"
+                    android:textColor="@color/White"
+                    android:hint="@string/loading"
+                    app:drawableStartCompat="@drawable/dot" />
+
+                <TextView
+                    android:id="@+id/post_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:gravity="center"
+                    android:text="Semi-fernished"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@id/post_carpet_area"
+                    android:backgroundTint="#303030"
+                    android:textSize="11sp"
+                    android:drawablePadding="4dp"
+                    app:drawableStartCompat="@drawable/dot"
+                    android:background="@drawable/green_bg_text"
+                    android:textColor="@color/White"
+                    android:hint="@string/loading" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -166,14 +188,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="180dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="116dp"
         android:background="@drawable/green_bg_text"
-        android:fontFamily="sans-serif-condensed"
-        android:paddingStart="8dp"
+        android:backgroundTint="@color/White"
+        android:drawablePadding="4dp"
+        android:paddingStart="4dp"
         android:paddingEnd="8dp"
+        android:paddingBottom="1dp"
         android:text="Sell"
-        android:textColor="@color/Green300"
+        android:textColor="#F03E3E3E"
+        android:textSize="11sp"
+        app:drawableStartCompat="@drawable/dot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
