@@ -40,96 +40,112 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp">
+                android:layout_marginEnd="25dp">
                 <ImageView
                     android:id="@+id/search_office_space"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:src="@drawable/office_space"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Office"
-                    android:textSize="14sp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/search_office_space"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp">
+                android:layout_marginEnd="25dp">
                 <ImageView
                     android:id="@+id/search_shop"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:src="@drawable/shop"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shop"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/search_shop"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp">
+                android:layout_marginEnd="25dp">
                 <ImageView
                     android:id="@+id/search_showroom"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="14dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/showroom"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Showroom"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/search_showroom"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp">
+                android:layout_marginEnd="25dp">
                 <ImageView
                     android:id="@+id/search_factory"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="2dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/factory"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Factory"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/search_factory"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp">
+                android:layout_marginEnd="25dp">
                 <ImageView
                     android:id="@+id/search_cafe"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/cafe"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cafe"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/search_cafe"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp">
+                android:layout_marginEnd="36dp">
                 <ImageView
                     android:id="@+id/search_hostel"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:src="@drawable/hostel"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="hostel"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/search_hostel"/>
             </RelativeLayout>
             <RelativeLayout
@@ -138,14 +154,17 @@
                 android:layout_marginEnd="10dp">
                 <ImageView
                     android:id="@+id/search_warehouse"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_marginStart="14dp"
                     android:src="@drawable/warehouse"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Warehouse"
+                    android:layout_marginTop="2dp"
+                    android:textSize="11sp"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/search_warehouse"/>
             </RelativeLayout>
 
@@ -179,7 +198,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="House"
-                android:textSize="13sp"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_house"/>
@@ -202,7 +222,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Flat"
-                android:textSize="13sp"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_flat"/>
@@ -225,7 +246,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Plot"
-                android:textSize="13sp"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_plot"/>
@@ -247,7 +269,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Villa"
-                android:textSize="13sp"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_villa"/>
@@ -280,6 +303,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="bunglow"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_bunglow"/>
@@ -302,7 +327,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cottage"
-                android:textSize="13sp"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_cottage"/>
@@ -326,6 +352,7 @@
                 android:layout_height="wrap_content"
                 android:text="Farmhouse"
                 android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_farmhouse"/>
@@ -347,7 +374,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PG"
-                android:textSize="13sp"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
                 android:layout_below="@+id/search_pg"/>
