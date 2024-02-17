@@ -38,7 +38,7 @@ public class ProfilePostsAdapter extends FirebaseRecyclerAdapter<PostPropertyMod
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull PostPropertyModel model) {
-        Picasso.get().load(model.getPostImageUrl()).into(holder.image);
+        Picasso.get().load(model.getPostImageUrl1()).into(holder.image);
     }
 
     @NonNull

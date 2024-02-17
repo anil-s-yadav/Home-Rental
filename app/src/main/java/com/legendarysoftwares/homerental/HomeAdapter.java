@@ -49,11 +49,12 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
        holder.postSellerName.setText(model.getOwnerName());
         Picasso.get().load(model.getOwnerPhoto()).into(holder.postSellerDp);
 
-        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage1);
-        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage2);
-        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage3);
-        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage4);
-        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage5);
+        Picasso.get().load(model.getPostImageUrl1()).into(holder.postImage1);
+        Picasso.get().load(model.getPostImageUrl2()).into(holder.postImage2);
+        Picasso.get().load(model.getPostImageUrl3()).into(holder.postImage3);
+        Picasso.get().load(model.getPostImageUrl4()).into(holder.postImage4);
+        Picasso.get().load(model.getPostImageUrl5()).into(holder.postImage5);
+        Picasso.get().load(model.getPostImageUrl6()).into(holder.postImage6);
 
 
 
@@ -65,7 +66,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                     loginBottomSheetHelper.showLoginBottomSheet();
                 } else {
                     savePostToSaveFragment(model.getPropertyId(), user, model.getPostTitle(), model.getPostAddress(),
-                            model.getPostPrice(), model.getOwnerId(), model.getPostImageUrl(),model.getOwnerName());
+                            model.getPostPrice(), model.getOwnerId(), model.getPostImageUrl1(),model.getOwnerName());
                     holder.postSave.setImageResource(R.drawable.heart_fill);
                 }
             }
@@ -117,7 +118,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         //CardView postCard;
         ShapeableImageView postSellerDp;
         ImageView postShare,postSave;
-        private ShapeableImageView postImage1,postImage2,postImage3,postImage4,postImage5;
+        private ShapeableImageView postImage1,postImage2,postImage3,postImage4,postImage5, postImage6;
         TextView postTitle, postAddress,postPrice,postCarpetArea,postRentOrSell,postChat,
                 postStatus,postSellerName,postSellerType;  //postStatus = furnished or not
         public myViewHolder(@NonNull View itemView) {
@@ -130,6 +131,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
             postImage3= itemView.findViewById(R .id.post_image_from_database3);
             postImage4 = itemView.findViewById(R .id.post_image_from_database4);
             postImage5 = itemView.findViewById(R .id.post_image_from_database5);
+            postImage6 = itemView.findViewById(R .id.post_image_from_database6);
 
             postSellerDp = itemView.findViewById(R .id.post_seller_dp);
             postShare = itemView.findViewById(R .id.post_share);

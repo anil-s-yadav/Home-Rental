@@ -49,7 +49,7 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
         holder.savePostAdd.setText(model.getPostAddress());
         holder.savePostOwner.setText("By, "+model.getOwnerName());
         holder.savePostPrice.setText(model.getPostPrice());
-        Picasso.get().load(model.getPostImageUrl()).into(holder.savePostImg);
+        Picasso.get().load(model.getPostImageUrl1()).into(holder.savePostImg);
 
         holder.savePostDelete.setOnClickListener(new View.OnClickListener() {
             @Override
