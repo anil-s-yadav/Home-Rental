@@ -45,10 +45,16 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
 
         holder.postTitle.setText(model.getPostTitle());
         holder.postAddress.setText(model.getPostAddress());
-       holder.postPrice.setText(model.getPostPrice());
+       holder.postPrice.setText(String.format("₹ %s", model.getPostPrice()));
        holder.postSellerName.setText(model.getOwnerName());
-        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage);
         Picasso.get().load(model.getOwnerPhoto()).into(holder.postSellerDp);
+
+        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage1);
+        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage2);
+        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage3);
+        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage4);
+        Picasso.get().load(model.getPostImageUrl()).into(holder.postImage5);
+
 
 
         LoginBottomSheetHelper loginBottomSheetHelper = new LoginBottomSheetHelper(context);
@@ -111,7 +117,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         //CardView postCard;
         ShapeableImageView postSellerDp;
         ImageView postShare,postSave;
-        private ShapeableImageView postImage;
+        private ShapeableImageView postImage1,postImage2,postImage3,postImage4,postImage5;
         TextView postTitle, postAddress,postPrice,postCarpetArea,postRentOrSell,postChat,
                 postStatus,postSellerName,postSellerType;  //postStatus = furnished or not
         public myViewHolder(@NonNull View itemView) {
@@ -119,7 +125,12 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
 
            // postCard = itemView.findViewById(R .id.postCardView);
 
-            postImage = itemView.findViewById(R .id.post_image_from_database);
+            postImage1 = itemView.findViewById(R .id.post_image_from_database1);
+            postImage2 = itemView.findViewById(R .id.post_image_from_database2);
+            postImage3= itemView.findViewById(R .id.post_image_from_database3);
+            postImage4 = itemView.findViewById(R .id.post_image_from_database4);
+            postImage5 = itemView.findViewById(R .id.post_image_from_database5);
+
             postSellerDp = itemView.findViewById(R .id.post_seller_dp);
             postShare = itemView.findViewById(R .id.post_share);
             postSave = itemView.findViewById(R .id.post_save);

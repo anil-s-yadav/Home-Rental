@@ -29,11 +29,10 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/backBtn"
-            android:fontFamily="cursive"
+            android:fontFamily="@font/introscript_trial_semibold"
             android:text="@string/home_rentals"
             android:textColor="@color/DarkBlue500"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/massages"
