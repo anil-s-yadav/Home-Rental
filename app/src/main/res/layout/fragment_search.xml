@@ -25,10 +25,11 @@
         android:focusable="true"
         />
     <HorizontalScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/nestedScrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollIndicators="none"
+        android:overScrollMode="never"
         android:scrollbars="none"
         android:contentDescription="homes">
         <LinearLayout
@@ -78,11 +79,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp">
                 <ImageView
-                    android:id="@+id/search_showroom"
+                    android:id="@+id/search_outlet"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/showroom"/>
+                    android:src="@drawable/outlet"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +91,7 @@
                     android:layout_marginTop="2dp"
                     android:textSize="11sp"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_showroom"/>
+                    android:layout_below="@+id/search_outlet"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="wrap_content"

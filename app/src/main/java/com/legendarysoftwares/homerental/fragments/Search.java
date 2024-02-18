@@ -19,17 +19,11 @@ import com.legendarysoftwares.homerental.PostPropertyModel;
 import com.legendarysoftwares.homerental.R;
 import com.legendarysoftwares.homerental.SaveAdapter;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,7 +54,7 @@ public class Search extends Fragment {
 
         searchView = view.findViewById(R.id.searchView);
         searchRecyclerView = view.findViewById(R.id.searchRecycler_View);
-        horizontalScrollView = view.findViewById(R.id.scrollView);
+        horizontalScrollView = view.findViewById(R.id.nestedScrollView);
         linearLayoutOptions = view.findViewById(R.id.linearlayout_options);
 
         searchRecyclerView.setVisibility(View.GONE);
