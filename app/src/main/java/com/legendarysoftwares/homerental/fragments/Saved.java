@@ -60,7 +60,7 @@ public class Saved extends Fragment {
 
             savedPostsReference = FirebaseDatabase.getInstance().getReference("SavedPosts").child(currentUserId);
             FirebaseRecyclerOptions<PostPropertyModel> options = new FirebaseRecyclerOptions.Builder<PostPropertyModel>()
-                    .setQuery(savedPostsReference, PostPropertyModel.class).build();
+                    .setQuery(savedPostsReference.orderByChild("timestamp"), PostPropertyModel.class).build();
 
             saveAdapter = new SaveAdapter(options, requireContext(),currentUserId);
             saveAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {

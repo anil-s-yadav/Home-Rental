@@ -20,7 +20,6 @@
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
-            android:scaleX="-1"
             android:src="@drawable/app_logo_two" />
 
         <TextView

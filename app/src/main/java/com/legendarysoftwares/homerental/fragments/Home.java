@@ -54,7 +54,7 @@ public class Home extends Fragment {
         ShapeableImageView ViewFlipperImage5 = view.findViewById(R.id.Images_In_Image_Slider5);
         ShapeableImageView ViewFlipperImage6 = view.findViewById(R.id.Images_In_Image_Slider6);
 
-        Uri TT = Uri.parse("https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2015%2F04%2F23%2F22%2F00%2Ftree-736885_1280.jpg&tbnid=aVgXecnmQ_f1MM&vet=12ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN..i&imgrefurl=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fsea%2F&docid=QG4MQQA3E95exM&w=1280&h=797&q=image&ved=2ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN");
+       // Uri TT = Uri.parse("https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2015%2F04%2F23%2F22%2F00%2Ftree-736885_1280.jpg&tbnid=aVgXecnmQ_f1MM&vet=12ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN..i&imgrefurl=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fsea%2F&docid=QG4MQQA3E95exM&w=1280&h=797&q=image&ved=2ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN");
 
         //ViewFlipperImage1.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(15).jpeg?alt=media&token=9dd7941e-bffa-45ea-91eb-23039ee9dd4c"));
        // ViewFlipperImage2.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(14).jpeg?alt=media&token=0ff732f4-60bb-4faf-af8b-7de51e0073dd"));
@@ -83,7 +83,7 @@ public class Home extends Fragment {
         try {
             DatabaseReference DBReference = FirebaseDatabase.getInstance().getReference("Posted Properties");
             FirebaseRecyclerOptions<PostPropertyModel> options = new FirebaseRecyclerOptions.Builder<PostPropertyModel>()
-                    .setQuery(DBReference, PostPropertyModel.class).build();
+                    .setQuery(DBReference.orderByChild("timestamp").limitToLast(50), PostPropertyModel.class).build();
 
             homeAdapter = new HomeAdapter(options,requireContext(),getCurrentUserId());
             // Show ProgressBar while loading, hide it when data is loaded

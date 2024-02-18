@@ -65,7 +65,8 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                 if (!loginBottomSheetHelper.isLoggedIn()) {
                     loginBottomSheetHelper.showLoginBottomSheet();
                 } else {
-                    savePostToSaveFragment(model.getPropertyId(), user, model.getPostTitle(), model.getPostAddress(),
+                    long timestamp = System.currentTimeMillis();
+                    savePostToSaveFragment(timestamp, model.getPropertyId(), user, model.getPostTitle(), model.getPostAddress(),
                             model.getPostPrice(), model.getOwnerId(), model.getPostImageUrl1(),model.getOwnerName());
                     holder.postSave.setImageResource(R.drawable.heart_fill);
                 }
@@ -158,7 +159,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         savedPostsReference.child(savedPropertyId).setValue(postId);
     }*/
 
-    private void savePostToSaveFragment(String postId, FirebaseUser userId, String postTitle,
+    private void savePostToSaveFragment(long timestamp, String postId, FirebaseUser userId, String postTitle,
                                         String postAddress, String postPrice, String ownerId,
                                         String postImageUrl, String ownerName) {
         // Implement the logic to save the post to the Save fragment using postId and userId
@@ -168,6 +169,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
 
         // Set the necessary data for the saved post
         Map<String, Object> savedPostData = new HashMap<>();
+        savedPostData.put("timestamp", timestamp);
         savedPostData.put("propertyId", postId);
         savedPostData.put("postTitle", postTitle);
         savedPostData.put("postAddress", postAddress);

@@ -2,15 +2,18 @@ package com.legendarysoftwares.homerental;
 
 public class PostPropertyModel {
 
+    private long timestamp;
     private String postTitle, postAddress, postPrice, propertyId, ownerId, ownerName, ownerPhoto,
             postImageUrl1, postImageUrl2, postImageUrl3, postImageUrl4, postImageUrl5,postImageUrl6;
 
 
 
+
     // New constructor without image URLs
-    public PostPropertyModel(String propertyId, String ownerId, String postTitle,
+    public PostPropertyModel(long timestamp,String propertyId, String ownerId, String postTitle,
                              String postAddress, String postPrice,
                              String ownerName, String ownerPhoto) {
+        this.timestamp = timestamp;
         this.propertyId = propertyId;
         this.ownerId = ownerId;
         this.postTitle = postTitle;
@@ -139,5 +142,12 @@ public class PostPropertyModel {
 
     public void setPostImageUrl6(String postImageUrl6) {
         this.postImageUrl6 = postImageUrl6;
+    }
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }
