@@ -114,7 +114,7 @@ public class MassagesActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
-                    .child("Send")
+                    .child("Receive")
                     .child(user.getUid());
 
             requestsRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -148,7 +148,7 @@ public class MassagesActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             DatabaseReference massagesRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
-                    .child("Receive")
+                    .child("Send")
                     .child(user.getUid());
 
             massagesRef.addListenerForSingleValueEvent(new ValueEventListener() {

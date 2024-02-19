@@ -1,15 +1,21 @@
 package com.legendarysoftwares.homerental;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -78,37 +84,10 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         holder.postChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!loginBottomSheetHelper.isLoggedIn()) {
-                    loginBottomSheetHelper.showLoginBottomSheet();
-                } else if (user.getUid().equals(model.getOwnerId())) {
-                    Toast.makeText(context, "You can't send massage to yourself!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Save owner in users chat Activity
-                    DatabaseReference userMassageRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
-                            .child("Send") .child(user.getUid());
-
-                    Map<String, Object> userMassageData = new HashMap<>();
-                    userMassageData.put("name", model.getOwnerName());
-                    userMassageData.put("photo", model.getOwnerPhoto());
-                    userMassageData.put("userID", model.getOwnerId());
-                    userMassageData.put("PropertyID", model.getPropertyId());
-
-                    userMassageRef.child(model.getOwnerId()).setValue(userMassageData);
-
-                    // Save user in Owner's chat Activity
-                    DatabaseReference ownerMassageRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
-                            .child("Receive").child(model.getOwnerId());
-
-                    Map<String, Object> ownerMassageData = new HashMap<>();
-                    ownerMassageData.put("name", user.getDisplayName().toString());
-                    ownerMassageData.put("photo",user.getPhotoUrl().toString());
-                    ownerMassageData.put("userID", user.getUid().toString());
-                    ownerMassageData.put("PropertyID", model.getPropertyId());
-
-                    ownerMassageRef.child(user.getUid()).setValue(ownerMassageData);
-
-                    Intent massagesIntent = new Intent(context, MassagesActivity.class);
-                    context.startActivity(massagesIntent); // set behind when back pressed
+                if (user.getUid().equals(model.getOwnerId())) {
+                    Toast.makeText(context, "You can't send a massage to yourself!", Toast.LENGTH_SHORT).show();
+                }else {
+                    CustomRequestDialog(model); // Pass the PostPropertyModel to the dialog
                 }
             }
         });
@@ -202,4 +181,74 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         saveReference.setValue(savedPostData);
     }
 
+    private void CustomRequestDialog(PostPropertyModel model) {
+
+        View alertCustomDialog = LayoutInflater.from(context).inflate(R.layout.dialog_request_for_rent,null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+        alertDialog.setView(alertCustomDialog);
+        EditText requestMassage = alertCustomDialog.findViewById(R.id.request_massage);
+        Button cancelButton = (Button) alertCustomDialog.findViewById(R.id.cancel_btn);
+        Button sendButton = (Button) alertCustomDialog.findViewById(R.id.send_btn);
+        ShapeableImageView propertyPreview = alertCustomDialog.findViewById(R.id.dialog_img_preview);
+        Picasso.get().load(model.getPostImageUrl1()).into(propertyPreview);
+
+        final  AlertDialog dialog = alertDialog.create();
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        cancelButton.setOnClickListener(v -> {dialog.cancel(); });
+
+        sendButton.setOnClickListener(v -> {
+            String massage = requestMassage.getText().toString();
+            if (!massage.isEmpty()) {
+                sendRequest(massage, model);
+                dialog.cancel();
+            } else {
+                // Handle case where massage is empty
+                Toast.makeText(context, "Please enter a massage", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendRequest(String requestMassage, PostPropertyModel model) {
+        LoginBottomSheetHelper loginBottomSheetHelper = new LoginBottomSheetHelper(context);
+
+        if (!loginBottomSheetHelper.isLoggedIn()) {
+            loginBottomSheetHelper.showLoginBottomSheet();
+        } else {
+            // Save owner in user's chat Activity
+            DatabaseReference userMassageRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
+                    .child("Send").child(user.getUid());
+
+            Map<String, Object> userMassageData = new HashMap<>();
+            userMassageData.put("name", model.getOwnerName());
+            userMassageData.put("photo", model.getOwnerPhoto());
+            userMassageData.put("userID", model.getOwnerId());
+            userMassageData.put("PropertyID", model.getPropertyId());
+
+            userMassageRef.child(model.getOwnerId()).setValue(userMassageData);
+
+            // Save user in owner's chat Activity
+            DatabaseReference ownerMassageRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
+                    .child("Receive").child(model.getOwnerId());
+
+            Map<String, Object> ownerMassageData = new HashMap<>();
+            ownerMassageData.put("name", user.getDisplayName());
+            ownerMassageData.put("photo", user.getPhotoUrl().toString()); // Assuming getPhotoUrl() returns a string
+            ownerMassageData.put("userID", user.getUid());
+            ownerMassageData.put("PropertyID", model.getPropertyId());
+
+            ownerMassageRef.child(user.getUid()).setValue(ownerMassageData);
+
+            Intent massagesIntent = new Intent(context, MassagesActivity.class);
+            massagesIntent.putExtra("requestMassage", requestMassage);
+            context.startActivity(massagesIntent);
+        }
+    }
+
+
+
 }
+
