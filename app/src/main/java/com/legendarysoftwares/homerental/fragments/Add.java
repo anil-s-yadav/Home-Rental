@@ -126,7 +126,7 @@ public class Add extends Fragment {
         if (selectedImageUris != null && !selectedImageUris.isEmpty()) {
 
             progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("Updating Profile");
+            progressDialog.setTitle("Uploading Property");
             progressDialog.setMessage("Please wait...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
