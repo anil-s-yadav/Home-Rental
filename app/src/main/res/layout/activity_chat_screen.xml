@@ -44,6 +44,7 @@
             android:textColor="@color/DarkBlue400"
             android:textSize="15sp"/>
         <TextView
+            android:id="@+id/tv_accept_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Accept Request"
@@ -66,8 +67,63 @@
         android:layout_below="@+id/linearLayout2"
         android:padding="12dp"/>
 
+<!--
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout_accept_alert"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/blue_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingStart="8dp"
+            android:paddingTop="16dp"
+            android:text="Request by, User Name" />
+
+        <TextView
+            android:id="@+id/tv_property_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Anil Yadav Is requested " />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/alert_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_stoke_square"
+                android:text="Back"
+                android:textColor="@color/DarkBlue400" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/alert_accept_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_stoke_square"
+                android:backgroundTint="@color/DarkBlue300"
+                android:text="Accept"
+                android:textColor="@color/White" />
+        </LinearLayout>
+    </LinearLayout>
+-->
+
+    <LinearLayout
+        android:id="@+id/linearLayout_typing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

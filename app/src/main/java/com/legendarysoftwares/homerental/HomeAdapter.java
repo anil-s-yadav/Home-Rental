@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import android.content.Context; // Import the Context class
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,34 +80,44 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
             public void onClick(View v) {
                 if (!loginBottomSheetHelper.isLoggedIn()) {
                     loginBottomSheetHelper.showLoginBottomSheet();
+                } else if (user.getUid().equals(model.getOwnerId())) {
+                    Toast.makeText(context, "You can't send massage to yourself!", Toast.LENGTH_SHORT).show();
                 } else {
                     // Save owner in users chat Activity
-                    DatabaseReference userMassageRef = FirebaseDatabase.getInstance().getReference("Massage Activity")
-                            .child(user.getUid());
+                    DatabaseReference userMassageRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
+                            .child("Send") .child(user.getUid());
 
                     Map<String, Object> userMassageData = new HashMap<>();
                     userMassageData.put("name", model.getOwnerName());
                     userMassageData.put("photo", model.getOwnerPhoto());
                     userMassageData.put("userID", model.getOwnerId());
+                    userMassageData.put("PropertyID", model.getPropertyId());
 
                     userMassageRef.child(model.getOwnerId()).setValue(userMassageData);
 
                     // Save user in Owner's chat Activity
-                    DatabaseReference ownerMassageRef = FirebaseDatabase.getInstance().getReference("Massage Activity")
-                            .child(model.getOwnerId());
+                    DatabaseReference ownerMassageRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
+                            .child("Receive").child(model.getOwnerId());
 
                     Map<String, Object> ownerMassageData = new HashMap<>();
                     ownerMassageData.put("name", user.getDisplayName().toString());
                     ownerMassageData.put("photo",user.getPhotoUrl().toString());
                     ownerMassageData.put("userID", user.getUid().toString());
+                    ownerMassageData.put("PropertyID", model.getPropertyId());
 
                     ownerMassageRef.child(user.getUid()).setValue(ownerMassageData);
 
-                    Intent intent = new Intent(context, MassagesActivity.class);
-                    context.startActivity(intent);
+                    Intent massagesIntent = new Intent(context, MassagesActivity.class);
+                    context.startActivity(massagesIntent); // set behind when back pressed
                 }
             }
         });
+
+                            /*Intent chatIntent = new Intent(context, ChatScreen.class);
+                    chatIntent.putExtra("sourceActivity", "HomeAdapter"); // to identify were user came from
+                    chatIntent.putExtra("userName",user.getDisplayName().toString());
+                    chatIntent.putExtra("propertyName",model.getPostTitle());
+                    context.startActivity(chatIntent);*/
 
         holder.OpenPostDetails.setOnClickListener(v -> {
             Intent intent=new Intent(context, propertyDetailsActivity.class);

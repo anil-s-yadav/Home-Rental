@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +42,6 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
             Map<String, Object> userData = massageUsers.get(position);
             holder.bind(userData);
         }
-
     }
 
     @Override
@@ -58,18 +56,18 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
 
         public MassageViewHolder(@NonNull View itemView) {
             super(itemView);
-            userNameTextView = itemView.findViewById(R.id.massage_activity_sender_name);
-            userPhoto = itemView.findViewById(R.id.massage_activity_sender_dp);
+            userNameTextView = itemView.findViewById(R.id.requests_activity_sender_name);
+            userPhoto = itemView.findViewById(R.id.requests_activity_sender_dp);
         }
 
         public void bind(Map<String, Object> userData) {
             String name = (String) userData.get("name");
             String photoUrl = (String) userData.get("photo");
             String userID = (String) userData.get("userID");
-            // Assuming "name" is the key for the user's name in the map
+            String propertyID = (String) userData.get("propertyID");
+
             userNameTextView.setText(name);
             Picasso.get().load(photoUrl).into(userPhoto);
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -78,10 +76,11 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
                     intent.putExtra("user_name", name);
                     intent.putExtra("user_photo", photoUrl);
                     intent.putExtra("userID", userID);
+                    intent.putExtra("propertyID", propertyID);
                     context.startActivity(intent);
                 }
             });
         }
-
     }
 }
+

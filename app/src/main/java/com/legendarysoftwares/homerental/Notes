@@ -29,3 +29,15 @@ FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
 
 Hope this helps!
 
+
+their are a imageview on my top right corner at chat activity named as "tv_accept_request".
+now i want to do, this tv is visible only that person who is chatting with me, as myself being a
+current user should not be visible.
+why,this button, let me explain...
+While I am brousing properties on my home fragment, I choose a property and by using above
+send request button I send a request to the property owner. Now while chatting with that owner
+This textView "tv_accept_request" which have all information about thet property should be visible
+ to the owner so he can aprove this property. this textView has text "Accept for rent" for the
+ owner and "aproveal panding" for me, who send the request. after aproved by the owner that
+ property will be reflact in my "PayRentActivity" and owner's "CollectRentActivity" . how to implement this feature.
+
