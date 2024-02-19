@@ -87,6 +87,7 @@
 
 
             <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollIndicators="none"
@@ -94,6 +95,7 @@
                 android:contentDescription="homes">
 
                 <LinearLayout
+                    android:id="@+id/linearLayout_openPropertyDetails"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -173,7 +175,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="₹ 6.2 Cr"
                     android:paddingTop="3dp"
-                    android:textSize="15dp"
+                    android:textSize="16sp"
                     android:fontFamily="@font/poppins_semibold"
                     android:textColor="@color/DarkBlue400"
                     android:hint="@string/loading" />

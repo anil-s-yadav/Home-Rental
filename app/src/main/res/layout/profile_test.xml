@@ -52,7 +52,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="-50dp"
-                android:background="@drawable/border"
+                android:background="@drawable/grey_stoke_border"
                 android:padding="15dp">
 
                 <RelativeLayout
@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/border">
+                    android:background="@drawable/grey_stoke_border">
 
                     <ImageView
                         android:id="@+id/imageViewName"
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/RL_name"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/border">
+                    android:background="@drawable/grey_stoke_border">
 
                     <ImageView
                         android:id="@+id/imageViewDoB"
@@ -167,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/RL_dob"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/border">
+                    android:background="@drawable/grey_stoke_border">
 
                     <ImageView
                         android:id="@+id/imageViewGender"
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/RL_gender"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/border">
+                    android:background="@drawable/grey_stoke_border">
 
                     <ImageView
                         android:id="@+id/imageViewMobile"

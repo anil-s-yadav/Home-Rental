@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -105,6 +107,12 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                 }
             }
         });
+
+        holder.OpenPostDetails.setOnClickListener(v -> {
+            Intent intent=new Intent(context, propertyDetailsActivity.class);
+            context.startActivity(intent);
+        });
+
     }
 
 
@@ -119,6 +127,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         //CardView postCard;
         ShapeableImageView postSellerDp;
         ImageView postShare,postSave;
+        private LinearLayout OpenPostDetails;
         private ShapeableImageView postImage1,postImage2,postImage3,postImage4,postImage5, postImage6;
         TextView postTitle, postAddress,postPrice,postCarpetArea,postRentOrSell,postChat,
                 postStatus,postSellerName,postSellerType;  //postStatus = furnished or not
@@ -138,6 +147,7 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
             postShare = itemView.findViewById(R .id.post_share);
             postSave = itemView.findViewById(R .id.post_save);
             postChat = itemView.findViewById(R .id.post_chat);
+            OpenPostDetails = itemView.findViewById(R.id.linearLayout_openPropertyDetails);
 
             postTitle = itemView.findViewById(R .id.post_title);
             postAddress = itemView.findViewById(R .id.post_address);
