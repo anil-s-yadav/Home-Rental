@@ -510,21 +510,30 @@
             </HorizontalScrollView>
 
 
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/home_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/horizontalScrollView">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/shimmer_effect_home"/>
+                    <include layout="@layout/shimmer_effect_home"/>
+                    <include layout="@layout/shimmer_effect_home"/>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:layout_below="@+id/horizontalScrollView"
                 android:overScrollMode="never"
                 android:paddingTop="5dp" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="160dp"
-                android:layout_below="@+id/horizontalScrollView"/>
 
         </RelativeLayout>
 

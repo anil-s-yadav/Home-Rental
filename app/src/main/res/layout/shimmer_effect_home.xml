@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/post_seller_dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
+                app:shapeAppearanceOverlay="@style/Circular"
+                android:background="@color/DarkBlue100" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/post_seller_name"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/DarkBlue100"
+                    android:paddingStart="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:paddingEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/post_seller_type"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/DarkBlue100"/>
+            </LinearLayout>
+
+            <!--<androidx.cardview.widget.CardView
+                android:id="@+id/post_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/DarkBlue100"
+                app:cardCornerRadius="5dp">-->
+
+            <TextView
+                android:id="@+id/post_chat"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:background="@color/DarkBlue100"/>
+
+            <TextView
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:background="@color/DarkBlue100"
+                android:backgroundTint="@color/DarkBlue100"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                />
+            <!--
+                            </androidx.cardview.widget.CardView>
+            -->
+
+        </LinearLayout>
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:scrollIndicators="none"
+            android:scrollbars="none"
+            android:background="@color/DarkBlue100"
+            app:shapeAppearanceOverlay="@style/RoundedSquare"
+            android:contentDescription="homes">
+
+
+
+        </com.google.android.material.imageview.ShapeableImageView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_weight="2"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="3dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="4dp"
+                android:background="@color/DarkBlue100"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/DarkBlue100" />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/DarkBlue100"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/DarkBlue100"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/DarkBlue100"/>
+
+
+
+        <!--<RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/post_carpet_area"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:gravity="center"
+                android:drawablePadding="4dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/DarkBlue100"/>
+
+            <TextView
+                android:id="@+id/post_status"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/post_carpet_area"
+                android:drawablePadding="4dp"
+                android:background="@color/DarkBlue100"/>
+        </RelativeLayout>-->
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

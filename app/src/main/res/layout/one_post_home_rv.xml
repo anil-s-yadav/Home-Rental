@@ -28,7 +28,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="12dp"
                     app:shapeAppearanceOverlay="@style/Circular"
-                    android:background="@color/DarkBlue200" />
+                    android:background="@color/DarkBlue100" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                         android:scaleType="centerCrop"
                         android:layout_marginEnd="2dp"
                         app:shapeAppearanceOverlay="@style/RoundedSquare"
-                        android:background="@color/DarkBlue200"
+                        android:background="@color/DarkBlue100"
                         />
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/post_image_from_database2"
@@ -116,7 +116,7 @@
                         android:scaleType="centerCrop"
                         android:layout_marginEnd="2dp"
                         app:shapeAppearanceOverlay="@style/RoundedSquare"
-                        android:background="@color/DarkBlue200"
+                        android:background="@color/DarkBlue100"
                         />
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/post_image_from_database3"
@@ -125,7 +125,7 @@
                         android:scaleType="centerCrop"
                         android:layout_marginEnd="2dp"
                         app:shapeAppearanceOverlay="@style/RoundedSquare"
-                        android:background="@color/DarkBlue200"
+                        android:background="@color/DarkBlue100"
                         />
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/post_image_from_database4"
@@ -134,7 +134,7 @@
                         android:layout_marginEnd="2dp"
                         android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/RoundedSquare"
-                        android:background="@color/DarkBlue200"
+                        android:background="@color/DarkBlue100"
                         />
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/post_image_from_database5"
@@ -143,7 +143,7 @@
                         android:layout_marginEnd="2dp"
                         android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/RoundedSquare"
-                        android:background="@color/DarkBlue200"
+                        android:background="@color/DarkBlue100"
                         />
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/post_image_from_database6"
@@ -152,7 +152,7 @@
                         android:layout_marginEnd="2dp"
                         android:scaleType="centerCrop"
                         app:shapeAppearanceOverlay="@style/RoundedSquare"
-                        android:background="@color/DarkBlue200"
+                        android:background="@color/DarkBlue100"
                         />
 
 

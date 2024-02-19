@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,8 +45,10 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         homeRecyclerView = view.findViewById(R.id.home_recycler_view);
-        ProgressBar progressBar = view.findViewById(R.id.progressBar);
         ImageButton openMassageActivity = view.findViewById(R.id.massages);
+
+        ShimmerFrameLayout shimmer = view.findViewById(R.id.home_shimmer);
+        shimmer.startShimmer();
 
         ShapeableImageView ViewFlipperImage1 = view.findViewById(R.id.Images_In_Image_Slider1);
         ShapeableImageView ViewFlipperImage2 = view.findViewById(R.id.Images_In_Image_Slider2);
@@ -91,7 +94,8 @@ public class Home extends Fragment {
                 @Override
                 public void onItemRangeInserted(int positionStart, int itemCount) {
                     // Data loaded, hide ProgressBar and show RecyclerView
-                    progressBar.setVisibility(View.GONE);
+                    shimmer.stopShimmer();
+                    shimmer.hideShimmer();
                     homeRecyclerView.setVisibility(View.VISIBLE);
                 }
             });

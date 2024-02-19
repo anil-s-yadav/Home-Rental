@@ -39,13 +39,11 @@
         app:cardCornerRadius="10dp"
         android:layout_margin="5dp"
         android:elevation="8dp"
-        android:outlineAmbientShadowColor="@color/DarkBlue400"
-        android:background="@drawable/user_bg">
+        android:outlineAmbientShadowColor="@color/DarkBlue400">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="330dp"
-            android:background="@drawable/test_bg"
             android:orientation="vertical">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -57,26 +55,25 @@
                 android:scaleType="centerCrop"
                 android:layout_marginTop="14dp"
                 app:shapeAppearanceOverlay="@style/Circular"
-                android:background="@color/DarkBlue200"/>
+                android:background="@color/DarkBlue100"/>
 
             <TextView
                 android:id="@+id/postOnProfile_username"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:text="User Name"
-                android:textSize="17sp"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/DarkBlue300"
                 android:layout_gravity="center"
-                android:textAlignment="center"
-                android:textStyle="bold"/>
+                android:textAlignment="center"/>
             <TextView
                 android:id="@+id/userAbout"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:text="About user"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/poppins_regular"
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"
                 android:textColor="@color/DarkBlue200"
