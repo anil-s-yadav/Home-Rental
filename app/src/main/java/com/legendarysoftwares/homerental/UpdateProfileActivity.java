@@ -193,7 +193,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
         textDOB = editTextUpdateDOB.getText().toString();
         textMobile = editTextUpdateMobile.getText().toString();
         aboutUser = editTextUserAbout.getText().toString();
-        String email = user.getEmail();
 
         //validate mobile number using Matcher and Pattern (regular expression)
         String mobileRegex = "[6-9][0-9]{9}";
@@ -227,24 +226,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
             editTextUpdateMobile.requestFocus();
         }
 
+        uploadPic();
 
-        // Insert data to Firebase Realtime Database
-        ReadWriteUserDetailsModel writeUserDetailsModel = new ReadWriteUserDetailsModel(textFullName, email, textDOB, textGender, textMobile, aboutUser);
-        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
-        referenceProfile.child(user.getUid()).setValue(writeUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-
-                    uploadPic(textFullName);
-
-                } else {
-                }
-            }
-        });
     }
 
-    private void uploadPic(String FullName){
+    private void uploadPic(){
         if (uriImage!=null){
             StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
                     .child(user.getUid());
@@ -256,11 +242,31 @@ public class UpdateProfileActivity extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             userProfilePhotoOnStorage = uri;
                             UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(FullName)
+                                    .setDisplayName(textFullName)
                                     .setPhotoUri(userProfilePhotoOnStorage).build();
                             user.updateProfile(profileChangeRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
+
+                                    String email = user.getEmail();
+                                    String userPhoto = user.getPhotoUrl().toString();
+                                    // Insert data to Firebase Realtime Database
+                                    ReadWriteUserDetailsModel writeUserDetailsModel = new ReadWriteUserDetailsModel(textFullName,userPhoto, email, textDOB, textGender, textMobile, aboutUser);
+                                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+                                    referenceProfile.child(user.getUid()).setValue(writeUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            if (task.isSuccessful()) {
+
+
+                                            } else {
+                                            }
+                                        }
+                                    });
+
+
+
 
                                     Toast.makeText(UpdateProfileActivity.this, "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();

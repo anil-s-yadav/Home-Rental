@@ -190,8 +190,18 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         EditText requestMassage = alertCustomDialog.findViewById(R.id.request_massage);
         Button cancelButton = (Button) alertCustomDialog.findViewById(R.id.cancel_btn);
         Button sendButton = (Button) alertCustomDialog.findViewById(R.id.send_btn);
-        ShapeableImageView propertyPreview = alertCustomDialog.findViewById(R.id.dialog_img_preview);
-        Picasso.get().load(model.getPostImageUrl1()).into(propertyPreview);
+        ShapeableImageView propertyPreview1 = alertCustomDialog.findViewById(R.id.dialog_img_preview1);
+        ShapeableImageView propertyPreview2 = alertCustomDialog.findViewById(R.id.dialog_img_preview2);
+        ShapeableImageView propertyPreview3 = alertCustomDialog.findViewById(R.id.dialog_img_preview3);
+        ShapeableImageView propertyPreview4 = alertCustomDialog.findViewById(R.id.dialog_img_preview4);
+        ShapeableImageView propertyPreview5 = alertCustomDialog.findViewById(R.id.dialog_img_preview5);
+        ShapeableImageView propertyPreview6 = alertCustomDialog.findViewById(R.id.dialog_img_preview6);
+        Picasso.get().load(model.getPostImageUrl1()).into(propertyPreview1);
+        Picasso.get().load(model.getPostImageUrl2()).into(propertyPreview2);
+        Picasso.get().load(model.getPostImageUrl3()).into(propertyPreview3);
+        Picasso.get().load(model.getPostImageUrl4()).into(propertyPreview4);
+        Picasso.get().load(model.getPostImageUrl5()).into(propertyPreview5);
+        Picasso.get().load(model.getPostImageUrl6()).into(propertyPreview6);
 
         final  AlertDialog dialog = alertDialog.create();
 
@@ -223,8 +233,6 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                     .child("Send").child(user.getUid());
 
             Map<String, Object> userMassageData = new HashMap<>();
-            userMassageData.put("name", model.getOwnerName());
-            userMassageData.put("photo", model.getOwnerPhoto());
             userMassageData.put("userID", model.getOwnerId());
             userMassageData.put("PropertyID", model.getPropertyId());
 
@@ -235,8 +243,6 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
                     .child("Receive").child(model.getOwnerId());
 
             Map<String, Object> ownerMassageData = new HashMap<>();
-            ownerMassageData.put("name", user.getDisplayName());
-            ownerMassageData.put("photo", user.getPhotoUrl().toString()); // Assuming getPhotoUrl() returns a string
             ownerMassageData.put("userID", user.getUid());
             ownerMassageData.put("PropertyID", model.getPropertyId());
 

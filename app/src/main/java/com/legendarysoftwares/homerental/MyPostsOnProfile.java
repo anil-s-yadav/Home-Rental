@@ -58,6 +58,7 @@ public class MyPostsOnProfile extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            user.reload();
             textViewUserName.setText(user.getDisplayName());
             Picasso.get().load(user.getPhotoUrl()).into(userProfile);
 

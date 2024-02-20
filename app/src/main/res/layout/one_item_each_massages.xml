@@ -24,7 +24,7 @@
             android:layout_height="50dp"
             android:layout_margin="5dp"
             android:scaleType="centerCrop"
-            android:background="@color/DarkBlue400"
+            android:background="@color/DarkBlue100"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/Circular" />

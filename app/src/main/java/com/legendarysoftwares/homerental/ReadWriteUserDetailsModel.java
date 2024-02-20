@@ -1,24 +1,18 @@
 package com.legendarysoftwares.homerental;
 
 public class ReadWriteUserDetailsModel {
-    String name,email,dob,gender,mobile,about;
+    String name,photo,email,dob,gender,mobile,about;
 
     public ReadWriteUserDetailsModel() {}
 
 
-    public String getAbout() {
-        return about;
-    }
 
-    public void setAbout(String about) {
-        this.about = about;
-    }
-
-    public ReadWriteUserDetailsModel(String name, String email, String dob, String gender, String mobile, String about) {
+    public ReadWriteUserDetailsModel(String name, String photo, String email, String dob, String gender, String mobile, String about) {
         this.dob = dob;
         this.gender = gender;
         this.mobile = mobile;
         this.name=name;
+        this.photo=photo;
         this.email=email;
         this.about=about;
     }
@@ -54,6 +48,22 @@ public class ReadWriteUserDetailsModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getEmail() {

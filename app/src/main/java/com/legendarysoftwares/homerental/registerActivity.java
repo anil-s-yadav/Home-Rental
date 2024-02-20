@@ -45,7 +45,6 @@ import java.util.regex.Pattern;
 
 public class registerActivity extends AppCompatActivity {
     private EditText  editTextRegisterFullName, editTextRegisterEmail, editTextRegisterDOB, editTextRegisterMobile, editTextRegisterPwd, editTextRegisterConfirmPwd;
-    private ProgressBar progressBar;
     private RadioGroup radioGroupRegisterGender;
     private RadioButton radioButtonRegisterGenderSelected;
     private DatePickerDialog picker;
@@ -55,7 +54,7 @@ public class registerActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private final String aboutUser = "About me...";
     private static final int PICK_IMAGE_REQUEST=1;
-    private Uri uriImage, userProfilePhotoOnStorage;
+    private Uri uriImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,6 @@ public class registerActivity extends AppCompatActivity {
 
         Toast.makeText(registerActivity.this,"You can Register now!",Toast.LENGTH_LONG).show();
 
-        progressBar=findViewById(R.id.progressBar);
         editTextRegisterFullName=findViewById(R.id.editText_register_full_name);
         editTextRegisterEmail=findViewById(R.id.editText_register_email);
         editTextRegisterDOB=findViewById(R.id.editText_register_dob);
@@ -188,7 +186,6 @@ public class registerActivity extends AppCompatActivity {
                     editTextRegisterPwd.clearComposingText();
                 }else{
                     textGender = radioButtonRegisterGenderSelected.getText().toString();
-                    progressBar.setVisibility(View.VISIBLE);
                     registerUser(textFullName, textEmail, textDOB, textGender,textMobile,textPwd);
                 }
 
@@ -212,7 +209,7 @@ public class registerActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadPic(String FullName){
+    /*private void uploadPic(String FullName){
         if (uriImage!=null){
            StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
                    .child(user.getUid());
@@ -235,7 +232,7 @@ public class registerActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
             Toast.makeText(registerActivity.this, "Image not selected!", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     private void registerUser(String textFullName, String textEmail, String textDOB,String textGender, String textMobile, String textPwd) {
         auth=FirebaseAuth.getInstance();
@@ -246,36 +243,54 @@ public class registerActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     user = auth.getCurrentUser();
 
-                    uploadPic(textFullName);
+                    if (uriImage!=null){
+                        StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
+                                .child(user.getUid());
+                        storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(textFullName)
+                                                .setPhotoUri(uri).build();
+                                        user.updateProfile(profileChangeRequest);
 
-                    Toast.makeText(registerActivity.this,"User register successful!",Toast.LENGTH_SHORT).show();
+                                        //Enter user data to realtime database
+                                        ReadWriteUserDetailsModel readWriteUserDetailsModel=new ReadWriteUserDetailsModel(textFullName,uri.toString(),textEmail,textDOB,textGender,textMobile,aboutUser);
+                                        //Extracting user reference from Database for "Register users"
+                                        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+                                        referenceProfile.child(user.getUid()).setValue(readWriteUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    //send verification email
+                                                    user.sendEmailVerification();
 
-                    //here i can add upload profile method. call here and pass firebaseuser as parameter.
-                    //Enter user data to realtime database
-                    ReadWriteUserDetailsModel readWriteUserDetailsModel=new ReadWriteUserDetailsModel(textFullName,textEmail,textDOB,textGender,textMobile,aboutUser);
-                    //Extracting user reference from Database for "Register users"
-                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
-                    referenceProfile.child(user.getUid()).setValue(readWriteUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                //send verification email
-                                user.sendEmailVerification();
+                                                    progressDialog.dismiss();
+                                                    Toast.makeText(registerActivity.this,"User register successful! Now verify Email",Toast.LENGTH_SHORT).show();
+                                                    // Create an instance of the Profile fragment
+                                                    Intent intent=new Intent(registerActivity.this, MyPostsOnProfile.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                                            |Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                }else {
+                                                    Toast.makeText(registerActivity.this,"User register Unsuccessful try again!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
 
-                                progressDialog.dismiss();
-                                Toast.makeText(registerActivity.this,"User register successful! Now verify Email",Toast.LENGTH_SHORT).show();
-                                // Create an instance of the Profile fragment
-                                Intent intent=new Intent(registerActivity.this, MyPostsOnProfile.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                        |Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            }else {
-                                Toast.makeText(registerActivity.this,"User register Unsuccessful try again!",
-                                        Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
                             }
-                        }
-                    });
-                    progressBar.setVisibility(View.GONE);
+                        });
+                    }else {
+                        Toast.makeText(registerActivity.this, "Image not selected!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }else{
                     try {
                         throw task.getException();
@@ -292,9 +307,8 @@ public class registerActivity extends AppCompatActivity {
                         Log.d("RegisterActivity",e.getMessage());
                         Toast.makeText(registerActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
-                    progressBar.setVisibility(View.GONE);
                 }
-            }
+            } //  end of public void onComplete(@NonNull Task<AuthResult> task) {
         });
 
     }

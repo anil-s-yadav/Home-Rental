@@ -123,7 +123,7 @@ public class MassagesActivity extends AppCompatActivity {
                     List<Map<String, Object>> requestList = new ArrayList<>();
 
                     for (DataSnapshot requestSnapshot : snapshot.getChildren()) {
-                        Map<String, Object> requestData = (Map<String, Object>) requestSnapshot.getValue();
+                        Map<String , Object> requestData = (Map<String, Object>) requestSnapshot.getValue();
                         if (requestData != null) {
                             requestList.add(requestData);
                         }

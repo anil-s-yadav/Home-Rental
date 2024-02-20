@@ -2,6 +2,7 @@ package com.legendarysoftwares.homerental;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -61,25 +67,48 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
         }
 
         public void bind(Map<String, Object> userData) {
-            String name = (String) userData.get("name");
-            String photoUrl = (String) userData.get("photo");
             String userID = (String) userData.get("userID");
-            String propertyID = (String) userData.get("propertyID");
+            String propertyID = (String) userData.get("PropertyID");
 
-            userNameTextView.setText(name);
-            Picasso.get().load(photoUrl).into(userPhoto);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            assert userID != null;
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Registered Users").child(userID);
+
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, ChatScreen.class);
-                    intent.putExtra("user_name", name);
-                    intent.putExtra("user_photo", photoUrl);
-                    intent.putExtra("userID", userID);
-                    intent.putExtra("propertyID", propertyID);
-                    context.startActivity(intent);
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Check if the user exists
+                    if (snapshot.exists()) {
+                        // Get user information
+                        String senderDisplayName = snapshot.child("name").getValue(String.class);
+                        String senderPhotoUrl = snapshot.child("photo").getValue(String.class);
+
+                        // Set user information to the views
+                        userNameTextView.setText(senderDisplayName);
+                        Picasso.get().load(senderPhotoUrl).into(userPhoto);
+                        itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(context, ChatScreen.class);
+                                intent.putExtra("user_name", senderDisplayName);
+                                intent.putExtra("user_photo", senderPhotoUrl);
+                                intent.putExtra("userID", userID);
+                                intent.putExtra("propertyID", propertyID);
+                                context.startActivity(intent);
+                            }
+                        });
+
+                    } else {
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle errors
                 }
             });
+
+
+
         }
     }
 }
