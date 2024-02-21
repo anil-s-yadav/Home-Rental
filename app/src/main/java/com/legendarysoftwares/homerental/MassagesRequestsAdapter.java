@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +70,7 @@ public class MassagesRequestsAdapter extends RecyclerView.Adapter<MassagesReques
         private TextView userNameTextView;
         private Button viewDetailsBtn;
         private ShapeableImageView userPhoto;
+        private FirebaseUser user;
 
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,16 +80,19 @@ public class MassagesRequestsAdapter extends RecyclerView.Adapter<MassagesReques
         }
 
         public void bind(Map<String, Object> requestData) {
-            String SenderUserID = (String) requestData.get("userID");
-            String propertyID = (String) requestData.get("PropertyID");
+            String SenderUserID = (String) requestData.get("userID"); // who send me request I have their userID
+            String PropertyID = (String) requestData.get("PropertyID");
+            //I got the request That means I am the owner,
+            // thats why, user = ownerID
 
                 // Load user information based on senderUID
                 loadSenderUserInfo(SenderUserID);
+                user = FirebaseAuth.getInstance().getCurrentUser();
 
                 viewDetailsBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CustomRequestDialog(propertyID);
+                        CustomRequestDialog(PropertyID,SenderUserID);
                     }
                 });
         }
@@ -123,8 +129,8 @@ public class MassagesRequestsAdapter extends RecyclerView.Adapter<MassagesReques
 
 
 
-        private void CustomRequestDialog(Object DialogPropertyID) {
-            Log.d("Dialog PropertyID = ", DialogPropertyID.toString());
+        private void CustomRequestDialog(String PropertyID,String SenderUserID) {
+            Log.d("Dialog PropertyID = ", PropertyID.toString());
 
             View alertCustomDialog = LayoutInflater.from(context).inflate(R.layout.dialog_accept_request, null);
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
@@ -136,7 +142,7 @@ public class MassagesRequestsAdapter extends RecyclerView.Adapter<MassagesReques
             Button RequestDeleteButton = alertCustomDialog.findViewById(R.id.request_delete_btn);
             Button RequestAcceptButton = alertCustomDialog.findViewById(R.id.request_accept_btn);
 
-            TVpropertyId.setText(DialogPropertyID.toString());
+            TVpropertyId.setText(PropertyID);
             Log.d("TVpropertyId PropertyID = ", String.valueOf(TVpropertyId));
 
             final AlertDialog dialog = alertDialog.create();
@@ -149,12 +155,41 @@ public class MassagesRequestsAdapter extends RecyclerView.Adapter<MassagesReques
             });
 
             RequestAcceptButton.setOnClickListener(v -> {
-                Toast.makeText(context, "Accept", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+
+                // flow will be paytm -> anil -> anil's data.
+                //I made these function assuming Anil send request to paytm, now Anil is user and Paytm is owner.
+                // in void bind(..) method, I got Anil's ID and propertyID. transfer here as...
+                // anil'sId = SenderUserID , PropertyID = PropertyID, and ownerId = userID.   (because owner can get requested for rend only)
+                DatabaseReference userMassageRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
+                        .child("Send").child(user.getUid());
+
+                Map<String, Object> userMassageData = new HashMap<>();
+                userMassageData.put("userID", SenderUserID);
+                userMassageData.put("PropertyID",PropertyID);
+
+                userMassageRef.child(SenderUserID).setValue(userMassageData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        DatabaseReference userDeleteMassage = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
+                                .child("Receive").child(user.getUid()).child(SenderUserID);
+                        userDeleteMassage.removeValue();
+                        Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
             });
+
             RequestDeleteButton.setOnClickListener(v -> {
-                Toast.makeText(context, "Delete", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
+                DatabaseReference userDeleteMassage = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
+                        .child("Receive").child(user.getUid()).child(SenderUserID);
+                userDeleteMassage.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+
+                    }
+                });
             });
         }
 

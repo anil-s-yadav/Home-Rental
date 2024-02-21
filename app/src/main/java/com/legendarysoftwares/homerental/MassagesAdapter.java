@@ -68,7 +68,7 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
 
         public void bind(Map<String, Object> userData) {
             String userID = (String) userData.get("userID");
-            String propertyID = (String) userData.get("PropertyID");
+            String PropertyID = (String) userData.get("PropertyID");
 
 
             assert userID != null;
@@ -93,7 +93,7 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
                                 intent.putExtra("user_name", senderDisplayName);
                                 intent.putExtra("user_photo", senderPhotoUrl);
                                 intent.putExtra("userID", userID);
-                                intent.putExtra("propertyID", propertyID);
+                                intent.putExtra("PropertyID", PropertyID);
                                 context.startActivity(intent);
                             }
                         });

@@ -50,6 +50,7 @@ public class MassagesActivity extends AppCompatActivity {
         //requestsRecyclerViews = findViewById(R.id.requests_recyclerView);
         progressBar = findViewById(R.id.progressBar);
         NoMassagesLayout = findViewById(R.id.no_massages_view);
+        NoMassagesLayout.setVisibility(View.GONE);
 
         Button goBack = findViewById(R.id.massages_btn_goBack);
         goBack.setOnClickListener(v -> {
@@ -113,6 +114,7 @@ public class MassagesActivity extends AppCompatActivity {
     private void loadRequestsData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            progressBar.setVisibility(View.VISIBLE);
             DatabaseReference requestsRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
                     .child("Receive")
                     .child(user.getUid());
@@ -126,6 +128,9 @@ public class MassagesActivity extends AppCompatActivity {
                         Map<String , Object> requestData = (Map<String, Object>) requestSnapshot.getValue();
                         if (requestData != null) {
                             requestList.add(requestData);
+                            NoMassagesLayout.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            requestsRecyclerView.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -138,15 +143,18 @@ public class MassagesActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     // Handle errors
+                    NoMassagesLayout.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 }
             });
-        }
+        }   else NoMassagesLayout.setVisibility(View.VISIBLE);
     }
 
     // Load data for massages RecyclerView
     private void loadMassagesData() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            progressBar.setVisibility(View.VISIBLE);
             DatabaseReference massagesRef = FirebaseDatabase.getInstance().getReference("Massage Requests Activity")
                     .child("Send")
                     .child(user.getUid());
@@ -160,66 +168,26 @@ public class MassagesActivity extends AppCompatActivity {
                         Map<String, Object> massageData = (Map<String, Object>) massageSnapshot.getValue();
                         if (massageData != null) {
                             massagesList.add(massageData);
+                            NoMassagesLayout.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
 
-                    // Now you have the list of massages, update your RecyclerView adapter
-                    // and notify the adapter about the data change.
-                    // For example, if you're using MassagesAdapter, call massageAdapter.setData(massagesList);
+                    // Now I have the list of massages, update your RecyclerView adapter and notify the adapter about the data change.
+                    // For example, if I using MassagesAdapter, call massageAdapter.setData(massagesList);
                     massagesAdapter.setData(massagesList);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     // Handle errors
+                    progressBar.setVisibility(View.GONE);
+                    NoMassagesLayout.setVisibility(View.VISIBLE);
                 }
             });
-        }
+        } else NoMassagesLayout.setVisibility(View.VISIBLE);
     }
 }
-
-/*
-    private void loadSendUsers() {
-        if (user == null) {
-            return;
-        }
-
-        DatabaseReference massageActivityRef = FirebaseDatabase.getInstance()
-                .getReference("Massage Requests Activity")
-                .child("Send").child(user.getUid());
-
-        massageActivityRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Map<String, Object>> massageUsers = new ArrayList<>();
-
-                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                    Map<String, Object> userData = (Map<String, Object>) userSnapshot.getValue();
-                    if (userData==null){
-                        Log.d("user data = ","null null null null null ");
-                        requestsRecyclerViews.setVisibility(View.GONE);
-                        NoMassagesLayout.setVisibility(View.VISIBLE);
-                    }else {
-                        Log.d("user data = ", Arrays.toString(new Object[]{userData}));
-                        massageUsers.add(userData);
-                        requestsRecyclerViews.setVisibility(View.VISIBLE);
-                        massagesAdapter.setData(massageUsers);
-                        massageRecyclerView.setAdapter(massagesAdapter);
-
-                        progressBar.setVisibility(View.GONE);
-                        NoMassagesLayout.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle errors
-                progressBar.setVisibility(View.GONE);
-            }
-        });
-    }
-*/
 
 
 

@@ -47,16 +47,18 @@
             android:id="@+id/tv_accept_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Accept Request"
+            android:text="Pending"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="viewEnd"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:layout_marginStart="20dp"
             android:drawableEnd="@drawable/angle_right"
             android:drawablePadding="2dp"
             android:textColor="@color/DarkBlue400"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:drawableTint="@color/DarkBlue400"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
 
     </LinearLayout>
 
