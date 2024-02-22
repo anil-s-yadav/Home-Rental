@@ -32,6 +32,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class ChatScreen extends AppCompatActivity {
 
@@ -87,8 +90,12 @@ public class ChatScreen extends AppCompatActivity {
                             if (!reciverUid.equals(ownerId)){
                                 acceptRequestTv.setText("Approve for Rent");
                                 acceptRequestTv.setOnClickListener(v -> {
-                                    //addPropertyToPayRent();
-                                   // addPropertyToCollectRent();
+                                    acceptRequestTv.setOnClickListener(v1 -> {
+                                        addPropertyToPayRent();
+                                        addPropertyToCollectRent();
+                                        acceptRequestTv.setText("Rented Successfully!");
+                                    });
+
                                 });
                             }else {
                                 acceptRequestTv.setText("Panding");
@@ -153,6 +160,34 @@ public class ChatScreen extends AppCompatActivity {
 
 
     }  // On create ends
+
+
+    private void addPropertyToPayRent() {
+        String user = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        DatabaseReference addPropertyToPayRentRef = FirebaseDatabase.getInstance().getReference("PropertyToPayRents")
+                .child(reciverUid).child(PropertyID);
+        // reciverUid id is person who requested for rent. after approval this property goes to his account
+        Map<String, Object> userMassageData = new HashMap<>();
+        userMassageData.put("ownerId",user);  //While approving property current user is the owner
+        userMassageData.put("PropertyID", PropertyID);
+
+        addPropertyToPayRentRef.setValue(userMassageData);
+
+    }
+    private void addPropertyToCollectRent() {
+            String user = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+            DatabaseReference addPropertyToPayRentRef = FirebaseDatabase.getInstance().getReference("PropertyToCollectRents")
+                    .child(user).child(PropertyID);
+
+            Map<String, Object> userMassageData = new HashMap<>();
+            userMassageData.put("RenterUserID",reciverUid );
+            userMassageData.put("PropertyID", PropertyID);
+            Log.d("user = ",""+user+" "+reciverUid);
+
+            addPropertyToPayRentRef.setValue(userMassageData);
+    }
+
+
 
 
     private void sendMassage() {

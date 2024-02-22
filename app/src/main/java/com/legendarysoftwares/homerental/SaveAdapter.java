@@ -1,5 +1,4 @@
 package com.legendarysoftwares.homerental;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -16,12 +14,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.legendarysoftwares.homerental.fragments.Add;
 import com.squareup.picasso.Picasso;
 import android.content.Context; // Import the Context class
 import android.widget.Toast;
@@ -97,9 +91,9 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
             savePostName = itemView.findViewById(R.id.save_post_name);
             savePostAdd = itemView.findViewById(R.id.save_post_add);
             savePostOwner = itemView.findViewById(R.id.save_post_owner);
-            savePostPrice = itemView.findViewById(R.id.save_post_price);
+            savePostPrice = itemView.findViewById(R.id.text_view_property_price);
 
-            savePostImg = itemView.findViewById(R.id.save_post_image);
+            savePostImg = itemView.findViewById(R.id.property_image);
             savePostDelete = itemView.findViewById(R.id.save_post_delete);
         }
     }

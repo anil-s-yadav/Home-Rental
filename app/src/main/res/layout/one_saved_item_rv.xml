@@ -11,7 +11,7 @@
     android:orientation="horizontal">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/save_post_image"
+        android:id="@+id/property_image"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:padding="2dp"
@@ -61,7 +61,7 @@
                 android:layout_weight="1"
                 android:src="@drawable/rupee"/>
             <TextView
-                android:id="@+id/save_post_price"
+                android:id="@+id/text_view_property_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Property Price"
