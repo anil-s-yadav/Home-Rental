@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -32,17 +33,17 @@ public class PayRentActivity extends AppCompatActivity {
         RecyclerView payRentRecyclerView = findViewById(R.id.pay_rent_recyclerView);
 
         payRentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        PayRentAdapter payRentAdapter=new PayRentAdapter(this);
+        PayRentAdapter payRentAdapter = new PayRentAdapter(this);
         payRentRecyclerView.setAdapter(payRentAdapter);
 
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (user != null) {
             progressBar.setVisibility(View.VISIBLE);
-            DatabaseReference propertyToPayRentsRef = FirebaseDatabase.getInstance().getReference("PropertyToPayRents")
-                    .child(user.getUid());
 
-            propertyToPayRentsRef.addValueEventListener(new ValueEventListener() {
+            DatabaseReference propertyToPayRentsRef = FirebaseDatabase.getInstance().getReference("PropertiesOnRent");
+            Query query = propertyToPayRentsRef.orderByChild("userId").equalTo(user);
+
+            query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     List<Map<String, Object>> payRentList = new ArrayList<>();
@@ -65,11 +66,6 @@ public class PayRentActivity extends AppCompatActivity {
                     // Handle errors
                 }
             });
-
         }
-
     }
-
-
-
 }

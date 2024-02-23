@@ -79,6 +79,8 @@ public class PayRentAdapter extends RecyclerView.Adapter<PayRentAdapter.PayRentV
 
         public void bind(Map<String, Object> payRentData) {
             //propertyIdTextView.setText("Property ID: " + payRentData.get("propertyId"));
+            String userId = (String) payRentData.get("userID");
+            String ownerId = (String) payRentData.get("ownerId");
             String PropertyID = (String) payRentData.get("PropertyID");
 
             showPropertyData(PropertyID);
@@ -96,7 +98,7 @@ public class PayRentAdapter extends RecyclerView.Adapter<PayRentAdapter.PayRentV
                     if (snapshot.exists()) {
                         // Get user information
                         String propertyName = snapshot.child("postTitle").getValue(String.class);
-                        String propertyAddress = snapshot.child("postTitle").getValue(String.class);
+                        String propertyAddress = snapshot.child("postAddress").getValue(String.class);
                         String propertyPrice = snapshot.child("postPrice").getValue(String.class);
                         String OwnerName = snapshot.child("ownerName").getValue(String.class);
                         String PropertyImg = snapshot.child("postImageUrl1").getValue(String.class);

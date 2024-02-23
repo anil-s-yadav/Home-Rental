@@ -46,7 +46,7 @@ public class MyPostsOnProfile extends AppCompatActivity {
         noPosts = findViewById(R.id.no_posts);
 
         textViewSeeRequests.setOnClickListener(v -> {
-            Intent intent=new Intent(this, ChatScreen.class);
+            Intent intent=new Intent(this, MassagesActivity.class);
             startActivity(intent);
         });
         textViewEditProfile.setOnClickListener(v -> {

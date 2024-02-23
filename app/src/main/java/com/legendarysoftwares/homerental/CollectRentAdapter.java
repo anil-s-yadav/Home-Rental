@@ -13,6 +13,7 @@ import androidx.appcompat.view.ActionBarPolicy;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +52,10 @@ public class CollectRentAdapter extends RecyclerView.Adapter<CollectRentAdapter.
     public void onBindViewHolder(@NonNull CollectRentAdapter.CollectRentViewHolder holder, int position) {
         Map<String, Object> collectRentData = collectRentList.get(position);
         holder.bind(collectRentData);
+        // Check the activity type and hide the "Pay Rent" button if it's CollectRentActivity
+        if (context instanceof CollectRentAcivity) {
+            holder.paymentBtn.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -66,7 +71,7 @@ public class CollectRentAdapter extends RecyclerView.Adapter<CollectRentAdapter.
         private TextView paymentStatusTextView;
         private TextView paymentAmountTextView;
         private ShapeableImageView propertyImg;
-        private Button paymentBtn, paymentHistoryBtn;
+        private Button paymentBtn,paymentHistoryBtn;
 
         public CollectRentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,24 +83,22 @@ public class CollectRentAdapter extends RecyclerView.Adapter<CollectRentAdapter.
             // paymentStatusTextView = itemView.findViewById(R.id.text_view_payment_status);
             paymentAmountTextView = itemView.findViewById(R.id.text_view_property_price);
             propertyImg = itemView.findViewById(R.id.property_image);
-            paymentBtn.findViewById(R.id.btn_pay_rent);
-            paymentHistoryBtn.findViewById(R.id.btn_payment_history);
+            paymentBtn = itemView.findViewById(R.id.btn_pay_rent);
+            paymentHistoryBtn = itemView.findViewById(R.id.btn_payment_history);
 
-            paymentBtn.setVisibility(View.GONE);
-            paymentHistoryBtn.setVisibility(View.GONE);
         }
 
         public void bind(Map<String, Object> collectRentData) {
-
-
-
+            String userId = (String) collectRentData.get("userID");
+            String ownerId = (String) collectRentData.get("ownerId");
             String PropertyID = (String) collectRentData.get("PropertyID");
 
-            showPropertyData(PropertyID);
-
-
-
+            String user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Log.d("owner user = ",""+ownerId +" "+user);
+                showPropertyData(PropertyID);
         } // void bind(..) ends;
+
+
 
         private void showPropertyData(String propertyID) {
             DatabaseReference propertyRef = FirebaseDatabase.getInstance().getReference("Posted Properties").child(propertyID);
@@ -116,6 +119,8 @@ public class CollectRentAdapter extends RecyclerView.Adapter<CollectRentAdapter.
                         propertyNameTextView.setText(propertyName);
                         propertyAddressTextView.setText(propertyAddress);
                         Picasso.get().load(PropertyImg).into(propertyImg);
+
+
                     } else {
                         Log.d("User not found", "User with UID " + propertyID);
                     }

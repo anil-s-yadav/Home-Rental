@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.legendarysoftwares.homerental.CollectRentAcivity;
 import com.legendarysoftwares.homerental.LoginBottomSheetHelper;
 import com.legendarysoftwares.homerental.MainActivity;
 import com.legendarysoftwares.homerental.MyPostsOnProfile;
@@ -140,7 +141,7 @@ public class Profile extends Fragment {
         });
 
         collectRent.setOnClickListener(v -> {
-            Intent intent=new Intent(getContext(), PayRentActivity.class);
+            Intent intent=new Intent(getContext(), CollectRentAcivity.class);
             startActivity(intent);
         });
 

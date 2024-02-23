@@ -62,53 +62,109 @@ public class ChatScreen extends AppCompatActivity {
 // ------------------------------------------------ Setting Toolbar like Layout ______________________________________________________________________________________________________
 
         // These data come from MassageAdapterIntent
-            Intent MassageAdapterIntent = getIntent();
-            if (MassageAdapterIntent != null) {
-                // These data come from MassageAdapterIntent
-                receiverName = MassageAdapterIntent.getStringExtra("user_name");
-                receiverPhotoUrl = MassageAdapterIntent.getStringExtra("user_photo");
-                reciverUid = MassageAdapterIntent.getStringExtra("userID");
-                PropertyID = MassageAdapterIntent.getStringExtra("PropertyID");
+        Intent MassageAdapterIntent = getIntent();
+        if (MassageAdapterIntent != null) {
+            // These data come from MassageAdapterIntent
+            receiverName = MassageAdapterIntent.getStringExtra("user_name");
+            receiverPhotoUrl = MassageAdapterIntent.getStringExtra("user_photo");
+            reciverUid = MassageAdapterIntent.getStringExtra("userID");
+            PropertyID = MassageAdapterIntent.getStringExtra("PropertyID");
 
-                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Posted Properties").child(PropertyID);
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        // Check if the user exists
-                        if (snapshot.exists()) {
-                            // Get property information
-                            String ownerId = snapshot.child("ownerId").getValue(String.class);
-                            Log.d("ownerId = ",ownerId);
-                            // Set the received data to the TextView and ImageView
-                            if (receiverName != null) {
-                                userNameTextView.setText(receiverName);
-                            }
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Posted Properties").child(PropertyID);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Check if the user exists
+                    if (snapshot.exists()) {
+                        // Get property information
+                        String ownerId = snapshot.child("ownerId").getValue(String.class);
+                        Log.d("ownerId = ", ownerId);
 
-                            if (receiverPhotoUrl != null) {
-                                Picasso.get().load(receiverPhotoUrl).into(userPhotoImageView);
-                            }
-                            if (!reciverUid.equals(ownerId)){
-                                acceptRequestTv.setText("Approve for Rent");
-                                acceptRequestTv.setOnClickListener(v -> {
-                                    acceptRequestTv.setOnClickListener(v1 -> {
-                                        addPropertyToPayRent();
-                                        addPropertyToCollectRent();
-                                        acceptRequestTv.setText("Rented Successfully!");
-                                    });
+                        // Set the received data to the TextView and ImageView
+                        if (receiverName != null)
+                            userNameTextView.setText(receiverName);
 
-                                });
-                            }else {
-                                acceptRequestTv.setText("Panding");
-                            }
+                        if (receiverPhotoUrl != null)
+                            Picasso.get().load(receiverPhotoUrl).into(userPhotoImageView);
+
+                        if (!reciverUid.equals(ownerId)) {
+                            DatabaseReference propertyOnRentRef = FirebaseDatabase.getInstance().getReference("PropertiesOnRent").child(PropertyID);
+                            propertyOnRentRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        String rentalStatus = dataSnapshot.child("rentalStatus").getValue(String.class);
+                                        Log.d("RentalStatus =", "" + rentalStatus);
+
+                                        if ("Rented".equals(rentalStatus)) {
+                                            acceptRequestTv.setText("Rented Successfully!");
+                                            // Disable click listener
+                                            acceptRequestTv.setOnClickListener(null);
+                                        } else {
+                                            acceptRequestTv.setText("Approve for Rent");
+
+                                            // Inside onCreate or where you initialize acceptRequestTv
+                                            acceptRequestTv.setOnClickListener(v -> {
+                                                DatabaseReference propertyRef = FirebaseDatabase.getInstance().getReference("PropertiesOnRent").child(PropertyID);
+                                                Map<String, Object> updateData = new HashMap<>();
+                                                updateData.put("rentalStatus", "Rented");
+                                                updateData.put("ownerId", ownerId);
+                                                updateData.put("userId", reciverUid);
+                                                updateData.put("PropertyID", PropertyID);
+
+                                                propertyRef.updateChildren(updateData)
+                                                        .addOnSuccessListener(aVoid -> {
+                                                            Log.d("FirebaseUpdate = ", "Update successful");
+                                                            acceptRequestTv.setText("Rented Successfully!");
+                                                            // Disable click listener
+                                                            acceptRequestTv.setOnClickListener(null);
+                                                        })
+                                                        .addOnFailureListener(e -> {
+                                                            Log.e("FirebaseUpdate = ", "Update failed: " + e.getMessage());
+                                                        });
+                                            });
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("FirebaseError", "Error fetching rental status: " + error.getMessage());
+                                }
+                            });
+                        } else {
+                            DatabaseReference propertyOnRentRef = FirebaseDatabase.getInstance().getReference("PropertiesOnRent").child(PropertyID);
+                            propertyOnRentRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        String rentalStatus = dataSnapshot.child("rentalStatus").getValue(String.class);
+                                        Log.d("Else RentalStatus =", "" + rentalStatus);
+
+                                        if ("Rented".equals(rentalStatus)) {
+                                            acceptRequestTv.setText("Rented Successfully!");
+                                        } else {
+                                            acceptRequestTv.setText("Panding");
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("FirebaseError", "Error fetching rental status: " + error.getMessage());
+                                }
+                            });
                         }
                     }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle errors
-                    }
-                });
+                }
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle errors
+                }
+            });
+        }
+
+
 
 // ------------------------------ Setting RecyclerView to See massages ______________________________________________________________________________________________________
 
@@ -118,76 +174,39 @@ public class ChatScreen extends AppCompatActivity {
         senderRoom = SenderUID + reciverUid;
         receiverRoom = reciverUid + SenderUID;
 
-            messagesArrayList = new ArrayList<>();
+        messagesArrayList = new ArrayList<>();
 
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            linearLayoutManager.setStackFromEnd(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
 
         msgRecyclerView = findViewById(R.id.msg_recycler_view);
         msgRecyclerView.setLayoutManager(linearLayoutManager);
-            mmessagesAdpter = new ChatScreenAdapter(ChatScreen.this, messagesArrayList);
-            msgRecyclerView.setAdapter(mmessagesAdpter);
+        mmessagesAdpter = new ChatScreenAdapter(ChatScreen.this, messagesArrayList);
+        msgRecyclerView.setAdapter(mmessagesAdpter);
 
 
-            DatabaseReference chatreference = FirebaseDatabase.getInstance().getReference().child("chats").child(senderRoom)
-                    .child("messages");
-
-            chatreference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    messagesArrayList.clear();
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        ChatScreenModelClass messages = dataSnapshot.getValue(ChatScreenModelClass.class);
-                        messagesArrayList.add(messages);
-                    }
-                    mmessagesAdpter.notifyDataSetChanged();
+        DatabaseReference chatreference = FirebaseDatabase.getInstance().getReference().child("chats").child(senderRoom)
+                .child("messages");
+        chatreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messagesArrayList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    ChatScreenModelClass messages = dataSnapshot.getValue(ChatScreenModelClass.class);
+                    messagesArrayList.add(messages);
                 }
+                mmessagesAdpter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
-                }
-            });
-
-
-            sendMassageBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    sendMassage();
-
-                }
-            });
+        sendMassageBtn.setOnClickListener(v -> sendMassage());
 
 
     }  // On create ends
-
-
-    private void addPropertyToPayRent() {
-        String user = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        DatabaseReference addPropertyToPayRentRef = FirebaseDatabase.getInstance().getReference("PropertyToPayRents")
-                .child(reciverUid).child(PropertyID);
-        // reciverUid id is person who requested for rent. after approval this property goes to his account
-        Map<String, Object> userMassageData = new HashMap<>();
-        userMassageData.put("ownerId",user);  //While approving property current user is the owner
-        userMassageData.put("PropertyID", PropertyID);
-
-        addPropertyToPayRentRef.setValue(userMassageData);
-
-    }
-    private void addPropertyToCollectRent() {
-            String user = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-            DatabaseReference addPropertyToPayRentRef = FirebaseDatabase.getInstance().getReference("PropertyToCollectRents")
-                    .child(user).child(PropertyID);
-
-            Map<String, Object> userMassageData = new HashMap<>();
-            userMassageData.put("RenterUserID",reciverUid );
-            userMassageData.put("PropertyID", PropertyID);
-            Log.d("user = ",""+user+" "+reciverUid);
-
-            addPropertyToPayRentRef.setValue(userMassageData);
-    }
-
-
 
 
     private void sendMassage() {
@@ -209,12 +228,7 @@ public class ChatScreen extends AppCompatActivity {
                         FirebaseDatabase.getInstance().getReference().child("chats")
                                 .child(receiverRoom)
                                 .child("messages")
-                                .push().setValue(ChatsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-
-                                    }
-                                });
+                                .push().setValue(ChatsModel);
                     }
                 });
     }

@@ -1,6 +1,7 @@
 package com.legendarysoftwares.homerental;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -174,6 +175,7 @@ public class MassagesRequestsAdapter extends RecyclerView.Adapter<MassagesReques
                                 .child("Receive").child(user.getUid()).child(SenderUserID);
                         userDeleteMassage.removeValue();
                         Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT).show();
+
                         dialog.dismiss();
                     }
                 });

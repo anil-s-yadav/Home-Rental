@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -15,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -39,10 +41,10 @@ public class CollectRentAcivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             progressBar.setVisibility(View.VISIBLE);
-            DatabaseReference propertyCollectRentsRef = FirebaseDatabase.getInstance().getReference("PropertyToCollectRents")
-                    .child(user.getUid());
+            DatabaseReference propertyCollectRentsRef = FirebaseDatabase.getInstance().getReference("PropertiesOnRent");
+            Query query = propertyCollectRentsRef.orderByChild("ownerId").equalTo(user.getUid());
 
-            propertyCollectRentsRef.addValueEventListener(new ValueEventListener() {
+            query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     List<Map<String, Object>> collectRentList = new ArrayList<>();
@@ -52,6 +54,8 @@ public class CollectRentAcivity extends AppCompatActivity {
                         Map<String, Object> collectRentData = (Map<String, Object>) propertySnapshot.getValue();
                         if (collectRentData != null) {
                             collectRentList.add(collectRentData);
+                            Log.d("owner user = ",""+propertyCollectRentsRef.orderByChild("ownerId")+user.getUid());
+
                         }
                     }
 
