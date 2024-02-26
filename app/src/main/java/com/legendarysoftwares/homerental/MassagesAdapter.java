@@ -2,15 +2,20 @@ package com.legendarysoftwares.homerental;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,7 +48,6 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
             Map<String, Object> userData = massageUsers.get(position);
             holder.bind(userData);
         }
-
     }
 
     @Override
@@ -58,30 +62,54 @@ public class MassagesAdapter extends RecyclerView.Adapter<MassagesAdapter.Massag
 
         public MassageViewHolder(@NonNull View itemView) {
             super(itemView);
-            userNameTextView = itemView.findViewById(R.id.massage_activity_sender_name);
-            userPhoto = itemView.findViewById(R.id.massage_activity_sender_dp);
+            userNameTextView = itemView.findViewById(R.id.requests_activity_sender_name);
+            userPhoto = itemView.findViewById(R.id.requests_activity_sender_dp);
         }
 
         public void bind(Map<String, Object> userData) {
-            String name = (String) userData.get("name");
-            String photoUrl = (String) userData.get("photo");
             String userID = (String) userData.get("userID");
-            // Assuming "name" is the key for the user's name in the map
-            userNameTextView.setText(name);
-            Picasso.get().load(photoUrl).into(userPhoto);
+            String PropertyID = (String) userData.get("PropertyID");
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            assert userID != null;
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Registered Users").child(userID);
+
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, ChatScreen.class);
-                    intent.putExtra("user_name", name);
-                    intent.putExtra("user_photo", photoUrl);
-                    intent.putExtra("userID", userID);
-                    context.startActivity(intent);
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    // Check if the user exists
+                    if (snapshot.exists()) {
+                        // Get user information
+                        String senderDisplayName = snapshot.child("name").getValue(String.class);
+                        String senderPhotoUrl = snapshot.child("photo").getValue(String.class);
+
+                        // Set user information to the views
+                        userNameTextView.setText(senderDisplayName);
+                        Picasso.get().load(senderPhotoUrl).into(userPhoto);
+                        itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(context, ChatScreen.class);
+                                intent.putExtra("user_name", senderDisplayName);
+                                intent.putExtra("user_photo", senderPhotoUrl);
+                                intent.putExtra("userID", userID);
+                                intent.putExtra("PropertyID", PropertyID);
+                                context.startActivity(intent);
+                            }
+                        });
+
+                    } else {
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    // Handle errors
                 }
             });
-        }
 
+
+
+        }
     }
 }
+

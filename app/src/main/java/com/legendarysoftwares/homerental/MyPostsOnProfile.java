@@ -46,7 +46,7 @@ public class MyPostsOnProfile extends AppCompatActivity {
         noPosts = findViewById(R.id.no_posts);
 
         textViewSeeRequests.setOnClickListener(v -> {
-            Intent intent=new Intent(this, ChatScreen.class);
+            Intent intent=new Intent(this, MassagesActivity.class);
             startActivity(intent);
         });
         textViewEditProfile.setOnClickListener(v -> {
@@ -58,6 +58,7 @@ public class MyPostsOnProfile extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
+            user.reload();
             textViewUserName.setText(user.getDisplayName());
             Picasso.get().load(user.getPhotoUrl()).into(userProfile);
 

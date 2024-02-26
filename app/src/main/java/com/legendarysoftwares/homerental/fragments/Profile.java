@@ -2,14 +2,12 @@ package com.legendarysoftwares.homerental.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,30 +15,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.legendarysoftwares.homerental.CollectRentAcivity;
 import com.legendarysoftwares.homerental.LoginBottomSheetHelper;
 import com.legendarysoftwares.homerental.MainActivity;
 import com.legendarysoftwares.homerental.MyPostsOnProfile;
+import com.legendarysoftwares.homerental.PayRentActivity;
 import com.legendarysoftwares.homerental.R;
-import com.legendarysoftwares.homerental.ReadWriteUserDetailsModel;
 import com.legendarysoftwares.homerental.UpdateProfileActivity;
-import com.legendarysoftwares.homerental.UploadProfilePicActivity;
 import com.squareup.picasso.Picasso;
-
-import java.util.Objects;
 
 public class Profile extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private ConstraintLayout openProfile, collectRent, payRent;
 
     public Profile() {
         // Required empty public constructor
@@ -56,7 +46,10 @@ public class Profile extends Fragment {
         TextView changePassword = view.findViewById(R.id.profile_update_password);
         TextView deleteUser = view.findViewById(R.id.profile_delete_profile);
         TextView logout = view.findViewById(R.id.profile_logout);
-        ImageView openProfile = view.findViewById(R.id.imageView_open_profile);
+        openProfile = view.findViewById(R.id.layout_open_profile);
+        payRent = view.findViewById(R.id.layout_pay_rent);
+        collectRent = view.findViewById(R.id.layout_collect_rent);
+
 
         TextView textViewHelloName = view.findViewById(R.id.textView_hello_name);
         TextView textViewEmail = view.findViewById(R.id.textView_show_email);
@@ -88,7 +81,7 @@ public class Profile extends Fragment {
         userProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getContext(), UploadProfilePicActivity.class);
+                Intent intent=new Intent(getContext(), MyPostsOnProfile.class);
                 startActivity(intent);
             }
         });
@@ -137,12 +130,19 @@ public class Profile extends Fragment {
             }
         });
 
-        openProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        openProfile.setOnClickListener(v -> {
                 Intent intent=new Intent(getContext(), MyPostsOnProfile.class);
                 startActivity(intent);
-            }
+        });
+
+        payRent.setOnClickListener(v -> {
+            Intent intent=new Intent(getContext(), PayRentActivity.class);
+            startActivity(intent);
+        });
+
+        collectRent.setOnClickListener(v -> {
+            Intent intent=new Intent(getContext(), CollectRentAcivity.class);
+            startActivity(intent);
         });
 
 
@@ -184,12 +184,17 @@ public class Profile extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        user.reload();
+        if (user!=null) {
+            user.reload();
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        user.reload();
+        super.onResume();
+        if (user!=null) {
+            user.reload();
+        }
     }
 }

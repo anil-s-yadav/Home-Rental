@@ -7,8 +7,10 @@
     android:layout_height="wrap_content"
     android:background="@color/White"
     android:backgroundTint="@color/White"
-    app:cardCornerRadius="2dp"
-    android:layout_margin="6dp">
+    app:cardCornerRadius="8dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,17 +19,18 @@
 
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/massage_activity_sender_dp"
+            android:id="@+id/requests_activity_sender_dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"
-            android:background="@color/DarkBlue400"
+            android:scaleType="centerCrop"
+            android:background="@color/DarkBlue100"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/Circular" />
 
         <TextView
-            android:id="@+id/massage_activity_sender_name"
+            android:id="@+id/requests_activity_sender_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
@@ -36,7 +39,7 @@
             android:text="User Name"
             android:textColor="@color/DarkBlue400"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/massage_activity_sender_dp"
+            app:layout_constraintStart_toEndOf="@+id/requests_activity_sender_dp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -45,9 +48,9 @@
             android:layout_height="wrap_content"
             android:text="Last Massage"
             android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="@+id/massage_activity_sender_name"
-            app:layout_constraintStart_toStartOf="@+id/massage_activity_sender_name"
-            app:layout_constraintTop_toBottomOf="@+id/massage_activity_sender_name" />
+            app:layout_constraintEnd_toEndOf="@+id/requests_activity_sender_name"
+            app:layout_constraintStart_toStartOf="@+id/requests_activity_sender_name"
+            app:layout_constraintTop_toBottomOf="@+id/requests_activity_sender_name" />
 
         <TextView
             android:id="@+id/massage_activity_send_time"
@@ -71,7 +74,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/massage_activity_sender_dp" />
+            app:layout_constraintTop_toBottomOf="@+id/requests_activity_sender_dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_bg"
+        android:backgroundTint="@color/White"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="20dp">
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_marginEnd="-11dp"
+            android:background="@android:color/transparent"
+            android:text="X"
+            android:textSize="22sp"
+            android:textColor="#FF1F1F"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="52dp"
+            android:text="Create a request"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/request_massage"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/blue_bg"
+            android:backgroundTint="@color/DarkBlue100"
+            android:hint="Write a message for request"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <Button
+            android:id="@+id/send_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:textSize="19sp"
+            android:layout_marginBottom="22dp"
+            android:backgroundTint="@color/DarkBlue400"
+            android:text="Send"
+            app:backgroundTint="@color/purple_500" />
+
+    </LinearLayout>
+
+
+    <ViewFlipper
+        android:id="@+id/imageFlipper"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:autoStart="true"
+        android:flipInterval="2000"
+        android:layout_marginTop="10dp"
+        android:inAnimation="@anim/slide_in_right"
+        android:outAnimation="@anim/slide_out_left"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_img_preview1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/DarkBlue100"
+            android:elevation="10dp"
+            android:layout_gravity="center"
+            app:shapeAppearanceOverlay="@style/Circular"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_img_preview2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/DarkBlue100"
+            android:elevation="10dp"
+            android:layout_gravity="center"
+            app:shapeAppearanceOverlay="@style/Circular"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_img_preview3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/DarkBlue100"
+            android:elevation="10dp"
+            android:layout_gravity="center"
+            app:shapeAppearanceOverlay="@style/Circular"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_img_preview4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/DarkBlue100"
+            android:elevation="10dp"
+            android:layout_gravity="center"
+            app:shapeAppearanceOverlay="@style/Circular"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_img_preview5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/DarkBlue100"
+            android:elevation="10dp"
+            android:layout_gravity="center"
+            app:shapeAppearanceOverlay="@style/Circular"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_img_preview6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/DarkBlue100"
+            android:elevation="10dp"
+            android:layout_gravity="center"
+            app:shapeAppearanceOverlay="@style/Circular"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </ViewFlipper>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_bg"
+        android:backgroundTint="@color/White"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:elevation="6dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="20dp">
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_marginEnd="-11dp"
+            android:background="@android:color/transparent"
+            android:text="X"
+            android:textSize="22sp"
+            android:textColor="#FF1F1F"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="22dp"
+            android:text="Create a request"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/request_massage"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/blue_bg"
+            android:backgroundTint="@color/DarkBlue100"
+            android:hint="Write a message for request"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <Button
+            android:id="@+id/send_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:textSize="19sp"
+            android:layout_marginBottom="22dp"
+            android:backgroundTint="@color/DarkBlue400"
+            android:text="Send"
+            app:backgroundTint="@color/purple_500" />
+
+    </LinearLayout>
+
+    <ViewFlipper
+        android:id="@+id/imageFlipper"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
+        android:autoStart="true"
+        android:background="@color/black"
+        android:clipToPadding="false"
+        android:flipInterval="3000"
+        android:inAnimation="@anim/slide_in_right"
+        android:outAnimation="@anim/slide_out_left"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_img_preview"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@color/DarkBlue100"
+            android:elevation="10dp"
+            android:padding="10dp"
+            app:shapeAppearanceOverlay="@style/Circular" />
+
+    </ViewFlipper>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>-->

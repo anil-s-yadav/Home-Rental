@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/chat_backgroung_img"
     tools:context=".ChatScreen">
 
     <LinearLayout
@@ -11,91 +12,149 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/DarkBlue500"
-        android:backgroundTint="@color/DarkBlue400"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:backgroundTint="@color/DarkBlue100"
+        android:padding="2dp"
+        android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
             android:layout_marginTop="8dp"
+            app:tint="@color/DarkBlue400"
             android:layout_marginBottom="10dp"
             android:src="@drawable/back_button" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/chat_userPhoto"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            app:shapeAppearanceOverlay="@style/Circular"
+            android:background="@color/DarkBlue200"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="14dp"
-            android:src="@drawable/no_profile_pic" />
+            android:layout_marginStart="14dp"/>
 
         <TextView
             android:id="@+id/chat_userName"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="14dp"
             android:text="User Name"
-            android:textColor="@color/White"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <Button
+            android:lines="1"
+            android:textColor="@color/DarkBlue400"
+            android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/tv_accept_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="viewEnd"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="54dp"
-            android:backgroundTint="@color/White"
-            android:text="Accept Request"
-            android:textColor="@color/DarkBlue500"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:drawableEnd="@drawable/angle_right"
+            android:drawablePadding="2dp"
+            android:textColor="@color/DarkBlue400"
+            android:textSize="13sp"
+            android:drawableTint="@color/DarkBlue400"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:padding="12dp"
         android:id="@+id/msg_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        android:layout_above="@+id/linearLayout_typing"
+        android:padding="12dp"/>
 
+<!--
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout_accept_alert"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/msg_recycler_view"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_centerInParent="true"
+        android:background="@drawable/blue_bg"
+        android:orientation="vertical">
 
-        <ImageView
+        <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingStart="8dp"
+            android:paddingTop="16dp"
+            android:text="Request by, User Name" />
+
+        <TextView
+            android:id="@+id/tv_property_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Anil Yadav Is requested " />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/alert_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_stoke_square"
+                android:text="Back"
+                android:textColor="@color/DarkBlue400" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/alert_accept_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_margin="14dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_stoke_square"
+                android:backgroundTint="@color/DarkBlue300"
+                android:text="Accept"
+                android:textColor="@color/White" />
+        </LinearLayout>
+    </LinearLayout>
+-->
+
+    <LinearLayout
+        android:id="@+id/linearLayout_typing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:background="#231C1C1C"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/back_button" />
+            android:src="@drawable/uploaded_post"
+            app:tint="@color/White" />
 
         <EditText
             android:id="@+id/editText_typed_massage"
             android:layout_width="280dp"
             android:layout_height="48dp"
-            android:hint="Type Massage"
             android:layout_marginStart="20dp"
-            android:background="@drawable/blue_bg"
-            android:backgroundTint="@color/DarkBlue100"
+            android:background="@drawable/green_bg_text"
+            android:backgroundTint="@color/White"
+            android:hint="Type Massage"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            />
+            android:textColorHint="@color/DarkBlue200" />
 
         <ImageView
             android:id="@+id/imageView_send_msg"
@@ -104,8 +163,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_email" />
+            android:src="@drawable/ic_send" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

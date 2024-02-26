@@ -23,8 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/DarkBlue500"
-                android:backgroundTint="@color/DarkBlue400"
+                android:background="@color/DarkBlue300"
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
                 <ImageView
@@ -39,7 +38,6 @@
                     android:layout_height="wrap_content"
                     android:text="Create new Account"
                     android:textColor="@color/White"
-                    android:textStyle="bold"
                     android:textSize="18sp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"

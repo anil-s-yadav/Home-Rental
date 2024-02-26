@@ -14,6 +14,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/Circular"
         android:background="@color/DarkBlue200"/>
 
@@ -27,7 +28,5 @@
         android:layout_toRightOf="@id/receiver_profile"
         android:padding="7dp"
         android:text="receive"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
+        android:textColor="@color/black"/>
 </RelativeLayout>
