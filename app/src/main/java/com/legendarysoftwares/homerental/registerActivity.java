@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -75,6 +77,35 @@ public class registerActivity extends AppCompatActivity {
         openGalleryBtn.setOnClickListener(v -> {
             openGallery();
         });
+
+
+        ImageView imageViewShowHidePwd = findViewById(R.id.imageView_show_hide_pwd);
+        ImageView imageViewShowHideConfirmPwd = findViewById(R.id.imageView_show_hide_confirm_pwd);
+        imageViewShowHidePwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextRegisterPwd.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                    editTextRegisterPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    imageViewShowHidePwd.setImageResource(R.drawable.eye_close);
+                }else {
+                    editTextRegisterPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    imageViewShowHidePwd.setImageResource(R.drawable.eye_open);
+                }
+            }
+        });
+        imageViewShowHideConfirmPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextRegisterConfirmPwd.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                    editTextRegisterConfirmPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    imageViewShowHideConfirmPwd.setImageResource(R.drawable.eye_close);
+                }else {
+                    editTextRegisterConfirmPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    imageViewShowHideConfirmPwd.setImageResource(R.drawable.eye_open);
+                }
+            }
+        });
+
 
         //Radio button for gender
         radioGroupRegisterGender=findViewById(R.id.radio_group_register_gender);

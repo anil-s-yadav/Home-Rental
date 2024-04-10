@@ -115,7 +115,7 @@
                     android:text="Male"
                     android:paddingStart="15dp"
                     android:paddingEnd="15dp"
-                    android:textColor="@color/DarkBlue300"
+                    android:textColor="@drawable/radio_text_color"
                     android:elevation="2dp"
                     android:button="@android:color/transparent"
                     android:background="@drawable/radio_selector"
@@ -131,7 +131,7 @@
                     android:layout_marginStart="20dp"
                     android:button="@android:color/transparent"
                     android:background="@drawable/radio_selector"
-                    android:textColor="@color/Pink"
+                    android:textColor="@drawable/radio_text_color"
                     android:elevation="2dp"
                     />
 

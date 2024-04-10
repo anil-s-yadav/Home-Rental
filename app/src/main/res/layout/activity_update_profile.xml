@@ -59,7 +59,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Create new Account"
+                        android:text="Update Profile"
                         android:textColor="@color/White"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -122,26 +122,26 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:layout_marginLeft="20dp"
-                        android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
+                        android:background="@drawable/radio_selector"
+                        android:textColor="@drawable/radio_text_color"
                         android:elevation="2dp"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
-                        android:text="Male"
-                        android:textColor="@color/DarkBlue300" />
+                        android:text="Male"/>
 
                     <RadioButton
                         android:id="@+id/radio_female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:background="@drawable/radio_selector"
                         android:button="@android:color/transparent"
+                        android:background="@drawable/radio_selector"
+                        android:textColor="@drawable/radio_text_color"
                         android:elevation="2dp"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
-                        android:text="Female"
-                        android:textColor="@color/Pink" />
+                        android:text="Female"/>
 
                 </RadioGroup>
 

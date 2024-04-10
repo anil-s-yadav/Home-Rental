@@ -4,12 +4,32 @@ public class PostPropertyModel {
 
     private long timestamp;
     private String postTitle, postAddress, postPrice, propertyId, ownerId, ownerName, ownerPhoto,
-            postImageUrl1, postImageUrl2, postImageUrl3, postImageUrl4, postImageUrl5,postImageUrl6;
+            postImageUrl1, postImageUrl2, postImageUrl3, postImageUrl4, postImageUrl5, postImageUrl6;
 
+    // Constructor with image URLs
+    public PostPropertyModel(long timestamp, String propertyId, String ownerId, String postTitle,
+                             String postAddress, String postPrice,
+                             String ownerName, String ownerPhoto,
+                             String postImageUrl1, String postImageUrl2,
+                             String postImageUrl3, String postImageUrl4,
+                             String postImageUrl5, String postImageUrl6) {
+        this.timestamp = timestamp;
+        this.propertyId = propertyId;
+        this.ownerId = ownerId;
+        this.postTitle = postTitle;
+        this.postAddress = postAddress;
+        this.postPrice = postPrice;
+        this.ownerName = ownerName;
+        this.ownerPhoto = ownerPhoto;
+        this.postImageUrl1 = postImageUrl1;
+        this.postImageUrl2 = postImageUrl2;
+        this.postImageUrl3 = postImageUrl3;
+        this.postImageUrl4 = postImageUrl4;
+        this.postImageUrl5 = postImageUrl5;
+        this.postImageUrl6 = postImageUrl6;
+    }
 
-
-
-    // New constructor without image URLs
+    // Constructor without image URLs
     public PostPropertyModel(long timestamp,String propertyId, String ownerId, String postTitle,
                              String postAddress, String postPrice,
                              String ownerName, String ownerPhoto) {
@@ -23,10 +43,10 @@ public class PostPropertyModel {
         this.ownerPhoto = ownerPhoto;
     }
 
-    // Method to set image URLs separately
-    public void setPostImageUrls(String postImageUrl1, String postImageUrl2,
-                                 String postImageUrl3, String postImageUrl4,
-                                 String postImageUrl5, String postImageUrl6) {
+    // Constructor with only image URLs
+    public PostPropertyModel(String postImageUrl1, String postImageUrl2,
+                             String postImageUrl3, String postImageUrl4,
+                             String postImageUrl5, String postImageUrl6) {
         this.postImageUrl1 = postImageUrl1;
         this.postImageUrl2 = postImageUrl2;
         this.postImageUrl3 = postImageUrl3;
@@ -34,7 +54,6 @@ public class PostPropertyModel {
         this.postImageUrl5 = postImageUrl5;
         this.postImageUrl6 = postImageUrl6;
     }
-
 
 
     public PostPropertyModel() {}

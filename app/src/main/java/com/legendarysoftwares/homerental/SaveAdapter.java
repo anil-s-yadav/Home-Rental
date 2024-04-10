@@ -17,6 +17,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.legendarysoftwares.homerental.fragments.Search;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import android.content.Context; // Import the Context class
 import android.widget.Toast;
@@ -42,9 +43,12 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
 
         holder.savePostName.setText(model.getPostTitle());
         holder.savePostAdd.setText(model.getPostAddress());
-        holder.savePostOwner.setText("By, "+model.getOwnerName());
+        holder.savePostOwner.setText(String.format("By, %s", model.getOwnerName()));
         holder.savePostPrice.setText(model.getPostPrice());
-        Picasso.get().load(model.getPostImageUrl1()).into(holder.savePostImg);
+
+        Log.e("Picasso", "Error loading image: " + model.getPostImageUrl2());
+
+        Picasso.get().load(model.getPostImageUrl2()).into(holder.savePostImg);
 
         holder.savePostDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +100,7 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
 
             savePostImg = itemView.findViewById(R.id.property_image);
             savePostDelete = itemView.findViewById(R.id.save_post_delete);
+
         }
     }
 
