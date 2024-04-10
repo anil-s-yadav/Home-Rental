@@ -371,12 +371,62 @@
                 android:id="@+id/tv_about_user_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem_ipsum"
+                android:text="Not available"
                 android:padding="10dp"
                 android:background="@color/White150"
                 android:maxLines="18"
                 android:justificationMode="inter_word"
+                android:layout_marginBottom="8dp"
                 android:layout_below="@+id/tv_about_user"/>
+            <TextView
+                android:id="@+id/tv_rera_id"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tv_about_user_data"
+                android:background="@color/Green150"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:text="RERA ID : 225463215896"
+                />
+
+
+            <TableLayout
+                android:id="@+id/tableLayout_amanities"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#B8E9FF"
+                android:layout_below="@+id/tv_rera_id"
+                android:layout_marginBottom="50dp"
+                android:gravity="center">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/house"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="Sumingpool"
+                        />
+
+                </TableRow>
+
+            </TableLayout>
+
+
+
+
 
            <!-- <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

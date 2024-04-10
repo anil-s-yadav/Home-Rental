@@ -282,7 +282,38 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 }
             });
         }else {
-            Toast.makeText(UpdateProfileActivity.this, "Image not selected!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(UpdateProfileActivity.this, "Image not selected!", Toast.LENGTH_SHORT).show();
+            UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder()
+                    .setDisplayName(textFullName).build();
+            user.updateProfile(profileChangeRequest).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    String email = user.getEmail();
+                    String userPhoto = user.getPhotoUrl().toString();
+                    // Insert data to Firebase Realtime Database
+                    ReadWriteUserDetailsModel writeUserDetailsModel = new ReadWriteUserDetailsModel(textFullName,userPhoto, email, textDOB, textGender, textMobile, aboutUser);
+                    DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
+                    referenceProfile.child(user.getUid()).setValue(writeUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+
+                            if (task.isSuccessful()) {
+
+
+                            } else {
+                            }
+                        }
+                    });
+
+                    Toast.makeText(UpdateProfileActivity.this, "Profile Updated Successfully!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+
+                    Intent intent=new Intent(UpdateProfileActivity.this, MyPostsOnProfile.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            |Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
