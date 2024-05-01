@@ -37,24 +37,24 @@
             android:id="@+id/massages"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="fitCenter"
-            android:layout_marginEnd="8dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/messages" />
 
         <ImageButton
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="fitCenter"
-            android:backgroundTint="@android:color/transparent"
-            app:srcCompat="@drawable/notificaction_icon"
+            android:layout_alignEnd="@+id/massages"
             android:layout_centerVertical="true"
             android:layout_marginEnd="50dp"
-            android:layout_alignEnd="@+id/massages"
-
+            android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
             android:scaleX="-1"
-            />
+            app:srcCompat="@drawable/notificaction_icon" />
 
     </RelativeLayout>           <!-- ToolBar -->
 
@@ -183,7 +183,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_house"
+                            android:id="@+id/home_house"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/house"/>
@@ -193,8 +193,8 @@
                             android:layout_marginTop="1.5dp"
                             android:textSize="11sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_house"/>
+                            android:text="House"
+                            android:layout_below="@+id/home_house"/>
                     </RelativeLayout>             <!-- house -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -205,7 +205,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_flat"
+                            android:id="@+id/home_flat"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/flat"/>
@@ -215,8 +215,8 @@
                             android:layout_marginTop="1.5dp"
                             android:textSize="11sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_flat"/>
+                            android:text="Flat"
+                            android:layout_below="@+id/home_flat"/>
                     </RelativeLayout>             <!-- flat -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -227,7 +227,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_plot"
+                            android:id="@+id/home_plot"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/plot"/>
@@ -237,8 +237,8 @@
                             android:layout_marginTop="1.5dp"
                             android:textSize="11sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_plot"/>
+                            android:text="Plot"
+                            android:layout_below="@+id/home_plot"/>
                     </RelativeLayout>             <!-- plot -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -249,7 +249,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">               <!-- office -->
                         <ImageView
-                            android:id="@+id/search_office_space"
+                            android:id="@+id/home_office_space"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/office_space"/>
@@ -260,7 +260,7 @@
                             android:textSize="11sp"
                             android:textAlignment="center"
                             android:text="Office"
-                            android:layout_below="@+id/search_office_space"/>
+                            android:layout_below="@+id/home_office_space"/>
                     </RelativeLayout>             <!-- office -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -271,7 +271,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_shop"
+                            android:id="@+id/home_shop"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/shop"/>
@@ -281,7 +281,7 @@
                             android:layout_marginTop="1.5dp"
                             android:textSize="11sp"
                             android:textAlignment="center"
-                            android:layout_below="@+id/search_shop"
+                            android:layout_below="@+id/home_shop"
                             android:text="Shop"/>
                     </RelativeLayout>             <!-- shop -->
                     <RelativeLayout
@@ -293,7 +293,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_pg"
+                            android:id="@+id/home_pg"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/pg"/>
@@ -303,8 +303,8 @@
                             android:layout_marginTop="1.5dp"
                             android:textSize="11sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_pg"/>
+                            android:text="PG"
+                            android:layout_below="@+id/home_pg"/>
                     </RelativeLayout>             <!-- pg -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -315,7 +315,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_villa"
+                            android:id="@+id/home_villa"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/villa"/>
@@ -325,8 +325,8 @@
                             android:layout_marginTop="1.5dp"
                             android:textSize="11sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_villa"/>
+                            android:text="Villa"
+                            android:layout_below="@+id/home_villa"/>
                     </RelativeLayout>             <!-- villa -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -337,7 +337,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_bunglow"
+                            android:id="@+id/home_bunglow"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/bungalow"/>
@@ -345,10 +345,10 @@
                             android:layout_width="36dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
+                            android:textSize="10sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_bunglow"/>
+                            android:text="Bunglow"
+                            android:layout_below="@+id/home_bunglow"/>
                     </RelativeLayout>             <!-- bungalow -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -359,7 +359,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_outlets"
+                            android:id="@+id/home_outlets"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/outlet"/>
@@ -370,7 +370,7 @@
                             android:textSize="11sp"
                             android:textAlignment="center"
                             android:text="Outlet"
-                            android:layout_below="@+id/search_outlets"/>
+                            android:layout_below="@+id/home_outlets"/>
                     </RelativeLayout>             <!-- Outlet -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -381,7 +381,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_factory"
+                            android:id="@+id/home_factory"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/factory"/>
@@ -392,7 +392,7 @@
                             android:textSize="11sp"
                             android:textAlignment="center"
                             android:text="Factory"
-                            android:layout_below="@+id/search_factory"/>
+                            android:layout_below="@+id/home_factory"/>
                     </RelativeLayout>             <!-- Factory -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -403,7 +403,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_cafe"
+                            android:id="@+id/home_cafe"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/cafe"/>
@@ -414,7 +414,7 @@
                             android:textSize="11sp"
                             android:textAlignment="center"
                             android:text="Cafe"
-                            android:layout_below="@+id/search_cafe"/>
+                            android:layout_below="@+id/home_cafe"/>
                     </RelativeLayout>             <!-- Cafe -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -425,7 +425,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_hostel"
+                            android:id="@+id/home_hostel"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/hostel"/>
@@ -436,7 +436,7 @@
                             android:textSize="11sp"
                             android:textAlignment="center"
                             android:text="Hostel"
-                            android:layout_below="@+id/search_hostel"/>
+                            android:layout_below="@+id/home_hostel"/>
                     </RelativeLayout>             <!-- Hostel -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -446,7 +446,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_warehouse"
+                            android:id="@+id/home_warehouse"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:layout_marginStart="9dp"
@@ -458,7 +458,7 @@
                             android:textSize="10sp"
                             android:layout_marginStart="3dp"
                             android:text="Warehouse"
-                            android:layout_below="@+id/search_warehouse"/>
+                            android:layout_below="@+id/home_warehouse"/>
                     </RelativeLayout>             <!-- Warehouse -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -469,7 +469,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_cottage"
+                            android:id="@+id/home_cottage"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/cottage"/>
@@ -477,10 +477,10 @@
                             android:layout_width="36dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
+                            android:textSize="10sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_cottage"/>
+                            android:text="Cottage"
+                            android:layout_below="@+id/home_cottage"/>
                     </RelativeLayout>             <!-- cottage -->
                     <RelativeLayout
                         android:layout_width="58dp"
@@ -491,7 +491,7 @@
                         android:paddingTop="2dp"
                         android:layout_marginEnd="25dp">
                         <ImageView
-                            android:id="@+id/search_farmhouse"
+                            android:id="@+id/home_farmhouse"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:src="@drawable/farmhouse"/>
@@ -499,10 +499,10 @@
                             android:layout_width="36dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
+                            android:textSize="10sp"
                             android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_farmhouse"/>
+                            android:text="Farmhouse"
+                            android:layout_below="@+id/home_farmhouse"/>
                     </RelativeLayout>             <!-- farmhouse -->
 
                 </LinearLayout>

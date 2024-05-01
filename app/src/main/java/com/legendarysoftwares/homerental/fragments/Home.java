@@ -27,9 +27,13 @@ import com.legendarysoftwares.homerental.HomeAdapter;
 import com.legendarysoftwares.homerental.MassagesActivity;
 import com.legendarysoftwares.homerental.PostPropertyModel;
 import com.legendarysoftwares.homerental.R;
+import com.legendarysoftwares.homerental.ResultActivity;
 
 public class Home extends Fragment {
     public Home() {}
+
+    private ImageView House, Flat, Plot, Office, Shop, PG, Villa, Bunglow, Outlet, Factory, Cafe,
+    Hostel, Warehouse, Cottage, Farmhouse;
 
     private RecyclerView homeRecyclerView;
     private HomeAdapter homeAdapter; // Declare the adapter as a field
@@ -39,34 +43,49 @@ public class Home extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        House= view.findViewById(R.id.home_house);
+        Flat= view.findViewById(R.id.home_flat);
+        Plot= view.findViewById(R.id.home_plot);
+        Office= view.findViewById(R.id.home_office_space);
+        Shop= view.findViewById(R.id.home_shop);
+        PG= view.findViewById(R.id.home_pg);
+        Villa= view.findViewById(R.id.home_villa);
+        Bunglow= view.findViewById(R.id.home_bunglow);
+        Outlet= view.findViewById(R.id.home_outlets);
+        Factory= view.findViewById(R.id.home_factory);
+        Cafe= view.findViewById(R.id.home_cafe);
+        Hostel= view.findViewById(R.id.home_hostel);
+        Warehouse= view.findViewById(R.id.home_warehouse);
+        Cottage= view.findViewById(R.id.home_cottage);
+        Farmhouse= view.findViewById(R.id.home_farmhouse);
+
+// Assuming all your views are in an array or list
+        View[] views = {House, Flat, Plot, Office, Shop, PG, Villa, Bunglow, Outlet, Factory, Cafe, Hostel, Warehouse, Cottage, Farmhouse};
+        String[] names = {"House", "Flat", "Plot", "Office", "Shop", "PG", "Villa", "Bunglow", "Outlet", "Factory", "Cafe", "Hostel", "Warehouse", "Cottage", "Farmhouse"};
+
+        for (int i = 0; i < views.length; i++) {
+            final String name = names[i];
+            final View itemViews = views[i];
+
+            itemViews.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ResultActivity.class);
+                intent.putExtra("Type", name);
+                getContext().startActivity(intent);
+            });
+        }
+
+
+
 
         homeRecyclerView = view.findViewById(R.id.home_recycler_view);
         ImageButton openMassageActivity = view.findViewById(R.id.massages);
 
         ShimmerFrameLayout shimmer = view.findViewById(R.id.home_shimmer);
         shimmer.startShimmer();
-
-        ShapeableImageView ViewFlipperImage1 = view.findViewById(R.id.Images_In_Image_Slider1);
-        ShapeableImageView ViewFlipperImage2 = view.findViewById(R.id.Images_In_Image_Slider2);
-        ShapeableImageView ViewFlipperImage3 = view.findViewById(R.id.Images_In_Image_Slider3);
-        ShapeableImageView ViewFlipperImage4 = view.findViewById(R.id.Images_In_Image_Slider4);
-        ShapeableImageView ViewFlipperImage5 = view.findViewById(R.id.Images_In_Image_Slider5);
-        ShapeableImageView ViewFlipperImage6 = view.findViewById(R.id.Images_In_Image_Slider6);
-
-       // Uri TT = Uri.parse("https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2015%2F04%2F23%2F22%2F00%2Ftree-736885_1280.jpg&tbnid=aVgXecnmQ_f1MM&vet=12ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN..i&imgrefurl=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fsea%2F&docid=QG4MQQA3E95exM&w=1280&h=797&q=image&ved=2ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN");
-
-        //ViewFlipperImage1.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(15).jpeg?alt=media&token=9dd7941e-bffa-45ea-91eb-23039ee9dd4c"));
-       // ViewFlipperImage2.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(14).jpeg?alt=media&token=0ff732f4-60bb-4faf-af8b-7de51e0073dd"));
-      //  ViewFlipperImage3.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(16).jpeg?alt=media&token=e0dcc598-9e99-4d35-a51a-ed322fe8fd1d"));
-       // ViewFlipperImage4.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(18).jpeg?alt=media&token=40f4878a-20fa-4162-946c-84d505ca0c64"));
-       // ViewFlipperImage5.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(22).jpeg?alt=media&token=96a33421-5d3a-4912-bfec-98de6f277037"));
-        //ViewFlipperImage6.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(17).jpeg?alt=media&token=48603187-c984-44f1-94eb-16ed8f4aa88f"));
-
-       // ViewFlipperImage6.setImageURI(TT);
 
         openMassageActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +125,7 @@ public class Home extends Fragment {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
 
         return view;
     }

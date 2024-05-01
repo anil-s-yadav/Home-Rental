@@ -1,5 +1,6 @@
 package com.legendarysoftwares.homerental.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -17,9 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.legendarysoftwares.homerental.PostPropertyModel;
 import com.legendarysoftwares.homerental.R;
+import com.legendarysoftwares.homerental.ResultActivity;
 import com.legendarysoftwares.homerental.SearchAdapter;
 
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -29,6 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Search extends Fragment {
 
+    private ImageView House, Flat, Plot, Office, Shop, PG, Villa, Bunglow, Outlet, Factory, Cafe,
+            Hostel, Warehouse, Cottage, Farmhouse;
     private SearchView searchView;
     private RecyclerView searchRecyclerView;
     private SearchAdapter SearchAdapter;
@@ -51,6 +56,39 @@ public class Search extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        House= view.findViewById(R.id.search_house);
+        Flat= view.findViewById(R.id.search_flat);
+        Plot= view.findViewById(R.id.search_plot);
+        Office= view.findViewById(R.id.search_office_space);
+        Shop= view.findViewById(R.id.search_shop);
+        PG= view.findViewById(R.id.search_pg);
+        Villa= view.findViewById(R.id.search_villa);
+        Bunglow= view.findViewById(R.id.search_bunglow);
+        Outlet= view.findViewById(R.id.search_outlet);
+        Factory= view.findViewById(R.id.search_factory);
+        Cafe= view.findViewById(R.id.search_cafe);
+        Hostel= view.findViewById(R.id.search_hostel);
+        Warehouse= view.findViewById(R.id.search_warehouse);
+        Cottage= view.findViewById(R.id.search_cottage);
+        Farmhouse= view.findViewById(R.id.search_farmhouse);
+
+// Assuming all your views are in an array or list
+        View[] views = {House, Flat, Plot, Office, Shop, PG, Villa, Bunglow, Outlet, Factory, Cafe, Hostel, Warehouse, Cottage, Farmhouse};
+        String[] names = {"House", "Flat", "Plot", "Office", "Shop", "PG", "Villa", "Bunglow", "Outlet", "Factory", "Cafe", "Hostel", "Warehouse", "Cottage", "Farmhouse"};
+
+        for (int i = 0; i < views.length; i++) {
+            final String name = names[i];
+            final View itemViews = views[i];
+
+            itemViews.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(), ResultActivity.class);
+                intent.putExtra("Type", name);
+                getContext().startActivity(intent);
+            });
+        }
+
+
 
         searchView = view.findViewById(R.id.searchView);
         searchRecyclerView = view.findViewById(R.id.searchRecycler_View);
