@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,7 +41,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         buttonPwdReset=findViewById(R.id.button_password_reset);
         progressBar = findViewById(R.id.progressBar);
 
-        buttonPwdReset.setOnClickListener(new View.OnClickListener() {
+        TextView infoText = findViewById(R.id.textView_password_reset_head);
+
+        // These data come from MassageAdapterIntent
+        Intent profileIntent = getIntent();
+        if (profileIntent != null) {
+            // These data come from ProfileIntent
+            String massage = profileIntent.getStringExtra("massage");
+            infoText.setText(massage);
+        }
+
+            buttonPwdReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = editTextPwdResetEmail.getText().toString();

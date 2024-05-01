@@ -18,13 +18,17 @@ import android.widget.Toast;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.legendarysoftwares.homerental.ChatScreen;
 import com.legendarysoftwares.homerental.CollectRentAcivity;
 import com.legendarysoftwares.homerental.EmailUpdateActivity;
+import com.legendarysoftwares.homerental.ForgotPasswordActivity;
 import com.legendarysoftwares.homerental.LoginBottomSheetHelper;
 import com.legendarysoftwares.homerental.MainActivity;
 import com.legendarysoftwares.homerental.MyPostsOnProfile;
 import com.legendarysoftwares.homerental.PayRentActivity;
+import com.legendarysoftwares.homerental.PrivacyPolicyActivity;
 import com.legendarysoftwares.homerental.R;
+import com.legendarysoftwares.homerental.TermsAndConditionsActivity;
 import com.legendarysoftwares.homerental.UpdateProfileActivity;
 import com.squareup.picasso.Picasso;
 
@@ -46,6 +50,8 @@ public class Profile extends Fragment {
         TextView updateEmail = view.findViewById(R.id.profile_update_email);
         TextView changePassword = view.findViewById(R.id.profile_update_password);
         TextView deleteUser = view.findViewById(R.id.profile_delete_profile);
+        TextView pravecyPolicy = view.findViewById(R.id.p_and_p);
+        TextView TemsConditions = view.findViewById(R.id.t_and_c);
         TextView logout = view.findViewById(R.id.profile_logout);
         openProfile = view.findViewById(R.id.layout_open_profile);
         payRent = view.findViewById(R.id.layout_pay_rent);
@@ -105,7 +111,9 @@ public class Profile extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent profileIntent = new Intent(getContext(), ForgotPasswordActivity.class);
+                profileIntent.putExtra("massage", "Reset your password");
+                getContext().startActivity(profileIntent);
             }
         });
         deleteUser.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +122,17 @@ public class Profile extends Fragment {
 
             }
         });
+
+        pravecyPolicy.setOnClickListener((View)->{
+            Intent intent=new Intent(getContext(), PrivacyPolicyActivity.class);
+            startActivity(intent);
+        });
+        TemsConditions.setOnClickListener((View)->{
+            Intent intent=new Intent(getContext(), TermsAndConditionsActivity.class);
+            startActivity(intent);
+        });
+
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

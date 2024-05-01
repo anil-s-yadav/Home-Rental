@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PrivacyPolicyActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@color/DarkBlue100"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/BackBtn_PandP"
+                android:layout_width="22dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:scaleX="-1"
+                android:src="@drawable/angle_right"
+                app:tint="@color/DarkBlue500" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="14dp"
+                android:layout_toRightOf="@+id/BackBtn_PandP"
+                android:text="Pay Rents"
+                android:textColor="@color/DarkBlue500"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Privacy Policy"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:text="When you use Home Rental, we collect certain information about you, including:\n
+- Your email address, password, and any other information you provide when signing up for an account.\n
+- Information about the properties you post, including images and descriptions.\n
+- Information about your interactions with the app, such as the properties you view and save."
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How We Use Your Personal Information"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:text="We use the personal information we collect to:\n
+- Provide and maintain the app.\n
+- Create and manage user accounts.\n
+- Communicate with you, including responding to your comments and questions.\n
+- Monitor and analyze trends, usage, and activities in connection with our app.\n
+- Personalize and improve the app, including by providing content or features that match your interests and preferences.\n"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sharing Your Personal Information"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:text="We may share your personal information with third parties to help us use your personal information, as described above. For example, we use Firebase Analytics to help us understand how our users use the app.
+You can read more about how Firebase Analytics uses your personal information here:\n
+https://firebase.google.com/policies/analytics\n
+We may also share your personal information to comply with applicable laws and regulations, to respond to a subpoena, search warrant, or other lawful request for information we receive, or to otherwise protect our rights."
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data Retention"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:text="We will retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy unless a longer retention period is required or permitted by law."
+            android:layout_marginBottom="10dp"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact Us"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:text="If you have any questions or concerns about this Privacy Policy, please contact us at\n
+query@home-rentals.com"
+            android:layout_marginBottom="40dp"
+            />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</ScrollView>

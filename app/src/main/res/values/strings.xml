@@ -59,4 +59,7 @@
     </string>
     <string name="home_rentals">Home Rentals</string>
     <string name="title_activity_email_update">EmailUpdateActivity</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+
+
 </resources>
