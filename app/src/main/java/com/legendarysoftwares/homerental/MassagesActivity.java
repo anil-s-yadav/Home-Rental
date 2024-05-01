@@ -44,7 +44,10 @@ public class MassagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_massages);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        ImageView back = findViewById(R.id.backBtn_massages);
+        back.setOnClickListener((View)->{
+            onBackPressed();
+        });        user = FirebaseAuth.getInstance().getCurrentUser();
 
 
         //requestsRecyclerViews = findViewById(R.id.requests_recyclerView);

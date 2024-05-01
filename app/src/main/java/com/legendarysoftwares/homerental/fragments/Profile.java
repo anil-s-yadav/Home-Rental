@@ -19,6 +19,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.legendarysoftwares.homerental.CollectRentAcivity;
+import com.legendarysoftwares.homerental.EmailUpdateActivity;
 import com.legendarysoftwares.homerental.LoginBottomSheetHelper;
 import com.legendarysoftwares.homerental.MainActivity;
 import com.legendarysoftwares.homerental.MyPostsOnProfile;
@@ -97,7 +98,8 @@ public class Profile extends Fragment {
         updateEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(getContext(), EmailUpdateActivity.class);
+                startActivity(intent);
             }
         });
         changePassword.setOnClickListener(new View.OnClickListener() {

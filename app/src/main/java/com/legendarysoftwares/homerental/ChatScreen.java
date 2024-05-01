@@ -60,6 +60,10 @@ public class ChatScreen extends AppCompatActivity {
         ImageView sendMassageBtn = findViewById(R.id.imageView_send_msg); // button to send the massage
 
 // ------------------------------------------------ Setting Toolbar like Layout ______________________________________________________________________________________________________
+        ImageView back = findViewById(R.id.backBtn_chatScreen);
+        back.setOnClickListener((View)->{
+            onBackPressed();
+        });
 
         // These data come from MassageAdapterIntent
         Intent MassageAdapterIntent = getIntent();

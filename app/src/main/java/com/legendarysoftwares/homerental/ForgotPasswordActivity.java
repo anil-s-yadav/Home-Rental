@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -29,6 +30,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
+
+        ImageView back = findViewById(R.id.forgot_password_back_btn);
+        back.setOnClickListener((View)->{
+            onBackPressed();
+        });
 
         editTextPwdResetEmail=findViewById(R.id.editText_password_reset_email);
         buttonPwdReset=findViewById(R.id.button_password_reset);

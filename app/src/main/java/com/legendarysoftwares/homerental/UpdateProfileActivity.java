@@ -63,6 +63,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
 
+        ImageView back = findViewById(R.id.backBtn_update);
+        back.setOnClickListener((View)->{
+            onBackPressed();
+        });
+
         progressBar = findViewById(R.id.progressBar);
         editTextUpdateName = findViewById(R.id.editText_update_profile_name);
         editTextUpdateDOB = findViewById(R.id.editText_update_profile_dob);

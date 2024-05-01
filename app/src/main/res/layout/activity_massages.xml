@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/backBtn"
+            android:id="@+id/backBtn_massages"
             android:layout_width="22dp"
             android:layout_height="16dp"
             android:layout_centerVertical="true"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="14dp"
-            android:layout_toRightOf="@+id/backBtn"
+            android:layout_toRightOf="@+id/backBtn_massages"
             android:text="Massages and Requests"
             android:textColor="@color/DarkBlue500"
             android:textSize="16sp" />

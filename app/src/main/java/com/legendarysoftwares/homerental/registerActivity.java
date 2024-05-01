@@ -63,6 +63,11 @@ public class registerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        ImageView back = findViewById(R.id.backBtn_register);
+        back.setOnClickListener((View)->{
+            onBackPressed();
+        });
+
         Toast.makeText(registerActivity.this,"You can Register now!",Toast.LENGTH_LONG).show();
 
         editTextRegisterFullName=findViewById(R.id.editText_register_full_name);

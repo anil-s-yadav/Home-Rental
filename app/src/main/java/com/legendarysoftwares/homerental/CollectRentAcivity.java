@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,11 @@ public class CollectRentAcivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect_rent_acivity);
+
+        ImageView back = findViewById(R.id.backBtn_collectRent);
+        back.setOnClickListener((View)->{
+            onBackPressed();
+        });
 
         ProgressBar progressBar = findViewById(R.id.progressBar);
         RecyclerView payRentRecyclerView = findViewById(R.id.collect_rent_recyclerView);

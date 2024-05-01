@@ -37,6 +37,11 @@ public class MyPostsOnProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_posts_on_profile);
 
+        ImageView back = findViewById(R.id.backBtn_profile);
+        back.setOnClickListener((View)->{
+            onBackPressed();
+        });
+
         userProfile = findViewById(R.id.profile_pic);
         textViewUserName = findViewById(R.id.postOnProfile_username);
         textViewUserName = findViewById(R.id.postOnProfile_username);
