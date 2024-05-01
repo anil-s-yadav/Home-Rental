@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.legendarysoftwares.homerental.PostPropertyModel;
 import com.legendarysoftwares.homerental.R;
-import com.legendarysoftwares.homerental.SaveAdapter;
+import com.legendarysoftwares.homerental.SearchAdapter;
 
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -31,7 +31,7 @@ public class Search extends Fragment {
 
     private SearchView searchView;
     private RecyclerView searchRecyclerView;
-    private SaveAdapter saveAdapter;
+    private SearchAdapter SearchAdapter;
     private HorizontalScrollView horizontalScrollView;
     private LinearLayout linearLayoutOptions;
 
@@ -89,8 +89,8 @@ public class Search extends Fragment {
                         PostPropertyModel.class).build();
             Log.w("SearchFragment", "performSearch: Query - " + query);
 
-        saveAdapter = new SaveAdapter(options, requireContext(),currentUserId);
-        saveAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        SearchAdapter = new SearchAdapter(options, requireContext(),currentUserId);
+        SearchAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
 
@@ -99,24 +99,24 @@ public class Search extends Fragment {
                 searchRecyclerView.setVisibility(View.VISIBLE);
             }
         });
-        searchRecyclerView.setAdapter(saveAdapter);
-        saveAdapter.startListening();
+        searchRecyclerView.setAdapter(SearchAdapter);
+        SearchAdapter.startListening();
     }
 
 
     public void onStart() {
         super.onStart();
-        if (saveAdapter != null) {
-            saveAdapter.startListening();
+        if (SearchAdapter != null) {
+            SearchAdapter.startListening();
         }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (saveAdapter != null) {
+        if (SearchAdapter != null) {
 
-            saveAdapter.stopListening();
+            SearchAdapter.stopListening();
         }
     }
 }
