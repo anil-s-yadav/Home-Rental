@@ -107,6 +107,8 @@
                 android:id="@+id/ImgChooseBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
                 android:text="ImgChooseBtn"/>
 
 
@@ -116,24 +118,40 @@
                 android:layout_height="50dp"
                 android:id="@+id/editText_post_name"
                 android:hint="Enter Property Name"
-                android:layout_marginTop="20dp"/>
+                android:layout_margin="10dp"
+                android:background="@drawable/blue_stoke_square"
+                android:padding="5dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/editText_post_location"
                 android:hint="Enter Property location"
-                android:layout_marginTop="20dp"/>
+                android:layout_margin="10dp"
+                android:background="@drawable/blue_stoke_square"
+                android:padding="5dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/editText_post_price"
                 android:hint="Enter Property Price"
-                android:layout_marginTop="20dp"/>
+                android:layout_margin="10dp"
+                android:background="@drawable/blue_stoke_square"
+                android:padding="5dp"/>
+            <EditText
+                android:id="@+id/add_reraid"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Enter rera ID"
+                android:layout_margin="10dp"
+                android:background="@drawable/blue_stoke_square"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/upload_post_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
                 android:text="Post" />
 
 

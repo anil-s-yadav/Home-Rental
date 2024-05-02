@@ -3,13 +3,13 @@ package com.legendarysoftwares.homerental;
 public class PostPropertyModel {
 
     private long timestamp;
-    private String postTitle, postAddress, postPrice, propertyId, ownerId, ownerName, ownerPhoto,
+    private String postTitle, postAddress, postPrice, propertyId, ownerId, ownerName, ownerPhoto, reraID,
             postImageUrl1, postImageUrl2, postImageUrl3, postImageUrl4, postImageUrl5, postImageUrl6;
 
     // Constructor with image URLs
     public PostPropertyModel(long timestamp, String propertyId, String ownerId, String postTitle,
                              String postAddress, String postPrice,
-                             String ownerName, String ownerPhoto,
+                             String ownerName, String ownerPhoto,String reraID,
                              String postImageUrl1, String postImageUrl2,
                              String postImageUrl3, String postImageUrl4,
                              String postImageUrl5, String postImageUrl6) {
@@ -21,6 +21,7 @@ public class PostPropertyModel {
         this.postPrice = postPrice;
         this.ownerName = ownerName;
         this.ownerPhoto = ownerPhoto;
+        this.reraID = reraID;
         this.postImageUrl1 = postImageUrl1;
         this.postImageUrl2 = postImageUrl2;
         this.postImageUrl3 = postImageUrl3;
@@ -29,10 +30,11 @@ public class PostPropertyModel {
         this.postImageUrl6 = postImageUrl6;
     }
 
+
     // Constructor without image URLs
     public PostPropertyModel(long timestamp,String propertyId, String ownerId, String postTitle,
                              String postAddress, String postPrice,
-                             String ownerName, String ownerPhoto) {
+                             String ownerName, String ownerPhoto, String reraID) {
         this.timestamp = timestamp;
         this.propertyId = propertyId;
         this.ownerId = ownerId;
@@ -41,6 +43,7 @@ public class PostPropertyModel {
         this.postPrice = postPrice;
         this.ownerName = ownerName;
         this.ownerPhoto = ownerPhoto;
+        this.reraID = reraID;
     }
 
     // Constructor with only image URLs
@@ -168,5 +171,13 @@ public class PostPropertyModel {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getReraID() {
+        return reraID;
+    }
+
+    public void setReraID(String reraID) {
+        this.reraID = reraID;
     }
 }

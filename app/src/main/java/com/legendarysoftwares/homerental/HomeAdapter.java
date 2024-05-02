@@ -3,20 +3,17 @@ package com.legendarysoftwares.homerental;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -97,8 +94,10 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
 
 
         holder.OpenPostDetails.setOnClickListener(v -> {
-            Intent intent=new Intent(context, propertyDetailsActivity.class);
-            context.startActivity(intent);
+            Intent HomeAdapterintent =new Intent(context, propertyDetailsActivity.class);
+            HomeAdapterintent.putExtra("PropertyId",model.getPropertyId());
+            HomeAdapterintent.putExtra("ownerId",model.getOwnerId());
+            context.startActivity(HomeAdapterintent);
         });
 
     }
@@ -137,9 +136,9 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
             postChat = itemView.findViewById(R .id.post_chat);
             OpenPostDetails = itemView.findViewById(R.id.linearLayout_openPropertyDetails);
 
-            postTitle = itemView.findViewById(R .id.post_title);
-            postAddress = itemView.findViewById(R .id.post_address);
-            postPrice = itemView.findViewById(R .id.post_price);
+            postTitle = itemView.findViewById(R .id.property_name);
+            postAddress = itemView.findViewById(R .id.property_address);
+            postPrice = itemView.findViewById(R .id.property_price);
             postCarpetArea = itemView.findViewById(R .id.post_carpet_area);
             postRentOrSell = itemView.findViewById(R .id.post_sell_rent);
             postStatus = itemView.findViewById(R .id.post_status);

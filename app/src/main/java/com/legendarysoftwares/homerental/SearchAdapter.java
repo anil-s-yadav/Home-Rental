@@ -1,6 +1,7 @@
 package com.legendarysoftwares.homerental;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,13 @@ public class SearchAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Se
         holder.PostAdd.setText(model.getPostAddress());
         holder.PostOwner.setText(String.format("By, %s", model.getOwnerName()));
         holder.PostPrice.setText(model.getPostPrice());
+
+        holder.PostImg.setOnClickListener(View ->{
+            Intent SearchAdapterintent =new Intent(context, propertyDetailsActivity.class);
+            SearchAdapterintent.putExtra("PropertyId",model.getPropertyId());
+            SearchAdapterintent.putExtra("ownerId",model.getOwnerId());
+            context.startActivity(SearchAdapterintent);
+        });
 
         Log.e("Picasso", "Error loading image: " + model.getPostImageUrl2());
 

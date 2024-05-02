@@ -1,4 +1,5 @@
 package com.legendarysoftwares.homerental;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,14 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
         holder.savePostPrice.setText(model.getPostPrice());
         Log.e("Picasso", "Error loading image: " + model.getPostImageUrl2());
 
-        Picasso.get().load(model.getPostImageUrl2()).into(holder.savePostImg);
+        holder.savePostImg.setOnClickListener(View ->{
+            Intent SaveAdapterIntent =new Intent(context, propertyDetailsActivity.class);
+            SaveAdapterIntent.putExtra("PropertyId",model.getPropertyId());
+            SaveAdapterIntent.putExtra("ownerId",model.getOwnerId());
+            context.startActivity(SaveAdapterIntent);
+        });
+
+        Picasso.get().load(model.getPostImageUrl1()).into(holder.savePostImg);
         holder.savePostDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +83,9 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
                         });
             }
         });
+
+
+
 
     }
 

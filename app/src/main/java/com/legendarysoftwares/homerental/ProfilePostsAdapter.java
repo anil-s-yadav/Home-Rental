@@ -58,9 +58,10 @@ public class ProfilePostsAdapter extends FirebaseRecyclerAdapter<PostPropertyMod
                 public boolean onMenuItemClick(MenuItem item) {
                     int id = item.getItemId();
                     if (id == R.id.view_property) {
-                        Intent intent=new Intent(v.getContext(), propertyDetailsActivity.class);
-                        intent.putExtra("propertyID",model.getPropertyId());
-                        v.getContext().startActivity(intent);
+                        Intent ProfileIntent=new Intent(v.getContext(), propertyDetailsActivity.class);
+                        ProfileIntent.putExtra("propertyID",model.getPropertyId());
+                        ProfileIntent.putExtra("ownerId",model.getOwnerId());
+                        v.getContext().startActivity(ProfileIntent);
                         return true;
                     } else if (id == R.id.delete_property) {
 
@@ -84,6 +85,8 @@ public class ProfilePostsAdapter extends FirebaseRecyclerAdapter<PostPropertyMod
             });
             popupMenu.show();
         });
+
+
 
     }
 

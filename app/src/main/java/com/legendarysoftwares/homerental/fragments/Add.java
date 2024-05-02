@@ -38,7 +38,7 @@ public class Add extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private List<ImageView> propertyImageViews;
     private List<Uri> selectedImageUris;
-    private EditText postName, postLocation, postPrice;
+    private EditText postName, postLocation, postPrice, reraId;
     private StorageReference imagesStorageRef;
     private FirebaseUser user;
     private String propertyId;
@@ -55,6 +55,7 @@ public class Add extends Fragment {
         postName = view.findViewById(R.id.editText_post_name);
         postLocation = view.findViewById(R.id.editText_post_location);
         postPrice = view.findViewById(R.id.editText_post_price);
+        reraId = view.findViewById(R.id.add_reraid);
         Button uploadPostButton = view.findViewById(R.id.upload_post_button);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -184,13 +185,14 @@ public class Add extends Fragment {
             String textPostName = postName.getText().toString();
             String textPostLocation = postLocation.getText().toString();
             String textPostPrice = postPrice.getText().toString();
+            String reraID = reraId.getText().toString();
             long timestamp = System.currentTimeMillis();
 
             DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Posted Properties");
 
             if (propertyId != null) {
                 PostPropertyModel postPropertyModel = new PostPropertyModel(
-                    timestamp, propertyId, ownerID, textPostName, textPostLocation, textPostPrice, ownerName, ownerPhoto);
+                    timestamp, propertyId, ownerID, textPostName, textPostLocation, textPostPrice, ownerName, ownerPhoto, reraID);
 
                 // Set all image URLs based on the number of images selected
 

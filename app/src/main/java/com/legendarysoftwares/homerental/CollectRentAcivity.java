@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class CollectRentAcivity extends AppCompatActivity {
         back.setOnClickListener((View)->{
             onBackPressed();
         });
+
 
         ProgressBar progressBar = findViewById(R.id.progressBar);
         RecyclerView payRentRecyclerView = findViewById(R.id.collect_rent_recyclerView);
