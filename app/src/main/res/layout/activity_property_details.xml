@@ -46,6 +46,7 @@
             android:contentDescription="TODO" />
 
         <ImageButton
+            android:id="@+id/property_details_save"
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:layout_alignEnd="@+id/massages"
@@ -55,7 +56,8 @@
             android:contentDescription="TODO"
             android:scaleType="fitCenter"
             android:scaleX="-1"
-            app:srcCompat="@drawable/save_outline" />
+            app:srcCompat="@drawable/save_outline"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </RelativeLayout>           <!-- ToolBar -->
 
@@ -74,7 +76,6 @@
                 android:layout_height="240dp"
                 android:layout_margin="2dp"
                 android:scaleType="centerCrop"
-
                 android:layout_marginBottom="2dp"
                 android:src="@drawable/images2"
                 android:background="@color/DarkBlue200"/>
@@ -306,7 +307,8 @@
                     android:textSize="11sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -336,23 +338,25 @@
                     android:id="@+id/button_save"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="Save"
-                    android:textSize="11sp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
                     android:background="@drawable/blue_stoke_square"
-                    android:textColor="@color/DarkBlue300"/>
+                    android:text="Save"
+                    android:textColor="@color/DarkBlue300"
+                    android:textSize="11sp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_share"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:text="Share"
-                    android:textSize="11sp"
-                    android:paddingStart="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/blue_stoke_square"
-                    android:textColor="@color/DarkBlue300"/>
+                    android:paddingStart="5dp"
+                    android:text="Share"
+                    android:textColor="@color/DarkBlue300"
+                    android:textSize="11sp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
             </LinearLayout>
 
@@ -395,75 +399,139 @@
                 android:id="@+id/tableLayout_amanities"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#B8E9FF"
+                android:background="#EEFAFF"
                 android:layout_below="@+id/tv_rera_id"
                 android:layout_marginBottom="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="20dp">
+
                     <LinearLayout
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
                         <ImageView
-                            android:layout_width="wrap_content"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/dot"/>
+                        <TextView
                             android:layout_height="wrap_content"
-                            android:src="@drawable/house"/>
+                            android:layout_width="wrap_content"
+                            android:text="Swim-pool"
+                            />
                     </LinearLayout>
-
-                    <TextView
+                    <LinearLayout
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="Sumingpool"
-                        />
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/dot"/>
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Gym"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/dot"/>
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Park"
+                            />
+                    </LinearLayout>
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/dot"/>
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Parking"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/dot"/>
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Balcony"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/dot"/>
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Spa"
+                            />
+                    </LinearLayout>
 
                 </TableRow>
 
             </TableLayout>
-
-
-
-
-
-           <!-- <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="8dp"
-                android:layout_below="@+id/tv_about_user_data">
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Ameneties"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="9dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintTop_toBottomOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

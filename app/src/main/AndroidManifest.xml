@@ -20,6 +20,14 @@
         android:theme="@style/Theme.HomeRental"
         tools:targetApi="31">
         <activity
+            android:name=".PaymentHistoryActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_SULomt8owpdDRC" />
+
+        <activity
             android:name=".ResultActivity"
             android:exported="false" />
         <activity

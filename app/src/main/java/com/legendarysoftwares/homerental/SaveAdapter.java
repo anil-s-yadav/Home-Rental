@@ -14,8 +14,12 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.legendarysoftwares.homerental.fragments.Search;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -45,17 +49,14 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
         holder.savePostAdd.setText(model.getPostAddress());
         holder.savePostOwner.setText(String.format("By, %s", model.getOwnerName()));
         holder.savePostPrice.setText(model.getPostPrice());
-
         Log.e("Picasso", "Error loading image: " + model.getPostImageUrl2());
 
         Picasso.get().load(model.getPostImageUrl2()).into(holder.savePostImg);
-
         holder.savePostDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseReference savedReference = FirebaseDatabase.getInstance().getReference("SavedPosts")
                         .child(currentUserId).child(model.getPropertyId());
-
                 savedReference.removeValue()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -74,6 +75,7 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
                         });
             }
         });
+
     }
 
     @NonNull
@@ -82,7 +84,6 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_saved_item_rv, parent, false);
         return new myViewHolder(view);
     }
-
     public class myViewHolder extends RecyclerView.ViewHolder {
 
         private TextView savePostName, savePostAdd, savePostPrice, savePostOwner;
@@ -91,8 +92,6 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            // Initialize ViewHolder views
             savePostName = itemView.findViewById(R.id.save_post_name);
             savePostAdd = itemView.findViewById(R.id.save_post_add);
             savePostOwner = itemView.findViewById(R.id.save_post_owner);

@@ -153,6 +153,7 @@
             android:background="@drawable/green_bg_text"
             android:backgroundTint="@color/White"
             android:hint="Type Massage"
+            android:layout_weight="1"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColorHint="@color/DarkBlue200" />
@@ -163,6 +164,7 @@
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_send" />
 

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultActivity">
+    tools:context=".PaymentHistoryActivity">
 
     <RelativeLayout
-        android:id="@+id/ll_result"
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:background="@color/DarkBlue100"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/BackBtn_result"
+            android:id="@+id/backBtn_payHistory"
             android:layout_width="22dp"
             android:layout_height="16dp"
             android:layout_centerVertical="true"
@@ -22,32 +25,26 @@
             android:scaleX="-1"
             android:src="@drawable/angle_right"
             app:tint="@color/DarkBlue500" />
+
         <TextView
-            android:id="@+id/result_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="14dp"
-            android:layout_toRightOf="@+id/BackBtn_result"
-            android:text="Property Type"
+            android:layout_toRightOf="@+id/backBtn_payHistory"
+            android:text="Pay Rents"
             android:textColor="@color/DarkBlue500"
             android:textSize="16sp" />
+
     </RelativeLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/result_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:layout_marginTop="46dp"/>
-
-    <ProgressBar
-        android:id="@+id/progressBar_result"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:text="No History"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="100dp"
+        android:textSize="20sp"
+        android:layout_below="@+id/linearLayout4"/>
 
-
-
-</FrameLayout>
+</RelativeLayout>

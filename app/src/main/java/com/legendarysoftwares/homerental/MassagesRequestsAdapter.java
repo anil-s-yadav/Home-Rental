@@ -176,9 +176,11 @@ public class MassagesRequestsAdapter extends RecyclerView.Adapter<MassagesReques
                         userDeleteMassage.removeValue();
                         Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT).show();
 
-                        dialog.dismiss();
+                        Intent intent = new Intent(alertCustomDialog.getContext(), MassagesActivity.class);
+                        alertCustomDialog.getContext().startActivity(intent);
                     }
                 });
+                dialog.dismiss();
             });
 
             RequestDeleteButton.setOnClickListener(v -> {

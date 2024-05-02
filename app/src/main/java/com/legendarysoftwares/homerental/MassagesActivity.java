@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MassagesActivity extends AppCompatActivity {
-
+    private String CustomerRequestMasaage;
     private MassagesRequestsAdapter requestsAdapter;
     private MassagesAdapter massagesAdapter;
     private ProgressBar progressBar;
@@ -49,11 +49,15 @@ public class MassagesActivity extends AppCompatActivity {
             onBackPressed();
         });        user = FirebaseAuth.getInstance().getCurrentUser();
 
+        Intent massageIntent = getIntent();
+        if(massageIntent!=null){
+            CustomerRequestMasaage = massageIntent.getStringExtra("requestMassage");
+        }
 
         //requestsRecyclerViews = findViewById(R.id.requests_recyclerView);
         progressBar = findViewById(R.id.progressBar);
         NoMassagesLayout = findViewById(R.id.no_massages_view);
-        NoMassagesLayout.setVisibility(View.GONE);
+        //NoMassagesLayout.setVisibility(View.GONE);
 
         Button goBack = findViewById(R.id.massages_btn_goBack);
         goBack.setOnClickListener(v -> {
@@ -132,9 +136,11 @@ public class MassagesActivity extends AppCompatActivity {
                         if (requestData != null) {
                             requestList.add(requestData);
                             NoMassagesLayout.setVisibility(View.GONE);
-                            progressBar.setVisibility(View.GONE);
                             requestsRecyclerView.setVisibility(View.VISIBLE);
+                        }else{
+                            NoMassagesLayout.setVisibility(View.VISIBLE);
                         }
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     // Now you have the list of requests, update your RecyclerView adapter
@@ -142,15 +148,14 @@ public class MassagesActivity extends AppCompatActivity {
                     // For example, if you're using MassagesAdapter, call massageAdapter.setData(requestList);
                     requestsAdapter.setData(requestList);
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     // Handle errors
                     NoMassagesLayout.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
                 }
             });
-        }   else NoMassagesLayout.setVisibility(View.VISIBLE);
+        }   else {NoMassagesLayout.setVisibility(View.VISIBLE);}
+        progressBar.setVisibility(View.GONE);
     }
 
     // Load data for massages RecyclerView
@@ -172,8 +177,10 @@ public class MassagesActivity extends AppCompatActivity {
                         if (massageData != null) {
                             massagesList.add(massageData);
                             NoMassagesLayout.setVisibility(View.GONE);
-                            progressBar.setVisibility(View.GONE);
+                        } else{
+                            NoMassagesLayout.setVisibility(View.VISIBLE);
                         }
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     // Now I have the list of massages, update your RecyclerView adapter and notify the adapter about the data change.
@@ -184,11 +191,11 @@ public class MassagesActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     // Handle errors
-                    progressBar.setVisibility(View.GONE);
                     NoMassagesLayout.setVisibility(View.VISIBLE);
                 }
             });
         } else NoMassagesLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 }
 

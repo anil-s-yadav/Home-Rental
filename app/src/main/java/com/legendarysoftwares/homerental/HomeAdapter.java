@@ -23,8 +23,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import android.content.Context; // Import the Context class
 import android.widget.Toast;
@@ -92,11 +95,6 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
             }
         });
 
-                            /*Intent chatIntent = new Intent(context, ChatScreen.class);
-                    chatIntent.putExtra("sourceActivity", "HomeAdapter"); // to identify were user came from
-                    chatIntent.putExtra("userName",user.getDisplayName().toString());
-                    chatIntent.putExtra("propertyName",model.getPostTitle());
-                    context.startActivity(chatIntent);*/
 
         holder.OpenPostDetails.setOnClickListener(v -> {
             Intent intent=new Intent(context, propertyDetailsActivity.class);
@@ -151,13 +149,6 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
         }
     }
 
-
-    /*private void savePostToSaveFragment(String postId, String userId, String savedPropertyId) {
-        // Implement the logic to save the post to the Save fragment using postId, userId, and savedPropertyId
-        DatabaseReference savedPostsReference = FirebaseDatabase.getInstance().getReference("SavedPosts").child(userId);
-        // Create a new node with the desired key (newPropertyId)
-        savedPostsReference.child(savedPropertyId).setValue(postId);
-    }*/
 
     private void savePostToSaveFragment(long timestamp, String postId, FirebaseUser userId, String postTitle,
                                         String postAddress, String postPrice, String ownerId,
@@ -247,6 +238,34 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Home
             ownerMassageData.put("PropertyID", model.getPropertyId());
 
             ownerMassageRef.child(user.getUid()).setValue(ownerMassageData);
+
+
+            //check if "PropertiesOnRent" node exists, and create it if not
+            DatabaseReference propertiesOnRentRef = FirebaseDatabase.getInstance().getReference("PropertiesOnRent");
+            propertiesOnRentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()) {
+                        propertiesOnRentRef.setValue(true); // Create the node
+                    }
+                    // Save request for rent data
+                    DatabaseReference requestForRentRef = FirebaseDatabase.getInstance().getReference("PropertiesOnRent")
+                            .child(model.getPropertyId());
+
+                    Map<String, Object> requestForRentData = new HashMap<>();
+                    requestForRentData.put("userID", user.getUid());
+                    requestForRentData.put("ownerID", model.getOwnerId());
+                    requestForRentData.put("rentalStatus", "Available");
+                    requestForRentData.put("PropertyID", model.getPropertyId());
+
+                    requestForRentRef.setValue(requestForRentData);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
             Intent massagesIntent = new Intent(context, MassagesActivity.class);
             massagesIntent.putExtra("requestMassage", requestMassage);
