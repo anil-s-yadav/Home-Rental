@@ -1,27 +1,27 @@
 <resources>
-    <string name="app_name">Home Rental</string>
+    <string name="app_name" translatable="false">Home Rental</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="register">Register</string>
-    <string name="click_here_to_reset">Click here to reset!</string>
-    <string name="loading">loading...</string>
-    <string name="registered_user_since">"user regisstered since "</string>
-    <string name="mobile">mobile</string>
-    <string name="gender">gender</string>
-    <string name="dob">dob</string>
-    <string name="email">email</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="register" translatable="false">Register</string>
+    <string name="click_here_to_reset" translatable="false">Click here to reset!</string>
+    <string name="loading" translatable="false">loading...</string>
+    <string name="registered_user_since" translatable="false">"user regisstered since "</string>
+    <string name="mobile" translatable="false">mobile</string>
+    <string name="gender" translatable="false">gender</string>
+    <string name="dob" translatable="false">dob</string>
+    <string name="email" translatable="false">email</string>
     <string name="name">name</string>
     <string name="user_display_picture">user display picture</string>
     <string name="update_email_u">Update Email</string>
     <string name="upload_pic_u">Upload Profile Pic</string>
     <string name="title_activity_my_posts_on_profile">MyPostsOnProfile</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
 
-    <string name="lorem_ipsum">
+    <string name="lorem_ipsum" translatable="false">
                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
         dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
@@ -57,5 +57,5 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <string name="home_rentals">Home Rentals</string>
+    <string name="home_rentals" translatable="false">Home Rentals</string>
 </resources>
