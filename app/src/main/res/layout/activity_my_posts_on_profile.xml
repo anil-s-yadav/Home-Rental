@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".MyPostsOnProfile">
 
     <LinearLayout
@@ -15,244 +16,204 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/btn_back_myposts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             app:tint="@color/DarkBlue500"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="10dp"
+            android:padding="8dp"
             android:src="@drawable/back_button" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:text="Profile"
+            android:layout_gravity="center_vertical"
+            android:text="My Profile"
             android:textStyle="bold"
             android:textColor="@color/DarkBlue500"
             android:textSize="16sp"/>
     </LinearLayout>
-    <androidx.cardview.widget.CardView
+    
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:layout_margin="5dp"
-        android:elevation="8dp"
-        android:outlineAmbientShadowColor="@color/DarkBlue400">
-
+        android:layout_height="match_parent">
+        
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/profile_pic"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:scaleType="centerCrop"
-                android:layout_marginTop="14dp"
-                app:shapeAppearanceOverlay="@style/Circular"
-                android:background="@color/DarkBlue100"/>
-
-            <TextView
-                android:id="@+id/postOnProfile_username"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:text="User Name"
-                android:textSize="15sp"
-                android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/DarkBlue300"
-                android:layout_gravity="center"
-                android:textAlignment="center"/>
-            <TextView
-                android:id="@+id/userAbout"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:text="About user"
-                android:layout_gravity="center"
-                android:fontFamily="@font/poppins_regular"
-                android:layout_marginBottom="8dp"
-                android:textAlignment="center"
-                android:textColor="@color/DarkBlue200"
-                android:maxLines="3"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:backgroundTint="@color/White150"
-                android:background="@drawable/blue_bg"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/textView_post_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="2"
-                        android:textSize="16sp"
-                        android:textColor="@color/DarkBlue200"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView_post_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="Posts"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/textView_post_number"
-                        app:layout_constraintStart_toStartOf="@+id/textView_post_number"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_post_number" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/textView_sell_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="3"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/DarkBlue200"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView_sell_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="On Sell"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/textView_sell_number"
-                        app:layout_constraintStart_toStartOf="@+id/textView_sell_number"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_sell_number" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/textView_rent_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="0"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/DarkBlue200"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView_rent_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="On Rent"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="@+id/textView_rent_number"
-                        app:layout_constraintStart_toStartOf="@+id/textView_rent_number"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_rent_number" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/see_requests"
-                    android:layout_width="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:elevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/White"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:outlineAmbientShadowColor="@color/DarkBlue400"
-                    android:paddingStart="12dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="10dp"
-                    android:paddingEnd="12dp"
-                    android:backgroundTint="@color/my_light_primary"
-                    android:background="@drawable/blue_bg"
-                    android:text="See Requests"/>
-                <TextView
-                    android:id="@+id/edit_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/my_light_primary"
-                    android:layout_weight="0.2"
-                    android:textAlignment="center"
-                    android:padding="6dp"
-                    android:outlineAmbientShadowColor="@color/DarkBlue400"
-                    android:layout_marginEnd="10dp"
-                    android:backgroundTint="@color/White150"
-                    android:background="@drawable/blue_bg"
-                    android:text="Edit Profile"/>
+                    android:paddingBottom="16dp"
+                    android:orientation="vertical">
 
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profile_pic"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="24dp"
+                        app:shapeAppearanceOverlay="@style/Circular"
+                        android:background="@color/DarkBlue100"/>
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/postOnProfile_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="User Name"
+                        android:textSize="18sp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/DarkBlue300"
+                        android:textAlignment="center"/>
+                        
+                    <TextView
+                        android:id="@+id/userAbout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="About user"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:textAlignment="center"
+                        android:textColor="@color/DarkBlue200"
+                        android:maxLines="3"/>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginTop="20dp"
+                        android:padding="8dp"
+                        android:background="@drawable/rounded_8"
+                        android:backgroundTint="@color/White150"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/textView_post_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="16sp"
+                                android:textColor="@color/DarkBlue200"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Posts"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/textView_sell_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="16sp"
+                                android:textColor="@color/DarkBlue200"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="On Sell"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/textView_rent_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textSize="16sp"
+                                android:textColor="@color/DarkBlue200"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="On Rent"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/see_requests"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:text="Requests"
+                            android:textAllCaps="false"
+                            app:cornerRadius="8dp"
+                            android:backgroundTint="@color/my_light_primary"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/edit_profile"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit Profile"
+                            android:textAllCaps="false"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/my_light_primary"
+                            android:textColor="@color/my_light_primary"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/no_posts"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:src="@drawable/no_massages"
+                android:layout_marginTop="40dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profile_posts_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:nestedScrollingEnabled="false"/>
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-
-    <!--<ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>-->
-
-    <ImageView
-        android:id="@+id/no_posts"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/no_massages"
-        android:layout_marginTop="30dp"
-        android:importantForAccessibility="no" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/profile_posts_rv"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent"
-        />
-
-
-
+    </ScrollView>
 </LinearLayout>

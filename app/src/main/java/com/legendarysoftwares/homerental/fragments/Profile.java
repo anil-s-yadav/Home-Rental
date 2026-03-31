@@ -42,9 +42,11 @@ public class Profile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         // Inflate the layout for this fragment
         TextView updateProfile = view.findViewById(R.id.profile_update_profile);
-        TextView updateEmail = view.findViewById(R.id.profile_update_email);
+       // TextView updateEmail = view.findViewById(R.id.profile_update_email);
         TextView changePassword = view.findViewById(R.id.profile_update_password);
         TextView deleteUser = view.findViewById(R.id.profile_delete_profile);
+        TextView privacyPolicy = view.findViewById(R.id.profile_privacy_policy);
+        TextView termsCondition = view.findViewById(R.id.profile_terms);
         TextView logout = view.findViewById(R.id.profile_logout);
         openProfile = view.findViewById(R.id.layout_open_profile);
         payRent = view.findViewById(R.id.layout_pay_rent);
@@ -94,23 +96,60 @@ public class Profile extends Fragment {
                // ((Activity) getActivity()).overridePendingTransition(0, 0); // No animation while transaction
             }
         });
-        updateEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        updateEmail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (user != null) {
+//                    Toast.makeText(getContext(), "Email linking can be done here.", Toast.LENGTH_SHORT).show();
+//                    // Or implement the original logic
+//                }
+//            }
+//        });
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), com.legendarysoftwares.homerental.ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
         deleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (user != null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Are you sure you want to delete your account? This action cannot be undone.");
+                    builder.setTitle("Delete Account");
+                    builder.setPositiveButton("Yes", (dialog, which) -> {
+                        user.delete().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Account deleted", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        });
+                    });
+                    builder.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+                    builder.show();
+                }
             }
+        });
+
+        privacyPolicy.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                  Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/policies/privacy/"));
+                  startActivity(intent);
+             }
+        });
+
+        termsCondition.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                  Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://www.google.com/policies/terms/"));
+                  startActivity(intent);
+             }
         });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

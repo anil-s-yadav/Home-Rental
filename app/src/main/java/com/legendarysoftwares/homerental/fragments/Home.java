@@ -1,136 +1,165 @@
 package com.legendarysoftwares.homerental.fragments;
 
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-
+import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.legendarysoftwares.homerental.CategoryResultsActivity;
 import com.legendarysoftwares.homerental.HomeAdapter;
 import com.legendarysoftwares.homerental.MassagesActivity;
 import com.legendarysoftwares.homerental.PostPropertyModel;
 import com.legendarysoftwares.homerental.R;
 
 public class Home extends Fragment {
-    public Home() {}
-
+    private static final String TAG = "HomeFragmentDebug";
     private RecyclerView homeRecyclerView;
-    private HomeAdapter homeAdapter; // Declare the adapter as a field
+    private HomeAdapter homeAdapter;
+    private ShimmerFrameLayout shimmer;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    // To prevent "Inconsistency detected" crash
+    private final RecyclerView.AdapterDataObserver dataObserver = new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            if (isAdded() && shimmer != null && homeRecyclerView != null) {
+                shimmer.stopShimmer();
+                shimmer.setVisibility(View.GONE);
+                homeRecyclerView.setVisibility(View.VISIBLE);
+            }
+        }
+    };
 
-    }
+    public Home() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         homeRecyclerView = view.findViewById(R.id.home_recycler_view);
+        shimmer = view.findViewById(R.id.home_shimmer);
         ImageButton openMassageActivity = view.findViewById(R.id.massages);
 
-        ShimmerFrameLayout shimmer = view.findViewById(R.id.home_shimmer);
-        shimmer.startShimmer();
+        if (shimmer != null) shimmer.startShimmer();
 
-        ShapeableImageView ViewFlipperImage1 = view.findViewById(R.id.Images_In_Image_Slider1);
-        ShapeableImageView ViewFlipperImage2 = view.findViewById(R.id.Images_In_Image_Slider2);
-        ShapeableImageView ViewFlipperImage3 = view.findViewById(R.id.Images_In_Image_Slider3);
-        ShapeableImageView ViewFlipperImage4 = view.findViewById(R.id.Images_In_Image_Slider4);
-        ShapeableImageView ViewFlipperImage5 = view.findViewById(R.id.Images_In_Image_Slider5);
-        ShapeableImageView ViewFlipperImage6 = view.findViewById(R.id.Images_In_Image_Slider6);
+        if (openMassageActivity != null) {
+            openMassageActivity.setOnClickListener(v -> 
+                startActivity(new Intent(getContext(), MassagesActivity.class)));
+        }
 
-       // Uri TT = Uri.parse("https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2015%2F04%2F23%2F22%2F00%2Ftree-736885_1280.jpg&tbnid=aVgXecnmQ_f1MM&vet=12ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN..i&imgrefurl=https%3A%2F%2Fpixabay.com%2Fimages%2Fsearch%2Fsea%2F&docid=QG4MQQA3E95exM&w=1280&h=797&q=image&ved=2ahUKEwj6iqyMhbSEAxUvbmwGHX-qDCkQMygCegQIARBN");
+        setupCategoryListeners(view);
 
-        //ViewFlipperImage1.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(15).jpeg?alt=media&token=9dd7941e-bffa-45ea-91eb-23039ee9dd4c"));
-       // ViewFlipperImage2.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(14).jpeg?alt=media&token=0ff732f4-60bb-4faf-af8b-7de51e0073dd"));
-      //  ViewFlipperImage3.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(16).jpeg?alt=media&token=e0dcc598-9e99-4d35-a51a-ed322fe8fd1d"));
-       // ViewFlipperImage4.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(18).jpeg?alt=media&token=40f4878a-20fa-4162-946c-84d505ca0c64"));
-       // ViewFlipperImage5.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(22).jpeg?alt=media&token=96a33421-5d3a-4912-bfec-98de6f277037"));
-        //ViewFlipperImage6.setImageURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/home-rental-7cc1e.appspot.com/o/Images_In_Image_Slider%2Fimages%20(17).jpeg?alt=media&token=48603187-c984-44f1-94eb-16ed8f4aa88f"));
+        // Using SafeLinearLayoutManager to catch RecyclerView internal measurement crashes
+        homeRecyclerView.setLayoutManager(new SafeLinearLayoutManager(getContext()));
 
-       // ViewFlipperImage6.setImageURI(TT);
+        setupAdapter();
 
-        openMassageActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getContext(), MassagesActivity.class);
-                startActivity(intent);
-            }
-        });
+        return view;
+    }
 
-
-
-
-// Set RecyclerView initially invisible
-        homeRecyclerView.setVisibility(View.GONE);
-        homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+    private void setupAdapter() {
         try {
             DatabaseReference DBReference = FirebaseDatabase.getInstance().getReference("Posted Properties");
             FirebaseRecyclerOptions<PostPropertyModel> options = new FirebaseRecyclerOptions.Builder<PostPropertyModel>()
                     .setQuery(DBReference.orderByChild("timestamp").limitToLast(50), PostPropertyModel.class).build();
 
-            homeAdapter = new HomeAdapter(options,requireContext(),getCurrentUserId());
-            // Show ProgressBar while loading, hide it when data is loaded
-            homeAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onItemRangeInserted(int positionStart, int itemCount) {
-                    // Data loaded, hide ProgressBar and show RecyclerView
-                    shimmer.stopShimmer();
-                    shimmer.hideShimmer();
-                    homeRecyclerView.setVisibility(View.VISIBLE);
-                }
-            });
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            homeAdapter = new HomeAdapter(options, getContext(), user);
+            homeAdapter.registerAdapterDataObserver(dataObserver);
             homeRecyclerView.setAdapter(homeAdapter);
-
-            // Start listening for changes in the data
-            homeAdapter.startListening();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, "Error setting up adapter", e);
         }
-
-        return view;
     }
 
-    private FirebaseUser getCurrentUserId() {
-         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        return user;
+    private void setupCategoryListeners(View view) {
+        View.OnClickListener listener = v -> {
+            String category = "";
+            int id = v.getId();
+            if (id == R.id.search_house) category = "House";
+            else if (id == R.id.search_flat) category = "Flat";
+            else if (id == R.id.search_plot) category = "Plot";
+            else if (id == R.id.search_pg) category = "PG";
+            else if (id == R.id.search_villa) category = "Villa";
+            else if (id == R.id.search_bunglow) category = "Bungalow";
+            else if (id == R.id.search_office_space) category = "Office";
+            else if (id == R.id.search_shop) category = "Shop";
+            else if (id == R.id.search_outlets) category = "Outlet";
+            else if (id == R.id.search_factory) category = "Factory";
+            else if (id == R.id.search_cafe) category = "Cafe";
+            else if (id == R.id.search_hostel) category = "Hostel";
+            else if (id == R.id.search_warehouse) category = "Warehouse";
+            else if (id == R.id.search_cottage) category = "Cottage";
+            else if (id == R.id.search_farmhouse) category = "Farmhouse";
+
+            Intent intent = new Intent(getContext(), CategoryResultsActivity.class);
+            intent.putExtra("category", category);
+            startActivity(intent);
+        };
+
+        int[] ids = {R.id.search_house, R.id.search_flat, R.id.search_plot, R.id.search_pg, 
+                     R.id.search_villa, R.id.search_bunglow, R.id.search_office_space, 
+                     R.id.search_shop, R.id.search_outlets, R.id.search_factory, 
+                     R.id.search_cafe, R.id.search_hostel, R.id.search_warehouse, 
+                     R.id.search_cottage, R.id.search_farmhouse};
+        
+        for (int id : ids) {
+            View v = view.findViewById(id);
+            if (v != null) v.setOnClickListener(listener);
+        }
     }
-    // Add the following lifecycle methods to start and stop listening when the fragment is started and stopped
 
     @Override
     public void onStart() {
         super.onStart();
-        if (homeAdapter != null) {
-            homeAdapter.startListening();
-        }
+        if (homeAdapter != null) homeAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        if (homeAdapter != null) homeAdapter.stopListening();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         if (homeAdapter != null) {
-            homeAdapter.stopListening();
+            try {
+                homeAdapter.unregisterAdapterDataObserver(dataObserver);
+            } catch (Exception e) {
+                // Already unregistered
+            }
         }
     }
 
-}
+    /**
+     * Custom LinearLayoutManager to catch the "Inconsistency detected" crash
+     */
+    private static class SafeLinearLayoutManager extends LinearLayoutManager {
+        public SafeLinearLayoutManager(Context context) {
+            super(context);
+        }
 
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("SafeLayoutManager", "Inconsistency detected and caught", e);
+            }
+        }
+    }
+}

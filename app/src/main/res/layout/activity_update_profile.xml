@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -29,7 +30,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".UpdateEmailActivity">
+            tools:context=".UpdateProfileActivity">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,12 +47,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/back_button_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="10dp"
-                        android:src="@drawable/back_button" />
+                        android:src="@drawable/back_button"
+                        app:tint="@color/White" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -157,12 +160,12 @@
 
                     <EditText
                         android:id="@+id/editText_update_profile_dob"
-                        android:layout_width="40dp"
+                        android:layout_width="0dp"
                         android:layout_height="60dp"
                         android:layout_weight="3"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/DarkBlue100"
-                        android:hint="Date of Borth - DD/MM/YYYY"
+                        android:hint="Date of Birth - DD/MM/YYYY"
                         android:paddingStart="20dp" />
 
                     <ImageView

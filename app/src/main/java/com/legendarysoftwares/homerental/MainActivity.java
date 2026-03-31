@@ -22,14 +22,25 @@ import com.legendarysoftwares.homerental.fragments.Saved;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView navBar;
-    //BottomSheetDialog bottomSheetDialog;
+
+    public String searchQuery = "";
+
+    public void openSearchWithQuery(String query) {
+        this.searchQuery = query;
+        if (navBar != null) {
+            navBar.setSelectedItemId(R.id.search_tab);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadfrag(new Home(),0);
+        if (savedInstanceState == null) {
+            loadfrag(new Home(), 0);
+        }
+        
         LoginBottomSheetHelper loginBottomSheetHelper = new LoginBottomSheetHelper(this);
 
         navBar = findViewById(R.id.navBar);
@@ -41,7 +52,14 @@ public class MainActivity extends AppCompatActivity {
                     loadfrag(new Home(),1);
                 }
                 else if (id==R.id.search_tab) {
-                    loadfrag(new Search(),1);
+                    Search searchFrag = new Search();
+                    if (!searchQuery.isEmpty()) {
+                        Bundle args = new Bundle();
+                        args.putString("query", searchQuery);
+                        searchFrag.setArguments(args);
+                        searchQuery = ""; // reset
+                    }
+                    loadfrag(searchFrag,1);
                 }
                 else if (id==R.id.add_tab) {
                     if (!loginBottomSheetHelper.isLoggedIn()) {
@@ -55,19 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (id==R.id.profile_tab) {
                     loadfrag(new Profile(),1);
-                    /*Intent intent=new Intent(MainActivity.this,UserProfileActivity.class);
-                    startActivity(intent);*/
                 }
                 return true;
             }
         });
-
     }
-
-    /*private boolean isLoggedIn() {
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            return auth.getCurrentUser() != null;
-    }*/
 
 
     public void loadfrag(Fragment fragment, int flag){
@@ -80,54 +90,26 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }*/
-
-    /*private void createShowLoginBottomSheet() {
-        View view = getLayoutInflater().inflate(R.layout.ask_for_login_bs,null,false);
-        Button loginBtn = view.findViewById(R.id.bottomSheet_login_button);
-        Button registerBtn = view.findViewById(R.id.bottomSheet_register_button);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
-        });
-        bottomSheetDialog.setContentView(view);
-
-    }*/
-
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            showExitDialog();
+        }
+    }
+
+    private void showExitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("Do you want to exit ?");
         builder.setTitle("Alert !");
         builder.setCancelable(false);
 
-        builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
-            finish();});
-        builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-            dialog.cancel();});
+        builder.setPositiveButton("Yes", (dialog, which) -> finish());
+        builder.setNegativeButton("No", (dialog, which) -> dialog.cancel());
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

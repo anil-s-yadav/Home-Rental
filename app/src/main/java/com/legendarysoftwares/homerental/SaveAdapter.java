@@ -1,4 +1,5 @@
 package com.legendarysoftwares.homerental;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,39 +17,34 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.legendarysoftwares.homerental.fragments.Search;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import android.content.Context; // Import the Context class
+import android.content.Context;
 import android.widget.Toast;
 
 public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, SaveAdapter.myViewHolder> {
     private Context context;
     private String currentUserId;
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
-    public SaveAdapter(@NonNull FirebaseRecyclerOptions<PostPropertyModel> options,Context context,String currentUserId) {
+
+    public SaveAdapter(@NonNull FirebaseRecyclerOptions<PostPropertyModel> options, Context context, String currentUserId) {
         super(options);
         this.context = context;
-        this.currentUserId=currentUserId;
-
+        this.currentUserId = currentUserId;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull PostPropertyModel model) {
-
         holder.savePostName.setText(model.getPostTitle());
         holder.savePostAdd.setText(model.getPostAddress());
         holder.savePostOwner.setText(String.format("By, %s", model.getOwnerName()));
         holder.savePostPrice.setText(model.getPostPrice());
 
-        Log.e("Picasso", "Error loading image: " + model.getPostImageUrl2());
-
-        Picasso.get().load(model.getPostImageUrl2()).into(holder.savePostImg);
+        // In SavedPosts, the image field is "postImageUrl"
+        String imageUrl = model.getPostImageUrl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Picasso.get().load(imageUrl).placeholder(R.drawable.ic_logo_transparent).into(holder.savePostImg);
+        } else {
+            holder.savePostImg.setImageResource(R.drawable.ic_logo_transparent);
+        }
 
         holder.savePostDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,14 +56,12 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                // Property removed successfully
                                 Toast.makeText(context, "Property removed from saved posts", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                // Failed to remove property
                                 Log.e("RemoveProperty", "Failed to remove property: " + e.getMessage());
                                 Toast.makeText(context, "Failed to remove property", Toast.LENGTH_SHORT).show();
                             }
@@ -84,28 +78,18 @@ public class SaveAdapter extends FirebaseRecyclerAdapter<PostPropertyModel, Save
     }
 
     public class myViewHolder extends RecyclerView.ViewHolder {
-
         private TextView savePostName, savePostAdd, savePostPrice, savePostOwner;
-        private ImageView  savePostDelete;
+        private ImageView savePostDelete;
         private ShapeableImageView savePostImg;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            // Initialize ViewHolder views
             savePostName = itemView.findViewById(R.id.save_post_name);
             savePostAdd = itemView.findViewById(R.id.save_post_add);
             savePostOwner = itemView.findViewById(R.id.save_post_owner);
             savePostPrice = itemView.findViewById(R.id.text_view_property_price);
-
             savePostImg = itemView.findViewById(R.id.property_image);
             savePostDelete = itemView.findViewById(R.id.save_post_delete);
-
         }
     }
-
-
 }
-
-
-

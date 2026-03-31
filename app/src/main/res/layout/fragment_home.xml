@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".fragments.Home">
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/White"
-        android:orientation="horizontal">
+        android:layout_height="56dp"
+        android:background="@color/White"
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/backBtn"
@@ -44,6 +44,7 @@
             app:srcCompat="@drawable/messages" />
 
         <ImageButton
+            android:id="@+id/btn_notifications"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="fitCenter"
@@ -52,38 +53,24 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="50dp"
             android:layout_alignEnd="@+id/massages"
-
             android:scaleX="-1"
             />
 
-    </RelativeLayout>           <!-- ToolBar -->
-
-    <!--<TextView
-        android:id="@+id/searchView"
-        android:layout_width="260dp"
-        android:layout_height="36dp"
-        android:layout_below="@+id/relativeLayout1"
-        android:layout_centerInParent="true"
-        android:background="@drawable/blue_bg"
-        android:backgroundTint="@color/White"
-        android:drawableRight="@drawable/baseline_search_24"
-        android:gravity="center"
-        android:hint="search for attractive deals"
-        android:padding="8dp"
-        android:textColorHint="@color/DarkBlue200" />-->                    <!-- SearchView -->
+    </RelativeLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relativeLayout1">
+        android:layout_below="@+id/relativeLayout1"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp">
 
         <RelativeLayout
             android:id="@+id/RelativeLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/White150"
-            android:orientation="vertical">
+            android:background="@color/White150">
 
             <ViewFlipper
                 android:id="@+id/imageFlipper"
@@ -91,7 +78,6 @@
                 android:layout_height="240dp"
                 android:flipInterval="3000"
                 android:padding="10dp"
-                android:clipToPadding="false"
                 android:autoStart="true"
                 android:inAnimation="@anim/slide_in_right"
                 android:outAnimation="@anim/slide_out_left">
@@ -101,63 +87,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:layout_gravity="center"
                     app:srcCompat="@drawable/images2"
-                    app:shapeAppearanceOverlay="@style/RoundedSquare"
-                    android:background="@color/DarkBlue200"
-                    />
+                    app:shapeAppearanceOverlay="@style/RoundedSquare" />
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/Images_In_Image_Slider2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:layout_gravity="center"
                     app:srcCompat="@drawable/images1"
-                    app:shapeAppearanceOverlay="@style/RoundedSquare"
-                    android:background="@color/DarkBlue200"
-                    />
+                    app:shapeAppearanceOverlay="@style/RoundedSquare" />
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/Images_In_Image_Slider3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/images3"
                     android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    app:shapeAppearanceOverlay="@style/RoundedSquare"
-                    android:background="@color/DarkBlue200"
-                    />
+                    app:srcCompat="@drawable/images3"
+                    app:shapeAppearanceOverlay="@style/RoundedSquare" />
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/Images_In_Image_Slider4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/images4"
-                    app:shapeAppearanceOverlay="@style/RoundedSquare"
-                    android:background="@color/DarkBlue200"
-                    />
+                    app:shapeAppearanceOverlay="@style/RoundedSquare" />
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/Images_In_Image_Slider5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/images5"
-                    app:shapeAppearanceOverlay="@style/RoundedSquare"
-                    android:background="@color/DarkBlue200"
-                    />
+                    app:shapeAppearanceOverlay="@style/RoundedSquare" />
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/Images_In_Image_Slider6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/images6"
-                    app:shapeAppearanceOverlay="@style/RoundedSquare"
-                    android:background="@color/DarkBlue200"
-                    />
-
-            </ViewFlipper>              <!-- Image Slider have 6 Images -->
+                    app:shapeAppearanceOverlay="@style/RoundedSquare" />
+            </ViewFlipper>
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
@@ -174,375 +141,378 @@
                     android:layout_margin="10dp"
                     android:orientation="horizontal">
 
+                    <!-- House -->
                     <RelativeLayout
+                        android:id="@+id/search_house"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_house"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/house"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_house"/>
-                    </RelativeLayout>             <!-- house -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="House"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Flat -->
                     <RelativeLayout
+                        android:id="@+id/search_flat"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_flat"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/flat"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_flat"/>
-                    </RelativeLayout>             <!-- flat -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Flat"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Plot -->
                     <RelativeLayout
+                        android:id="@+id/search_plot"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_plot"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/plot"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_plot"/>
-                    </RelativeLayout>             <!-- plot -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Plot"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- PG -->
                     <RelativeLayout
+                        android:id="@+id/search_pg"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">               <!-- office -->
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_office_space"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
-                            android:src="@drawable/office_space"/>
-                        <TextView
-                            android:layout_width="36dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_office_space"/>
-                    </RelativeLayout>             <!-- office -->
-                    <RelativeLayout
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:background="@drawable/blue_bg"
-                        android:backgroundTint="@color/White"
-                        android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
-                        <ImageView
-                            android:id="@+id/search_shop"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/shop"/>
-                        <TextView
-                            android:layout_width="36dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:layout_below="@+id/search_shop"
-                            android:text="Shop"/>
-                    </RelativeLayout>             <!-- shop -->
-                    <RelativeLayout
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:background="@drawable/blue_bg"
-                        android:backgroundTint="@color/White"
-                        android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
-                        <ImageView
-                            android:id="@+id/search_pg"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/pg"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_pg"/>
-                    </RelativeLayout>             <!-- pg -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="PG"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Villa -->
                     <RelativeLayout
+                        android:id="@+id/search_villa"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_villa"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/villa"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_villa"/>
-                    </RelativeLayout>             <!-- villa -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Villa"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Bungalow -->
                     <RelativeLayout
+                        android:id="@+id/search_bunglow"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_bunglow"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/bungalow"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_bunglow"/>
-                    </RelativeLayout>             <!-- bungalow -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Bungalow"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Office -->
                     <RelativeLayout
+                        android:id="@+id/search_office_space"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_outlets"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/office_space"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Office"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Shop -->
+                    <RelativeLayout
+                        android:id="@+id/search_shop"
+                        android:layout_width="58dp"
+                        android:layout_height="58dp"
+                        android:background="@drawable/blue_bg"
+                        android:backgroundTint="@color/White"
+                        android:gravity="center"
+                        android:layout_marginEnd="20dp">
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/shop"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Shop"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Outlet -->
+                    <RelativeLayout
+                        android:id="@+id/search_outlets"
+                        android:layout_width="58dp"
+                        android:layout_height="58dp"
+                        android:background="@drawable/blue_bg"
+                        android:backgroundTint="@color/White"
+                        android:gravity="center"
+                        android:layout_marginEnd="20dp">
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/outlet"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
                             android:text="Outlet"
-                            android:layout_below="@+id/search_outlets"/>
-                    </RelativeLayout>             <!-- Outlet -->
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Factory -->
                     <RelativeLayout
+                        android:id="@+id/search_factory"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_factory"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/factory"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
                             android:text="Factory"
-                            android:layout_below="@+id/search_factory"/>
-                    </RelativeLayout>             <!-- Factory -->
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Cafe -->
                     <RelativeLayout
+                        android:id="@+id/search_cafe"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_cafe"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/cafe"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
                             android:text="Cafe"
-                            android:layout_below="@+id/search_cafe"/>
-                    </RelativeLayout>             <!-- Cafe -->
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Hostel -->
                     <RelativeLayout
+                        android:id="@+id/search_hostel"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_hostel"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/hostel"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
                             android:text="Hostel"
-                            android:layout_below="@+id/search_hostel"/>
-                    </RelativeLayout>             <!-- Hostel -->
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Warehouse -->
                     <RelativeLayout
+                        android:id="@+id/search_warehouse"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:gravity="center"
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_warehouse"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
-                            android:layout_marginStart="9dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/warehouse"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
+                            android:layout_alignParentBottom="true"
                             android:textSize="10sp"
-                            android:layout_marginStart="3dp"
                             android:text="Warehouse"
-                            android:layout_below="@+id/search_warehouse"/>
-                    </RelativeLayout>             <!-- Warehouse -->
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Cottage -->
                     <RelativeLayout
+                        android:id="@+id/search_cottage"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
                         android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:layout_marginEnd="20dp">
                         <ImageView
-                            android:id="@+id/search_cottage"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/cottage"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_cottage"/>
-                    </RelativeLayout>             <!-- cottage -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Cottage"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
+
+                    <!-- Farmhouse -->
                     <RelativeLayout
+                        android:id="@+id/search_farmhouse"
                         android:layout_width="58dp"
                         android:layout_height="58dp"
                         android:background="@drawable/blue_bg"
                         android:backgroundTint="@color/White"
-                        android:gravity="center"
-                        android:paddingTop="2dp"
-                        android:layout_marginEnd="25dp">
+                        android:gravity="center">
                         <ImageView
-                            android:id="@+id/search_farmhouse"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
+                            android:layout_centerHorizontal="true"
                             android:src="@drawable/farmhouse"/>
                         <TextView
-                            android:layout_width="36dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="1.5dp"
-                            android:textSize="11sp"
-                            android:textAlignment="center"
-                            android:text="Office"
-                            android:layout_below="@+id/search_farmhouse"/>
-                    </RelativeLayout>             <!-- farmhouse -->
+                            android:layout_alignParentBottom="true"
+                            android:textSize="10sp"
+                            android:text="Farmhouse"
+                            android:layout_centerHorizontal="true"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
-
             </HorizontalScrollView>
-
-
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/home_shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/horizontalScrollView">
+                android:layout_below="@+id/horizontalScrollView"
+                app:shimmer_auto_start="true">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <include layout="@layout/shimmer_effect_home"/>
-                    <include layout="@layout/shimmer_effect_home"/>
-                    <include layout="@layout/shimmer_effect_home"/>
+                    <include layout="@layout/one_post_home_rv" />
+                    <include layout="@layout/one_post_home_rv" />
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/horizontalScrollView"
-                android:overScrollMode="never"
-                android:paddingTop="5dp" />
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone"
+                tools:listitem="@layout/one_post_home_rv" />
 
         </RelativeLayout>
-
     </androidx.core.widget.NestedScrollView>
 
-
-
-
-
-
 </RelativeLayout>
-

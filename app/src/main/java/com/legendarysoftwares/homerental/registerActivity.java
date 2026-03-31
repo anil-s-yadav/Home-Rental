@@ -1,9 +1,12 @@
 package com.legendarysoftwares.homerental;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,13 +22,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.AuthResult;
@@ -39,309 +40,191 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class registerActivity extends AppCompatActivity {
-    private EditText  editTextRegisterFullName, editTextRegisterEmail, editTextRegisterDOB, editTextRegisterMobile, editTextRegisterPwd, editTextRegisterConfirmPwd;
+    private EditText editTextRegisterFullName, editTextRegisterEmail, editTextRegisterDOB, editTextRegisterMobile, editTextRegisterPwd, editTextRegisterConfirmPwd;
     private RadioGroup radioGroupRegisterGender;
     private RadioButton radioButtonRegisterGenderSelected;
-    private DatePickerDialog picker;
     private ShapeableImageView ProfilePic;
     private FirebaseAuth auth;
-    private FirebaseUser user;
     private ProgressDialog progressDialog;
     private final String aboutUser = "About me...";
-    private static final int PICK_IMAGE_REQUEST=1;
     private Uri uriImage;
+
+    private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    uriImage = result.getData().getData();
+                    if (uriImage != null) {
+                        Picasso.get().load(uriImage).placeholder(R.drawable.ic_profile).fit().centerCrop().into(ProfilePic);
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Toast.makeText(registerActivity.this,"You can Register now!",Toast.LENGTH_LONG).show();
+        initViews();
+        setupListeners();
+    }
 
-        editTextRegisterFullName=findViewById(R.id.editText_register_full_name);
-        editTextRegisterEmail=findViewById(R.id.editText_register_email);
-        editTextRegisterDOB=findViewById(R.id.editText_register_dob);
-        editTextRegisterMobile=findViewById(R.id.editText_register_mobile);
-        editTextRegisterPwd=findViewById(R.id.editText_register_password);
-        editTextRegisterConfirmPwd=findViewById(R.id.editText_register_confirm_password);
-
-        Button openGalleryBtn = findViewById(R.id.open_gallery);
+    private void initViews() {
+        editTextRegisterFullName = findViewById(R.id.editText_register_full_name);
+        editTextRegisterEmail = findViewById(R.id.editText_register_email);
+        editTextRegisterDOB = findViewById(R.id.editText_register_dob);
+        editTextRegisterMobile = findViewById(R.id.editText_register_mobile);
+        editTextRegisterPwd = findViewById(R.id.editText_register_password);
+        editTextRegisterConfirmPwd = findViewById(R.id.editText_register_confirm_password);
         ProfilePic = findViewById(R.id.registerImageViewProfile);
-        openGalleryBtn.setOnClickListener(v -> {
-            openGallery();
-        });
+        radioGroupRegisterGender = findViewById(R.id.radio_group_register_gender);
+    }
 
+    private void setupListeners() {
+        findViewById(R.id.open_gallery).setOnClickListener(v -> openGallery());
 
         ImageView imageViewShowHidePwd = findViewById(R.id.imageView_show_hide_pwd);
+        imageViewShowHidePwd.setOnClickListener(v -> togglePasswordVisibility(editTextRegisterPwd, imageViewShowHidePwd));
+
         ImageView imageViewShowHideConfirmPwd = findViewById(R.id.imageView_show_hide_confirm_pwd);
-        imageViewShowHidePwd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editTextRegisterPwd.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
-                    editTextRegisterPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    imageViewShowHidePwd.setImageResource(R.drawable.eye_close);
-                }else {
-                    editTextRegisterPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    imageViewShowHidePwd.setImageResource(R.drawable.eye_open);
-                }
-            }
-        });
-        imageViewShowHideConfirmPwd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editTextRegisterConfirmPwd.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
-                    editTextRegisterConfirmPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    imageViewShowHideConfirmPwd.setImageResource(R.drawable.eye_close);
-                }else {
-                    editTextRegisterConfirmPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    imageViewShowHideConfirmPwd.setImageResource(R.drawable.eye_open);
-                }
-            }
-        });
+        imageViewShowHideConfirmPwd.setOnClickListener(v -> togglePasswordVisibility(editTextRegisterConfirmPwd, imageViewShowHideConfirmPwd));
 
+        findViewById(R.id.imageView_date_picker).setOnClickListener(v -> showDatePicker());
 
-        //Radio button for gender
-        radioGroupRegisterGender=findViewById(R.id.radio_group_register_gender);
-        radioGroupRegisterGender.clearCheck();
-
-        //Setting Date picker on edittext
-        ImageView calenderImage = findViewById(R.id.imageView_date_picker);
-        calenderImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar calendar= Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-
-                //Date picker Dialog
-                picker = new DatePickerDialog(registerActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        editTextRegisterDOB.setText(dayOfMonth+"/"+(month+1)+"/"+year);
-                    }
-                },year,month,day);
-                picker.show();
-            }
-        });
-
-        Button buttonRegister = findViewById(R.id.button_register);
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                progressDialog = new ProgressDialog(registerActivity.this);
-                progressDialog.setTitle("Updating Profile");
-                progressDialog.setMessage("Please wait...");
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.show();
-
-                int selectedGenderId = radioGroupRegisterGender.getCheckedRadioButtonId();
-                radioButtonRegisterGenderSelected =findViewById(selectedGenderId);
-
-                //obtain the entered data
-                String textFullName = editTextRegisterFullName.getText().toString();
-                String textEmail = editTextRegisterEmail.getText().toString();
-                String textDOB = editTextRegisterDOB.getText().toString();
-                String textMobile = editTextRegisterMobile.getText().toString();
-                String textPwd = editTextRegisterPwd.getText().toString();
-                String textConfirmPwd = editTextRegisterConfirmPwd.getText().toString();
-                String textGender; //can't obtain before know the selected value
-
-                //validate mobile number using Matcher and Pattern (regular expression)
-                String mobileRegex = "[6-9][0-9]{9}";
-                Matcher mobileMatcher;
-                Pattern mobilePattern=Pattern.compile(mobileRegex);
-                mobileMatcher = mobilePattern.matcher(textMobile);
-
-                if (TextUtils.isEmpty(textFullName)){
-                    Toast.makeText(registerActivity.this,"Please enter your full name!",Toast.LENGTH_LONG).show();
-                    editTextRegisterFullName.setError("Full name is required");
-                    editTextRegisterFullName.requestFocus();
-                }else if (TextUtils.isEmpty(textEmail)){
-                    Toast.makeText(registerActivity.this,"Please enter your Email!",Toast.LENGTH_LONG).show();
-                    editTextRegisterEmail.setError("Email is required");
-                    editTextRegisterEmail.requestFocus();
-                }else if (!Patterns.EMAIL_ADDRESS.matcher(textEmail).matches()){
-                    Toast.makeText(registerActivity.this,"Please re-enter your email!",Toast.LENGTH_LONG).show();
-                    editTextRegisterEmail.setError("Valid Email is required");
-                    editTextRegisterEmail.requestFocus();
-                }else if (TextUtils.isEmpty(textDOB)){
-                    Toast.makeText(registerActivity.this,"Please enter your Date of birth!",Toast.LENGTH_LONG).show();
-                    editTextRegisterDOB.setError("Date of birth is required");
-                    editTextRegisterDOB.requestFocus();
-                }else if (TextUtils.isEmpty(textFullName)){
-                    Toast.makeText(registerActivity.this,"You can Register now!",Toast.LENGTH_LONG).show();
-                    editTextRegisterFullName.setError("Full name is required");
-                    editTextRegisterFullName.requestFocus();
-                }else if (radioGroupRegisterGender.getCheckedRadioButtonId()==-1){
-                    Toast.makeText(registerActivity.this,"Please select your gender!",Toast.LENGTH_LONG).show();
-                    radioButtonRegisterGenderSelected.setError("Gender is required");
-                    radioButtonRegisterGenderSelected.requestFocus();
-                }else if (TextUtils.isEmpty(textMobile)){
-                    Toast.makeText(registerActivity.this,"Enter your mobile number!",Toast.LENGTH_LONG).show();
-                    editTextRegisterMobile.setError("Mobile no. is required");
-                    editTextRegisterMobile.requestFocus();
-                }else if (textMobile.length()!=10){
-                    Toast.makeText(registerActivity.this,"Re-enter your mobile number!",Toast.LENGTH_LONG).show();
-                    editTextRegisterMobile.setError("Mobile no. should be 10 digits!");
-                    editTextRegisterMobile.requestFocus();
-                }else if (!mobileMatcher.find()) {
-                    Toast.makeText(registerActivity.this, "Re-enter your mobile number!", Toast.LENGTH_LONG).show();
-                    editTextRegisterMobile.setError("Mobile no. is not valid!");
-                    editTextRegisterMobile.requestFocus();
-                }else if (TextUtils.isEmpty(textPwd)){
-                    Toast.makeText(registerActivity.this,"Enter Password!",Toast.LENGTH_LONG).show();
-                    editTextRegisterPwd.setError("Password is required!");
-                    editTextRegisterPwd.requestFocus();
-                }else if (textPwd.length()<8){
-                    Toast.makeText(registerActivity.this,"Password should be 8 digits!",Toast.LENGTH_LONG).show();
-                    editTextRegisterPwd.setError("Password is too weak");
-                    editTextRegisterPwd.requestFocus();
-                }else if (TextUtils.isEmpty(textConfirmPwd)) {
-                    Toast.makeText(registerActivity.this, "Please confirm your password!", Toast.LENGTH_LONG).show();
-                    editTextRegisterConfirmPwd.setError("Password confirmation is required!");
-                    editTextRegisterConfirmPwd.requestFocus();
-                }else if (!textPwd.equals(textConfirmPwd)){
-                    Toast.makeText(registerActivity.this,"Please confirm your password!",Toast.LENGTH_LONG).show();
-                    editTextRegisterConfirmPwd.setError("Password should be match!");
-                    editTextRegisterConfirmPwd.requestFocus();
-                    //cleared the entered password
-                    editTextRegisterConfirmPwd.clearComposingText();
-                    editTextRegisterPwd.clearComposingText();
-                }else{
-                    textGender = radioButtonRegisterGenderSelected.getText().toString();
-                    registerUser(textFullName, textEmail, textDOB, textGender,textMobile,textPwd);
-                }
-
-            }
-        });
-
+        findViewById(R.id.button_register).setOnClickListener(v -> validateAndRegister());
     }
+
+    private void togglePasswordVisibility(EditText editText, ImageView icon) {
+        if (editText.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
+            editText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            icon.setImageResource(R.drawable.eye_close);
+        } else {
+            editText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            icon.setImageResource(R.drawable.eye_open);
+        }
+        editText.setSelection(editText.getText().length());
+    }
+
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog picker = new DatePickerDialog(this, (view, year, month, dayOfMonth) -> 
+                editTextRegisterDOB.setText(dayOfMonth + "/" + (month + 1) + "/" + year),
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        picker.show();
+    }
+
+    private void validateAndRegister() {
+        String fullName = editTextRegisterFullName.getText().toString().trim();
+        String email = editTextRegisterEmail.getText().toString().trim();
+        String dob = editTextRegisterDOB.getText().toString().trim();
+        String mobile = editTextRegisterMobile.getText().toString().trim();
+        String pwd = editTextRegisterPwd.getText().toString();
+        String confirmPwd = editTextRegisterConfirmPwd.getText().toString();
+
+        if (TextUtils.isEmpty(fullName)) {
+            editTextRegisterFullName.setError("Required");
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextRegisterEmail.setError("Invalid Email");
+            return;
+        }
+        
+        int selectedGenderId = radioGroupRegisterGender.getCheckedRadioButtonId();
+        if (selectedGenderId == -1) {
+            Toast.makeText(this, "Select Gender", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        radioButtonRegisterGenderSelected = findViewById(selectedGenderId);
+        String gender = radioButtonRegisterGenderSelected.getText().toString();
+
+        if (mobile.length() != 10) {
+            editTextRegisterMobile.setError("10 digits required");
+            return;
+        }
+        if (!pwd.equals(confirmPwd)) {
+            editTextRegisterConfirmPwd.setError("Passwords mismatch");
+            return;
+        }
+        if (uriImage == null) {
+            Toast.makeText(this, "Select profile picture", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Registering...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        registerUser(fullName, email, dob, gender, mobile, pwd);
+    }
+
     private void openGallery() {
-        Intent intent=new Intent();
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,PICK_IMAGE_REQUEST);
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data.getData() !=null){
-            uriImage = data.getData();
-            ProfilePic.setImageURI(uriImage);
-        }
+        galleryLauncher.launch(intent);
     }
 
-    /*private void uploadPic(String FullName){
-        if (uriImage!=null){
-           StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
-                   .child(user.getUid());
-            storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            userProfilePhotoOnStorage = uri;
-                            UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(FullName)
-                                    .setPhotoUri(userProfilePhotoOnStorage).build();
-                            user.updateProfile(profileChangeRequest);
-                        }
-                    });
-                }
-            });
-        }else {
-            progressBar.setVisibility(View.GONE);
-            Toast.makeText(registerActivity.this, "Image not selected!", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
-    private void registerUser(String textFullName, String textEmail, String textDOB,String textGender, String textMobile, String textPwd) {
-        auth=FirebaseAuth.getInstance();
-        //create user
-        auth.createUserWithEmailAndPassword(textEmail,textPwd).addOnCompleteListener(registerActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    user = auth.getCurrentUser();
-
-                    if (uriImage!=null){
-                        StorageReference storageReference= FirebaseStorage.getInstance().getReference("UserProfilePics")
-                                .child(user.getUid());
-                        storageReference.putFile(uriImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest.Builder()
-                                                .setDisplayName(textFullName)
-                                                .setPhotoUri(uri).build();
-                                        user.updateProfile(profileChangeRequest);
-
-                                        //Enter user data to realtime database
-                                        ReadWriteUserDetailsModel readWriteUserDetailsModel=new ReadWriteUserDetailsModel(textFullName,uri.toString(),textEmail,textDOB,textGender,textMobile,aboutUser);
-                                        //Extracting user reference from Database for "Register users"
-                                        DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
-                                        referenceProfile.child(user.getUid()).setValue(readWriteUserDetailsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()){
-                                                    //send verification email
-                                                    user.sendEmailVerification();
-
-                                                    progressDialog.dismiss();
-                                                    Toast.makeText(registerActivity.this,"User register successful! Now verify Email",Toast.LENGTH_SHORT).show();
-                                                    // Create an instance of the Profile fragment
-                                                    Intent intent=new Intent(registerActivity.this, MyPostsOnProfile.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                                            |Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                }else {
-                                                    Toast.makeText(registerActivity.this,"User register Unsuccessful try again!",
-                                                            Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
-
-
-                                    }
-                                });
-                            }
-                        });
-                    }else {
-                        Toast.makeText(registerActivity.this, "Image not selected!", Toast.LENGTH_SHORT).show();
-                    }
-
-                }else{
-                    try {
-                        throw task.getException();
-                    }catch (FirebaseAuthWeakPasswordException e) {
-                        editTextRegisterPwd.setError("Your password is too weak! Enter a strong password");
-                        editTextRegisterPwd.requestFocus();
-                    }catch (FirebaseAuthInvalidCredentialsException e){
-                        editTextRegisterPwd.setError("Your Email is Invalid or already in use. Kindly re-enter.");
-                        editTextRegisterPwd.requestFocus();
-                    }catch (FirebaseAuthUserCollisionException e){
-                        editTextRegisterEmail.setError("User is already  register! Try another email or Login.");
-                        editTextRegisterEmail.requestFocus();
-                    }catch (Exception e){
-                        Log.d("RegisterActivity",e.getMessage());
-                        Toast.makeText(registerActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                }
-            } //  end of public void onComplete(@NonNull Task<AuthResult> task) {
+    private void registerUser(String fullName, String email, String dob, String gender, String mobile, String pwd) {
+        auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(email, pwd).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
+                uploadProfilePicture(task.getResult().getUser(), fullName, email, dob, gender, mobile);
+            } else {
+                if (progressDialog != null) progressDialog.dismiss();
+                handleRegistrationError(task.getException());
+            }
         });
-
     }
 
+    private void uploadProfilePicture(FirebaseUser user, String fullName, String email, String dob, String gender, String mobile) {
+        if (user == null) return;
+
+        StorageReference ref = FirebaseStorage.getInstance().getReference("UserProfilePics").child(user.getUid());
+        ref.putFile(uriImage).addOnSuccessListener(taskSnapshot -> ref.getDownloadUrl().addOnSuccessListener(uri -> {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(fullName)
+                    .setPhotoUri(uri).build();
+            
+            user.updateProfile(profileUpdates).addOnCompleteListener(t -> {
+                saveUserDataToDatabase(user, fullName, email, dob, gender, mobile, uri.toString());
+            });
+        })).addOnFailureListener(e -> {
+            if (progressDialog != null) progressDialog.dismiss();
+            Toast.makeText(this, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void saveUserDataToDatabase(FirebaseUser user, String fullName, String email, String dob, String gender, String mobile, String photoUrl) {
+        ReadWriteUserDetailsModel model = new ReadWriteUserDetailsModel(fullName, photoUrl, email, dob, gender, mobile, aboutUser);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Registered Users");
+        dbRef.child(user.getUid()).setValue(model).addOnCompleteListener(task -> {
+            if (progressDialog != null) progressDialog.dismiss();
+            if (task.isSuccessful()) {
+                user.sendEmailVerification();
+                Toast.makeText(this, "Registered Successfully!", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "Database error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void handleRegistrationError(Exception e) {
+        if (e instanceof FirebaseAuthWeakPasswordException) {
+            editTextRegisterPwd.setError("Weak password");
+        } else if (e instanceof FirebaseAuthUserCollisionException) {
+            editTextRegisterEmail.setError("Email already in use");
+        } else {
+            Toast.makeText(this, "Registration failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
 }

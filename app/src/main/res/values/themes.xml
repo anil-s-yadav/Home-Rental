@@ -4,6 +4,9 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/DarkBlue500</item>
         <item name="colorSecondary">@color/DarkBlue400</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor">@color/White</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="Theme.HomeRental" parent="Base.Theme.HomeRental" />
@@ -12,8 +15,4 @@
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
-
-
-
-
 </resources>

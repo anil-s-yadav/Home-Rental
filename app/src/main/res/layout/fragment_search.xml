@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".Search">
+    tools:context=".fragments.Search">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:iconifiedByDefault="false"
-        app:queryHint="Search for location Ex. Mumbai"
-        app:queryBackground="@android:color/transparent"
+        android:layout_margin="12dp"
         android:background="@drawable/blue_bg"
         android:backgroundTint="@color/DarkBlue100"
-        android:layout_margin="12dp"
-        android:padding="2dp"
         android:elevation="2dp"
-        app:searchIcon="@drawable/baseline_search_24"
-        android:isScrollContainer="true"
-        android:focusable="true"
-        />
+        app:iconifiedByDefault="false"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Search for location Ex. Mumbai"
+        app:searchIcon="@drawable/baseline_search_24" />
+
     <HorizontalScrollView
         android:id="@+id/nestedScrollView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollIndicators="none"
         android:overScrollMode="never"
-        android:scrollbars="none"
-        android:contentDescription="homes">
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,16 +41,17 @@
                     android:id="@+id/search_office_space"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/office_space"/>
+                    android:src="@drawable/office_space" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Office"
-                    android:layout_marginTop="2dp"
-                    android:textSize="11sp"
+                    android:layout_below="@+id/search_office_space"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_office_space"/>
+                    android:layout_marginTop="2dp"
+                    android:text="Office"
+                    android:textSize="11sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,35 +60,37 @@
                     android:id="@+id/search_shop"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/shop"/>
+                    android:src="@drawable/shop" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Shop"
-                    android:layout_marginTop="2dp"
-                    android:textSize="11sp"
+                    android:layout_below="@+id/search_shop"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_shop"/>
+                    android:layout_marginTop="2dp"
+                    android:text="Shop"
+                    android:textSize="11sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp">
                 <ImageView
-                    android:id="@+id/search_outlet"
+                    android:id="@+id/search_outlets"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/outlet"/>
+                    android:src="@drawable/outlet" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Showroom"
-                    android:layout_marginTop="2dp"
-                    android:textSize="11sp"
+                    android:layout_below="@+id/search_outlets"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_outlet"/>
+                    android:layout_marginTop="2dp"
+                    android:text="Outlet"
+                    android:textSize="11sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,16 +100,17 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/factory"/>
+                    android:src="@drawable/factory" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Factory"
-                    android:layout_marginTop="2dp"
-                    android:textSize="11sp"
+                    android:layout_below="@+id/search_factory"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_factory"/>
+                    android:layout_marginTop="2dp"
+                    android:text="Factory"
+                    android:textSize="11sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,16 +120,17 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/cafe"/>
+                    android:src="@drawable/cafe" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cafe"
-                    android:layout_marginTop="2dp"
-                    android:textSize="11sp"
+                    android:layout_below="@+id/search_cafe"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_cafe"/>
+                    android:layout_marginTop="2dp"
+                    android:text="Cafe"
+                    android:textSize="11sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,55 +139,132 @@
                     android:id="@+id/search_hostel"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/hostel"/>
+                    android:src="@drawable/hostel" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="hostel"
-                    android:layout_marginTop="2dp"
-                    android:textSize="11sp"
+                    android:layout_below="@+id/search_hostel"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_hostel"/>
+                    android:layout_marginTop="2dp"
+                    android:text="Hostel"
+                    android:textSize="11sp" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="25dp">
                 <ImageView
                     android:id="@+id/search_warehouse"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginStart="14dp"
-                    android:src="@drawable/warehouse"/>
+                    android:src="@drawable/warehouse" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Warehouse"
-                    android:layout_marginTop="2dp"
-                    android:textSize="11sp"
+                    android:layout_below="@+id/search_warehouse"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/search_warehouse"/>
+                    android:layout_marginTop="2dp"
+                    android:text="Warehouse"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp">
+                <ImageView
+                    android:id="@+id/search_pg"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/pg" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/search_pg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:text="PG"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp">
+                <ImageView
+                    android:id="@+id/search_bunglow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/bungalow" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/search_bunglow"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:text="Bungalow"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp">
+                <ImageView
+                    android:id="@+id/search_cottage"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/cottage" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/search_cottage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:text="Cottage"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp">
+                <ImageView
+                    android:id="@+id/search_farmhouse"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/farmhouse" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/search_farmhouse"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:text="Farmhouse"
+                    android:textSize="11sp" />
             </RelativeLayout>
 
         </LinearLayout>
-
     </HorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/linearlayout_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
         android:orientation="horizontal">
+
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
+            android:layout_marginStart="15dp"
+            android:background="@drawable/blue_bg"
+            android:backgroundTint="@color/DarkBlue100">
             <ImageView
                 android:id="@+id/search_house"
                 android:layout_width="30dp"
@@ -198,20 +275,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="House"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
+                android:layout_below="@+id/search_house"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_house"/>
+                android:layout_marginTop="2dp"
+                android:text="House"
+                android:textSize="12sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
+            android:layout_marginStart="10dp"
+            android:background="@drawable/blue_bg"
+            android:backgroundTint="@color/DarkBlue100">
             <ImageView
                 android:id="@+id/search_flat"
                 android:layout_width="30dp"
@@ -222,20 +300,21 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Flat"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
+                android:layout_below="@+id/search_flat"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_flat"/>
+                android:layout_marginTop="2dp"
+                android:text="Flat"
+                android:textSize="12sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
+            android:layout_marginStart="10dp"
+            android:background="@drawable/blue_bg"
+            android:backgroundTint="@color/DarkBlue100">
             <ImageView
                 android:id="@+id/search_plot"
                 android:layout_width="30dp"
@@ -246,19 +325,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Plot"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
+                android:layout_below="@+id/search_plot"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_plot"/>
+                android:layout_marginTop="2dp"
+                android:text="Plot"
+                android:textSize="12sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
+            android:background="@drawable/blue_bg"
+            android:backgroundTint="@color/DarkBlue100">
             <ImageView
                 android:id="@+id/search_villa"
                 android:layout_width="30dp"
@@ -269,125 +349,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/search_villa"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="2dp"
                 android:text="Villa"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_villa"/>
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearlayout_options2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
-            <ImageView
-                android:id="@+id/search_bunglow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bungalow" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="bunglow"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_bunglow"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
-            <ImageView
-                android:id="@+id/search_cottage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/cottage" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cottage"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_cottage"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
-            <ImageView
-                android:id="@+id/search_farmhouse"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/farmhouse" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Farmhouse"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_farmhouse"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:backgroundTint="@color/DarkBlue100"
-            android:background="@drawable/blue_bg">
-            <ImageView
-                android:id="@+id/search_pg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/pg" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PG"
-                android:textSize="12sp"
-                android:layout_marginTop="2dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="1dp"
-                android:layout_below="@+id/search_pg"/>
-        </RelativeLayout>
-    </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRecycler_View"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/one_saved_item_rv"/>
+        android:visibility="gone" />
 
 </LinearLayout>

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="28dp"
         android:orientation="horizontal">
 
@@ -47,21 +47,6 @@
                 android:text="Please login first."
                 android:textColor="@color/DarkBlue400"
                 />
-
-            <!--<TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/White300"
-                android:backgroundTint="@color/White200"
-                android:background="@drawable/blue_bg"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="3dp"/>-->
         </LinearLayout>
 
         <TextView
@@ -89,8 +74,6 @@
         android:background="@color/Pink"
         android:backgroundTint="@color/White200"
         />
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -227,23 +210,7 @@
             android:text="Update Profile"
             />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/envelope"/>
-        <TextView
-            android:id="@+id/profile_update_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Update Email"
-            />
-    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -291,6 +258,7 @@
         android:layout_marginBottom="15dp"
         />
     <TextView
+        android:id="@+id/profile_privacy_policy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -298,6 +266,7 @@
         android:text="Privacy Policy"
         />
     <TextView
+        android:id="@+id/profile_terms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -333,6 +302,7 @@
             android:layout_height="35dp"
             android:src="@drawable/rate_us"/>
         <TextView
+            android:id="@+id/profile_rate_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -344,4 +314,3 @@
 
 
 </LinearLayout>
-

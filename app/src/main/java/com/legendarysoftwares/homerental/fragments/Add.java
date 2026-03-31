@@ -2,11 +2,13 @@ package com.legendarysoftwares.homerental.fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,11 +17,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,214 +32,233 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.legendarysoftwares.homerental.PostPropertyModel;
 import com.legendarysoftwares.homerental.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Add extends Fragment {
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private List<ImageView> propertyImageViews;
-    private List<Uri> selectedImageUris;
+    private static final String TAG = "AddPropertyFragment";
+    private final List<Uri> selectedImageUris = new ArrayList<>();
     private EditText postName, postLocation, postPrice;
-    private StorageReference imagesStorageRef;
+    private AutoCompleteTextView spinnerPostType;
     private FirebaseUser user;
     private String propertyId;
-    private  ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
-    public Add() { /* Required empty public constructor*/}
+    // Use GetMultipleContents for reliable cross-device experience
+    private final ActivityResultLauncher<String> imagePickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.GetMultipleContents(),
+            uris -> {
+                if (uris != null) {
+                    handleUris(uris);
+                }
+            }
+    );
 
+    public Add() { /* Required empty public constructor*/ }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add, container, false);
-
-        postName = view.findViewById(R.id.editText_post_name);
-        postLocation = view.findViewById(R.id.editText_post_location);
-        postPrice = view.findViewById(R.id.editText_post_price);
-        Button uploadPostButton = view.findViewById(R.id.upload_post_button);
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        imagesStorageRef = FirebaseStorage.getInstance().getReference("property_images").child(user.getUid());
-        propertyId = FirebaseDatabase.getInstance().getReference().push().getKey();
-
-        uploadPostButton.setOnClickListener(v -> {
-            uploadInStorageAndDownloadUrls();
-        });
-
-        ImageView propertyImageView1 = view.findViewById(R.id.choose_post_image_to_upload1);
-        ImageView propertyImageView2 = view.findViewById(R.id.choose_post_image_to_upload2);
-        ImageView propertyImageView3 = view.findViewById(R.id.choose_post_image_to_upload3);
-        ImageView propertyImageView4 = view.findViewById(R.id.choose_post_image_to_upload4);
-        ImageView propertyImageView5 = view.findViewById(R.id.choose_post_image_to_upload5);
-        ImageView propertyImageView6 = view.findViewById(R.id.choose_post_image_to_upload6);
-        Button imgChooseBtn = view.findViewById(R.id.ImgChooseBtn);
-
-        propertyImageViews = Arrays.asList(propertyImageView1, propertyImageView2, propertyImageView3, propertyImageView4, propertyImageView5, propertyImageView6);
-        selectedImageUris = new ArrayList<>();
-
-        imgChooseBtn.setOnClickListener(v -> chooseImages());
-
-
-        return view;
-    }
-
-
-    private void chooseImages() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // Allow multiple image selection
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Images"), PICK_IMAGE_REQUEST);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_add, container, false);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            ClipData clipData = data.getClipData();
+        try {
+            postName = view.findViewById(R.id.editText_post_name);
+            postLocation = view.findViewById(R.id.editText_post_location);
+            postPrice = view.findViewById(R.id.editText_post_price);
+            spinnerPostType = view.findViewById(R.id.spinner_post_type);
+            Button uploadPostButton = view.findViewById(R.id.upload_post_button);
+            Button imgChooseBtn = view.findViewById(R.id.ImgChooseBtn);
 
-            if (clipData != null) { // Multiple images selected
-                for (int i = 0; i < clipData.getItemCount(); i++) {
-                    Uri uri = clipData.getItemAt(i).getUri();
-                    selectedImageUris.add(uri);
+            setupCategories();
 
-                    if (i < propertyImageViews.size()) {
-                        propertyImageViews.get(i).setImageURI(uri);
-                    }
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            propertyId = FirebaseDatabase.getInstance().getReference().push().getKey();
+
+            uploadPostButton.setOnClickListener(v -> {
+                if (validateFields()) {
+                    uploadInStorageAndDownloadUrls();
                 }
-            } else { // Single image selected
-                Uri uri = data.getData();
-                selectedImageUris.add(uri);
+            });
 
-                if (!selectedImageUris.isEmpty() && selectedImageUris.size() <= propertyImageViews.size()) {
-                    for (int i = 0; i < selectedImageUris.size(); i++) {
-                        propertyImageViews.get(i).setImageURI(selectedImageUris.get(i));
-                    }
+            imgChooseBtn.setOnClickListener(v -> {
+                try {
+                    imagePickerLauncher.launch("image/*");
+                } catch (Exception e) {
+                    if (isAdded()) Toast.makeText(getContext(), "Gallery error", Toast.LENGTH_SHORT).show();
                 }
+            });
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error in onViewCreated", e);
+        }
+    }
+
+    private void setupCategories() {
+        if (!isAdded() || getContext() == null || spinnerPostType == null) return;
+        String[] categories = {"House", "Flat", "Plot", "Office", "Shop", "PG", "Villa", "Bungalow", "Outlet", "Factory", "Cafe", "Hostel", "Warehouse", "Cottage", "Farmhouse"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, categories);
+        spinnerPostType.setAdapter(adapter);
+    }
+
+    private void handleUris(@NonNull List<Uri> uris) {
+        if (!isAdded() || getView() == null) return;
+
+        try {
+            selectedImageUris.clear();
+            
+            // Explicitly cap at 6 images to prevent potential index errors
+            int count = Math.min(uris.size(), 6);
+            if (uris.size() > 6 && isAdded()) {
+                Toast.makeText(getContext(), "Only the first 6 images were selected.", Toast.LENGTH_SHORT).show();
+            }
+
+            for (int i = 0; i < count; i++) {
+                Uri uri = uris.get(i);
+                if (uri != null) selectedImageUris.add(uri);
+            }
+
+            updateImagePreviews();
+        } catch (Exception e) {
+            Log.e(TAG, "Error handling URIs", e);
+        }
+    }
+
+    private void updateImagePreviews() {
+        View v = getView();
+        if (v == null) return;
+
+        int[] ids = {
+                R.id.choose_post_image_to_upload1, R.id.choose_post_image_to_upload2,
+                R.id.choose_post_image_to_upload3, R.id.choose_post_image_to_upload4,
+                R.id.choose_post_image_to_upload5, R.id.choose_post_image_to_upload6
+        };
+
+        for (int i = 0; i < ids.length; i++) {
+            ImageView iv = v.findViewById(ids[i]);
+            if (iv == null) continue;
+
+            if (i < selectedImageUris.size()) {
+                // Using fit().centerCrop() to prevent OOM crashes with large images
+                Picasso.get().load(selectedImageUris.get(i))
+                        .placeholder(R.drawable.ic_logo_transparent)
+                        .error(R.drawable.ic_logo_transparent)
+                        .fit()
+                        .centerCrop()
+                        .into(iv);
+            } else {
+                iv.setImageResource(R.drawable.ic_logo_transparent);
             }
         }
     }
 
+    private boolean validateFields() {
+        if (user == null) {
+            if (isAdded()) Toast.makeText(getContext(), "Please login first", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (postName.getText().toString().trim().isEmpty()) {
+            postName.setError("Required");
+            return false;
+        }
+        if (spinnerPostType.getText().toString().trim().isEmpty()) {
+            spinnerPostType.setError("Select Type");
+            return false;
+        }
+        if (postLocation.getText().toString().trim().isEmpty()) {
+            postLocation.setError("Required");
+            return false;
+        }
+        if (selectedImageUris.isEmpty()) {
+            if (isAdded()) Toast.makeText(getContext(), "Please select at least one image", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
     private void uploadInStorageAndDownloadUrls() {
-        if (selectedImageUris != null && !selectedImageUris.isEmpty()) {
+        if (!isAdded() || user == null || getContext() == null) return;
 
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setTitle("Uploading Property");
-            progressDialog.setMessage("Please wait...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("Publishing...");
+        progressDialog.setMessage("Uploading images...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-            if (propertyId != null) {
-                // Set up StorageReference with the new structure
-                StorageReference userStorageRef = imagesStorageRef.child(user.getUid());
-                StorageReference propertyStorageRef = userStorageRef.child(propertyId);
-
-                List<String> postImageUrls = new ArrayList<>(); // Store all image URLs
-
-                // Use a recursive method to handle asynchronous image uploads
-                uploadImageRecursively(propertyStorageRef, postImageUrls, 0);
-            } else {
-                Log.e("AddProperty", "Property ID is null");
-            }
-        } else {
-            Toast.makeText(getContext(), "No images selected", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
-        }
+        if (propertyId == null) propertyId = FirebaseDatabase.getInstance().getReference().push().getKey();
+        
+        List<String> postImageUrls = new ArrayList<>();
+        uploadRecursive(0, postImageUrls);
     }
 
-    private void uploadImageRecursively(StorageReference storageRef, List<String> postImageUrls, int index) {
-        if (index < selectedImageUris.size()) {
-            StorageReference imageRef = storageRef.child("image" + index); // e.g., image0, image1, ...
-            Uri selectedImageUri = selectedImageUris.get(index);
-
-            imageRef.putFile(selectedImageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        // Image upload success, now get the download URL
-                        imageRef.getDownloadUrl().addOnSuccessListener(downloadUri -> {
-                            // Image URL obtained, add it to the list
-                            postImageUrls.add(downloadUri.toString());
-
-                            // Recursively call the method for the next image
-                            uploadImageRecursively(storageRef, postImageUrls, index + 1);
-                        });
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(getContext(), "Image upload failed", Toast.LENGTH_SHORT).show();
-                        Log.e("AddProperty", "Image upload failed", e);
-                    });
-        } else {
-            // All images are processed, now upload post to the database
-            uploadPostToDatabase(postImageUrls);
+    private void uploadRecursive(int index, List<String> urls) {
+        if (!isAdded() || index >= selectedImageUris.size()) {
+            saveToDatabase(urls);
+            return;
         }
+
+        StorageReference ref = FirebaseStorage.getInstance().getReference("property_images")
+                .child(user.getUid()).child(propertyId).child("image" + index);
+
+        ref.putFile(selectedImageUris.get(index))
+                .addOnSuccessListener(task -> ref.getDownloadUrl().addOnSuccessListener(uri -> {
+                    urls.add(uri.toString());
+                    uploadRecursive(index + 1, urls);
+                }))
+                .addOnFailureListener(e -> {
+                    if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+                    if (isAdded()) Toast.makeText(getContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
-    private void uploadPostToDatabase(List<String> postImageUrls) {
+    private void saveToDatabase(List<String> urls) {
+        if (!isAdded() || user == null) {
+            if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+            return;
+        }
+
         try {
-            String ownerID = user.getUid();
-            String ownerName = user.getDisplayName();
-            String ownerPhoto = user.getPhotoUrl().toString();
+            PostPropertyModel post = new PostPropertyModel();
+            post.setTimestamp(System.currentTimeMillis());
+            post.setPropertyId(propertyId);
+            post.setOwnerId(user.getUid());
+            post.setPostTitle(postName.getText().toString().trim());
+            post.setPostAddress(postLocation.getText().toString().trim());
+            post.setPostPrice(postPrice.getText().toString().trim());
+            post.setType(spinnerPostType.getText().toString().trim());
+            post.setOwnerName(user.getDisplayName() != null ? user.getDisplayName() : "Owner");
+            post.setOwnerPhoto(user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "");
 
-            String textPostName = postName.getText().toString();
-            String textPostLocation = postLocation.getText().toString();
-            String textPostPrice = postPrice.getText().toString();
-            long timestamp = System.currentTimeMillis();
-
-            DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Posted Properties");
-
-            if (propertyId != null) {
-                PostPropertyModel postPropertyModel = new PostPropertyModel(
-                    timestamp, propertyId, ownerID, textPostName, textPostLocation, textPostPrice, ownerName, ownerPhoto);
-
-                // Set all image URLs based on the number of images selected
-
-                // Set all image URLs based on the number of images selected
-                for (int i = 0; i < postImageUrls.size(); i++) {
-                    switch (i) {
-                        case 0:
-                            postPropertyModel.setPostImageUrl1(postImageUrls.get(i));
-                            break;
-                        case 1:
-                            postPropertyModel.setPostImageUrl2(postImageUrls.get(i));
-                            break;
-                        case 2:
-                            postPropertyModel.setPostImageUrl3(postImageUrls.get(i));
-                            break;
-                        case 3:
-                            postPropertyModel.setPostImageUrl4(postImageUrls.get(i));
-                            break;
-                        case 4:
-                            postPropertyModel.setPostImageUrl5(postImageUrls.get(i));
-                            break;
-                        case 5:
-                            postPropertyModel.setPostImageUrl6(postImageUrls.get(i));
-                            break;
-                        // Handle additional cases if you have more image views
-                    }
+            for (int i = 0; i < urls.size(); i++) {
+                String url = urls.get(i);
+                switch (i) {
+                    case 0: post.setPostImageUrl1(url); break;
+                    case 1: post.setPostImageUrl2(url); break;
+                    case 2: post.setPostImageUrl3(url); break;
+                    case 3: post.setPostImageUrl4(url); break;
+                    case 4: post.setPostImageUrl5(url); break;
+                    case 5: post.setPostImageUrl6(url); break;
                 }
-
-                referenceProfile.child(propertyId).setValue(postPropertyModel)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Posted successfully", Toast.LENGTH_SHORT).show();
-                                FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-                                ft.replace(R.id.container, new Home());
-                                ft.commit();
-                            } else {
-                                Toast.makeText(getActivity(), "Posting failed", Toast.LENGTH_SHORT).show();
-                                Log.e("AddProperty", "Posting failed", task.getException());
-                            }
-                        });
             }
+
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Posted Properties");
+            dbRef.child(propertyId).setValue(post).addOnCompleteListener(task -> {
+                if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+                if (task.isSuccessful() && isAdded()) {
+                    Toast.makeText(getContext(), "Posted Successfully!", Toast.LENGTH_SHORT).show();
+                    getParentFragmentManager().beginTransaction().replace(R.id.container, new Home()).commit();
+                } else if (isAdded()) {
+                    Toast.makeText(getContext(), "Error saving to database", Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception e) {
-            Log.e("AddProperty", "Exception in uploadPost", e);
+            if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+            Log.e(TAG, "Error saving property", e);
         }
-        progressDialog.dismiss();
     }
-
 }
-

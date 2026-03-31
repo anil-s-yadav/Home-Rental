@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -24,15 +25,24 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button buttonPwdReset;
     private ProgressBar progressBar;
     private FirebaseAuth authProfile;
+    private ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        editTextPwdResetEmail=findViewById(R.id.editText_password_reset_email);
-        buttonPwdReset=findViewById(R.id.button_password_reset);
+        editTextPwdResetEmail = findViewById(R.id.editText_password_reset_email);
+        buttonPwdReset = findViewById(R.id.button_password_reset);
         progressBar = findViewById(R.id.progressBar);
+        btnBack = findViewById(R.id.btn_back);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         buttonPwdReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,14 +56,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     Toast.makeText(ForgotPasswordActivity.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
                     editTextPwdResetEmail.setError("Valid email is required!");
                     editTextPwdResetEmail.requestFocus();
-                }else {
-                    progressBar.setVisibility(view.VISIBLE);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
                     resetPassword(email);
                 }
             }
         });
-
-
     }
 
     private void resetPassword(String email) {
@@ -63,26 +71,23 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(ForgotPasswordActivity.this, "Please check your inbox for password reset link", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ForgotPasswordActivity.this,MainActivity.class);
+                    Intent intent = new Intent(ForgotPasswordActivity.this, MainActivity.class);
+                    //Clear the stack to prevent the user to coming back
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    //Clear the stack to prevent the user to coming back to UseProfile
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();       //Close UserprofileActivity
-                }
-                else {
+                    finish();
+                } else {
                     try {
                         throw task.getException();
-                    }catch (FirebaseAuthInvalidUserException e){
+                    } catch (FirebaseAuthInvalidUserException e){
                         editTextPwdResetEmail.setError("User data not exist or is no longer valid. Please register again!");
                     } catch (Exception e){
-                        Log.e("ForgetPasswordActivity",e.getMessage());
+                        Log.e("ForgetPasswordActivity", e.getMessage());
                         Toast.makeText(ForgotPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
                 progressBar.setVisibility(View.GONE);
             }
         });
-
     }
 }
